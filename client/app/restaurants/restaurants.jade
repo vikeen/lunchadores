@@ -1,0 +1,35 @@
+h1 Add Restaurant
+section.new-restaurant-wizard
+  article.pure-g.information-step(ng-show="activeStep === 'information-step'")
+    form.pure-form(ng-submit='restaurantInformationStepComplete();')
+      .pure-u-1.pure-u-md-1-3
+        input(type='text', name='name', placeholder='Name', required='', ng-model='newRestaurant.name')
+      .pure-u-1.pure-u-md-1-3
+        input(type='text', name='address', placeholder='Address', required='', ng-model='newRestaurant.address')
+      .pure-u-1.pure-u-md-1-3
+        button.pure-button.button-success(type='submit') Verify Address
+  article.pure-g.confirmation-step(ng-show="activeStep === 'confirmation-step'")
+    #map.pure-u-1.pure-u-md-1-2
+    .pure-u-1
+      b Address: {{newRestaurant.officialAddress}}
+      br
+      b Latitude: {{newRestaurant.lat}}
+      br
+      b Longitude: {{newRestaurant.lng}}
+    .pure-u-1-1.pure-controls
+      span Is this information correct?
+      button.pure-button.button-success(ng-click='createRestaurant();') Yes
+      = ' '
+      button.pure-button.button-error(ng-click="activeStep = 'information-step';") No
+h1 Current Restaurants
+table.pure-table
+  thead
+    th Title
+    th Address
+    th
+  tbody
+    tr(ng-repeat='restaurant in restaurants')
+      td {{restaurant.name}}
+      td {{restaurant.address}}
+      td
+        button.pure-button.button-error(ng-click='deleteRestaurant(restaurant._id);') Delete
