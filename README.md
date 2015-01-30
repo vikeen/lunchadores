@@ -4,7 +4,7 @@ lunchadores v0.2.2
 Randomized Lunch Selector. Application code structured is based off of yeoman [generator-angular-fullstack](https://github.com/DaftMonk/generator-angular-fullstack). Utilize these tools and additional generators to make your development life easier.
 
 **Demo**  
-http://lunchadores.herokuapp.com/
+http://lunchadores.com/
 
 ## Development Startup
 
@@ -23,4 +23,4 @@ http://lunchadores.herokuapp.com/
 - commit your updates. `git commit`
 - push to github. `git push origin master`
 - deploy to production environment. `git push heroku master`
-- verify changes are in place on [production](http://lunchadores.herokuapp.com/)
+- verify changes are in place on [production](http://lunchadores.com/)
