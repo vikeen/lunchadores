@@ -18,7 +18,7 @@ angular.module('lunchadoresApp')
           $location.path('/');
         })
         .catch( function(err) {
-          $scope.errors.other = err.message;
+          $scope.loginError = err.message;
         });
       }
     };
