@@ -1,7 +1,7 @@
 lunchadores v0.2.2
 ==================
 
-Randomized Lunch Selector. Application code structured is based off of yeoman [generator-angular-fullstack](https://github.com/DaftMonk/generator-angular-fullstack). Utilize these tools and additional generators to make your development life easier.
+Randomized Lunch Selector. Application code structure is based off of yeoman's [generator-angular-fullstack](https://github.com/DaftMonk/generator-angular-fullstack). Utilize these tools and additional generators to make your development life easier.
 
 **Demo**  
 http://lunchadores.com/
@@ -14,13 +14,13 @@ http://lunchadores.com/
   - Install mongodb. `brew install mongodb`
 
 ##### Bootstrap Processes
-  - `mongod --dbpath data/db`. Use a relative path to your cloned source code. Create this directory if it doesn't exist. Using a root level path of `/data/db` is fine as well.
+  - `mongod`. It's assumed that `/data/db/` exists on your machine. If not then create it or use a relative database `mongod --dbpath data/db`
   - `grunt serve`
   - go to [http://localhost:9000](http://localhost:9000)
 
 ## Production Deployment
-- confirm all your changes with `grunt serve:dist`
+- confirm all your changes with `grunt serve:dist`. This will use production versions of everything including a non-seeded database.
 - commit your updates. `git commit`
 - push to github. `git push origin master`
-- deploy to production environment. `git push heroku master`
+- deploy to production environment. `./bin/deploy.sh`. This is just a wrapper for `git build && git buildcontrol:heroku`
 - verify changes are in place on [production](http://lunchadores.com/)
