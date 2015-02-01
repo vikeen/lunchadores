@@ -43,7 +43,6 @@ angular.module('lunchadoresApp')
     };
 
     return {
-
       /**
        * Authenticate user and save token
        *

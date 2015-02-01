@@ -2,9 +2,9 @@
 
 angular.module('lunchadoresApp', [
   'ngCookies',
+  'ngMd5',
   'ngResource',
   'ngSanitize',
-  'ui.gravatar',
   'ui.router'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
@@ -45,7 +45,9 @@ angular.module('lunchadoresApp', [
     // Redirect to login if route requires auth and you're not logged in
     $rootScope.$on('$stateChangeStart', function (event, next) {
       $rootScope.isLoggedInAsync(function(loggedIn) {
-        if (next.authenticate && !loggedIn) {
+        if (loggedIn) {
+          $rootScope.$broadcast('userLoginSuccess');
+        } else if (next.authenticate && !loggedIn) {
           $location.path('/login');
         }
       });
