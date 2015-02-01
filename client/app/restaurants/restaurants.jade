@@ -1,5 +1,6 @@
-h1 Add Restaurant
-section.new-restaurant-wizard
+section.new-restaurant-wizard(ng-if="isAdmin();")
+  h1 Add Restaurant
+
   article.pure-g.information-step(ng-show="activeStep === 'information-step'")
     form.pure-form(ng-submit='restaurantInformationStepComplete();')
       .pure-u-1.pure-u-md-1-3
@@ -26,10 +27,10 @@ table.pure-table
   thead
     th Title
     th Address
-    th
+    th(ng-if="isAdmin();")
   tbody
     tr(ng-repeat='restaurant in restaurants')
       td {{restaurant.name}}
       td {{restaurant.address}}
-      td
+      td(ng-if="isAdmin();")
         button.pure-button.button-error(ng-click='deleteRestaurant(restaurant._id);') Delete

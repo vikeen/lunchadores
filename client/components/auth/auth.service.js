@@ -7,6 +7,41 @@ angular.module('lunchadoresApp')
       currentUser = User.get();
     }
 
+    /**
+     * Waits for currentUser to resolve before checking if user is logged in
+     */
+    $rootScope.isLoggedInAsync = function(cb) {
+      if(currentUser.hasOwnProperty('$promise')) {
+        currentUser.$promise.then(function() {
+          cb(true);
+        }).catch(function() {
+          cb(false);
+        });
+      } else if(currentUser.hasOwnProperty('role')) {
+        cb(true);
+      } else {
+        cb(false);
+      }
+    };
+
+    /**
+     * Check if a user is logged in
+     *
+     * @return {Boolean}
+     */
+    $rootScope.isLoggedIn = function() {
+      return currentUser.hasOwnProperty('role');
+    };
+
+    /**
+     * Check if a user is an admin
+     *
+     * @return {Boolean}
+     */
+    $rootScope.isAdmin = function() {
+      return currentUser.role === 'admin';
+    };
+
     return {
 
       /**
@@ -99,41 +134,6 @@ angular.module('lunchadoresApp')
        */
       getCurrentUser: function() {
         return currentUser;
-      },
-
-      /**
-       * Check if a user is logged in
-       *
-       * @return {Boolean}
-       */
-      isLoggedIn: function() {
-        return currentUser.hasOwnProperty('role');
-      },
-
-      /**
-       * Waits for currentUser to resolve before checking if user is logged in
-       */
-      isLoggedInAsync: function(cb) {
-        if(currentUser.hasOwnProperty('$promise')) {
-          currentUser.$promise.then(function() {
-            cb(true);
-          }).catch(function() {
-            cb(false);
-          });
-        } else if(currentUser.hasOwnProperty('role')) {
-          cb(true);
-        } else {
-          cb(false);
-        }
-      },
-
-      /**
-       * Check if a user is an admin
-       *
-       * @return {Boolean}
-       */
-      isAdmin: function() {
-        return currentUser.role === 'admin';
       },
 
       /**
