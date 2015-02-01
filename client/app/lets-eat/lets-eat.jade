@@ -3,10 +3,10 @@ button#eat.pure-button.pure-button-primary(ng-click='selectRandomRestaurant();')
 #letsEatResult(ng-show="selectedRestaurant")
   h3 {{selectedRestaurant.name}}
   p {{selectedRestaurant.address}}
-  button.pure-button.button-success.button-sm(ng-click='getDirections();') Get Directions
+  button.pure-button.button-success.button-sm(ng-disabled='!canGetDirections' ng-click='getDirections();') Get Directions
   .pure-g.map-result-container
     #map.pure-u-1-2
     #map-steps.pure-u-1-2
       ol.instructions
         li(ng-repeat='steps in stepsToGetToRestaurant')
-          | {{steps.instructions}}. {{steps.distance.text}} {{steps.distance.text}}
+          | {{steps.instructions}}. {{steps.distance.text}} ({{steps.duration.text}})

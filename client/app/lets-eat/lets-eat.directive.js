@@ -11,9 +11,11 @@ angular.module('lunchadoresApp').directive('letsEat',
       templateUrl: 'app/lets-eat/lets-eat.html',
       controller: function($rootScope, $scope, maps) {
         $scope.buttonText = 'Let\'s Eat';
+        $scope.canGetDirections = true;
 
         $scope.selectRandomRestaurant = function() {
           $scope.buttonText = 'Spin Again';
+          $scope.canGetDirections = true;
 
           var newRandomIndex = $scope.getRandomIndex();
 
@@ -31,6 +33,8 @@ angular.module('lunchadoresApp').directive('letsEat',
         };
 
         $scope.getDirections = function() {
+          $scope.canGetDirections = false;
+
           $scope.map = maps.createMap('map', {
             lat: $rootScope.position.coords.latitude,
             lng: $rootScope.position.coords.longitude
