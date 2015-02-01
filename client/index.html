@@ -16,6 +16,7 @@
       <link rel="stylesheet" href="bower_components/pure/pure.css" />
       <!-- endbower -->
     <link rel="stylesheet" href="bower_components/pure/grids-responsive.css" />
+    <link rel="stylesheet" href="bower_components/pure-extras/css/pure-extras.css" />
     <!-- endbuild -->
     <!-- build:css({.tmp,client}) app/app.css -->
     <link rel="stylesheet" href="app/app.css">
@@ -40,7 +41,10 @@
             </li>
             <li ng-show="isLoggedIn()">
               <a id="gravatar" href="/settings">
-                <img gravatar-src="'{{getCurrentUser().email}}'" gravatar-size="35" gravatar-default="mm"/>
+                <img class="pure-img-eliptical"
+                  gravatar-src="'{{getCurrentUser().email}}'"
+                  gravatar-size="35"
+                  gravatar-default="mm"/>
               </a>
             </li>
             <li ng-show="isLoggedIn()">
