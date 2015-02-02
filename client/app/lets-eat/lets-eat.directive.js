@@ -52,7 +52,10 @@ angular.module('lunchadoresApp').directive('letsEat',
 
           directionsService.route(request, function(result, status) {
             if (status === google.maps.DirectionsStatus.OK) {
+              $scope.timeToRestaurant = result.routes[0].legs[0].duration.text;
+              $scope.distanceToRestaurant = result.routes[0].legs[0].distance.text;
               $scope.stepsToGetToRestaurant = result.routes[0].legs[0].steps;
+
               directionsDisplay.setDirections(result);
               $scope.$apply();
             } else {
