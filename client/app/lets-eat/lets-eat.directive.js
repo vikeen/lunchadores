@@ -7,8 +7,8 @@ angular.module('lunchadoresApp').directive('letsEat',
       scope: {
         restaurants: '='
       },
-      controllerAs: 'letsEatCtrl',
       templateUrl: 'app/lets-eat/lets-eat.html',
+      controllerAs: 'letsEatCtrl',
       controller: function($rootScope, $scope, maps) {
         $scope.resetFlow = function() {
           $scope.buttonText = 'Find Food';
