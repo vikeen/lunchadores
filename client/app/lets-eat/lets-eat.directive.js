@@ -10,9 +10,11 @@ angular.module('lunchadoresApp').directive('letsEat',
       controllerAs: 'letsEatCtrl',
       templateUrl: 'app/lets-eat/lets-eat.html',
       controller: function($rootScope, $scope, maps) {
-        $scope.buttonText = 'Find Food';
-        $scope.restaurantChosen= false; // user has chosen a restaurant
-        $scope.randomRestaurant = undefined; //
+        $scope.resetFlow = function() {
+          $scope.buttonText = 'Find Food';
+          $scope.restaurantChosen= false;
+          $scope.randomRestaurant = undefined;
+        };
 
         $scope.selectRandomRestaurant = function() {
           $scope.buttonText = 'Spin Again';
@@ -63,6 +65,8 @@ angular.module('lunchadoresApp').directive('letsEat',
             }
           });
         };
+
+        $scope.resetFlow();
       },
       link: function($scope, $element, $attr) {}
     };
