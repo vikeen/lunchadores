@@ -9,6 +9,7 @@ var RestaurantSchema = new Schema({
   lat: { type: Number, required: true },
   lng: { type: Number, required: true },
   active: { type: Boolean, default: false, required: true },
+  outside_seating: { type: Boolean, required: true },
   created_at: { type: Date, default: Date.now, required: true },
   updated_at: { type: Date, default: Date.now, required: true }
 })

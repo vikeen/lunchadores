@@ -19,19 +19,22 @@ Restaurant.find({}).remove(function() {
     address: '1000 West 39th Street, Kansas City, MO 64111, USA',
     lat: 39.0574043,
     lng: -94.5981116,
-    active: true
+    active: true,
+    outside_seating: true
   }, {
     name: 'The Farmhouse',
     address: '300 Delaware Street, Kansas City, MO 64105, USA',
     lat: 39.1093695,
     lng: -94.5848291,
-    active: false
+    active: false,
+    outside_seating: false
   }, {
     name: 'Jersey Boyz',
     address: '315 Armour Road, Kansas City, MO 64116, USA',
     lat: 39.1420553,
     lng: -94.5768657,
-    active: true
+    active: true,
+    outside_seating: true
   }, function() {
     console.log('finished populating restaurants');
   });

@@ -55,7 +55,6 @@ angular.module('lunchadoresApp').controller('RestaurantsCtrl',
       restaurants.save($scope.newRestaurant).$promise.then(function(response) {
         $scope.restaurants.push(response.toJSON());
         $scope.newRestaurant = {};
-        $scope.$apply();
       });
 
       $scope.activeStep = 'information-step';
