@@ -1,12 +1,14 @@
-button#eat.pure-button.pure-button-primary(ng-click='selectRandomRestaurant();') {{buttonText}}
 
-#letsEatResult(ng-show="selectedRestaurant")
-  h3 {{selectedRestaurant.name}}
-  p {{selectedRestaurant.address}}
-  button.pure-button.button-success.button-sm(ng-disabled='!canGetDirections' ng-click='getDirections();') Get Directions
-  .pure-g.map-result-container
-    #map.pure-u-1-2
-    #map-steps.pure-u-1-2(ng-show='stepsToGetToRestaurant')
+#letsEatControls(ng-hide='restaurantChosen')
+  button#eat.pure-button.pure-button-primary(ng-click='selectRandomRestaurant();') {{buttonText}}
+  button#directions.pure-button.button-success(ng-show='randomRestaurant', ng-click='getDirections();') Let's Eat!
+
+#letsEatResult.pure-g
+  .pure-u-1-1
+    h4 {{randomRestaurant.name}}
+  .pure-u-1-1.map-result-container(ng-show='restaurantChosen')
+    #map.pure-u-1-1.pure-u-sm-1-2
+    #map-steps.pure-u-1-1.pure-u-sm-1-2
       table.pure-table
         thead
           tr
@@ -18,3 +20,8 @@ button#eat.pure-button.pure-button-primary(ng-click='selectRandomRestaurant();')
             td(ng-bind-html='step.instructions')
             td {{step.duration.text}}
             td {{step.distance.text}}
+        tfoot
+          tr
+            th Totals
+            th {{timeToRestaurant}}
+            th {{distanceToRestaurant}}

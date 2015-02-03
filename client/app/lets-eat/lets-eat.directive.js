@@ -10,22 +10,22 @@ angular.module('lunchadoresApp').directive('letsEat',
       controllerAs: 'letsEatCtrl',
       templateUrl: 'app/lets-eat/lets-eat.html',
       controller: function($rootScope, $scope, maps) {
-        $scope.buttonText = 'Let\'s Eat';
-        $scope.canGetDirections = true;
+        $scope.buttonText = 'Find Food';
+        $scope.restaurantChosen= false; // user has chosen a restaurant
+        $scope.randomRestaurant = undefined; //
 
         $scope.selectRandomRestaurant = function() {
           $scope.buttonText = 'Spin Again';
-          $scope.canGetDirections = true;
 
           var newRandomIndex = $scope.getRandomIndex();
 
-          while(newRandomIndex === $scope.selectedRestaurantIndex) {
+          while(newRandomIndex === $scope.randomRestaurantIndex) {
             newRandomIndex = $scope.getRandomIndex();
           }
 
-          $scope.selectedRestaurantIndex = newRandomIndex;
+          $scope.randomRestaurantIndex = newRandomIndex;
 
-          $scope.selectedRestaurant = $scope.restaurants[newRandomIndex];
+          $scope.randomRestaurant = $scope.restaurants[newRandomIndex];
         };
 
         $scope.getRandomIndex = function() {
@@ -33,7 +33,7 @@ angular.module('lunchadoresApp').directive('letsEat',
         };
 
         $scope.getDirections = function() {
-          $scope.canGetDirections = false;
+          $scope.restaurantChosen = true;
 
           $scope.map = maps.createMap('map', {
             lat: $rootScope.position.coords.latitude,
@@ -46,7 +46,7 @@ angular.module('lunchadoresApp').directive('letsEat',
 
           var request = {
             origin: new google.maps.LatLng($rootScope.position.coords.latitude, $rootScope.position.coords.longitude),
-            destination: $scope.selectedRestaurant.address,
+            destination: $scope.randomRestaurant.address,
             travelMode: google.maps.TravelMode.DRIVING
           };
 
