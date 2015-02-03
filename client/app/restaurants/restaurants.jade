@@ -3,12 +3,15 @@ section.new-restaurant-wizard(ng-if="isAdmin();")
   article.pure-g.information-step(ng-show="activeStep === 'information-step'")
     form.pure-form(ng-submit='restaurantInformationStepComplete();')
       .pure-u-1-1.pure-u-md-1-2
-        input(type='text', name='name', placeholder='Name', required='', ng-model='newRestaurant.name')
+        input(type='text', name='name', placeholder='Name', required='required',
+          ng-model='newRestaurant.name')
       .pure-u-1-1.pure-u-md-1-2
-        input(type='text', name='address', placeholder='Address', required='', ng-model='newRestaurant.address')
+        input(type='text', name='address', placeholder='Address', required='required',
+          ng-model='newRestaurant.address')
       .pure-u-1-1
-        label(for='outside_seating')
-          input(type='checkbox', id='outside_seating', name='outside_seating', ng-model='newRestaurant.outside_seating')
+        label(for='outside_seating', class='pure-checkbox')
+          input(type='checkbox', id='outside_seating', name='outside_seating',
+            ng-model='newRestaurant.outside_seating')
           = ' Outside Seating'
       .pure-u-1
         button.pure-button.button-success(type='submit') Verify Address
@@ -26,14 +29,19 @@ section.new-restaurant-wizard(ng-if="isAdmin();")
       = ' '
       button.pure-button.button-error(ng-click="activeStep = 'information-step';") No
 h1 Current Restaurants
+
+form.pure-form
+  //- i.fa.fa-search
+  input(type='search' id='restaurantNameSearch' class='pure-input-rounded' name='restaurantNameSearch' placeholder='Search...'
+    ng-model='restaurantFilter.name')
 table.pure-table
   thead
-    th Title
+    th Name
     th Address
     th Outside
     th(ng-if="isAdmin();")
   tbody
-    tr(ng-repeat='restaurant in restaurants')
+    tr(ng-repeat='restaurant in restaurants | filter:restaurantFilter:strict')
       td {{restaurant.name}}
       td {{restaurant.address}}
       td.text-center
