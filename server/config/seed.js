@@ -8,11 +8,6 @@
 var Restaurant = require('../api/restaurant/restaurant.model');
 var User = require('../api/user/user.model');
 
-// name: { type: String, required: true },
-// address: { type: String, required: true },
-// lat: { type: Number, required: true },
-// lng: { type: Number, required: true },
-// active: { type: Boolean, default: false, required: true },
 Restaurant.find({}).remove(function() {
   Restaurant.create({
     name: 'Q39 Kansas City BBQ',
