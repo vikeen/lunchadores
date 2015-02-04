@@ -1,7 +1,7 @@
 .tabs(tabs)
   .titles.pure-g
-    .title.active.pure-u-1-2(data-pane-id='current-restaurants') Restaurants
-    .title.pure-u-1-2(ng-if="isAdmin();", data-pane-id='new-restaurant-wizard') Add
+    .title.active.pure-u-1-2(data-pane-id='current-restaurants') Current Restaurants
+    .title.pure-u-1-2(ng-if="isAdmin();", data-pane-id='new-restaurant-wizard') Add Restaurant
   .panes
     .pane(data-pane-content='new-restaurant-wizard')
       section.new-restaurant-wizard(ng-if="isAdmin();")
