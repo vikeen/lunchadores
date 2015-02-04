@@ -8,10 +8,10 @@ var RestaurantSchema = new Schema({
   address: { type: String, required: true },
   lat: { type: Number, required: true },
   lng: { type: Number, required: true },
-  active: { type: Boolean, default: false, required: true },
-  outside_seating: { type: Boolean, default: false, required: true },
-  created_at: { type: Date, default: Date.now, required: true },
-  updated_at: { type: Date, default: Date.now, required: true }
+  active: { type: Boolean, default: false },
+  outside_seating: { type: Boolean, default: false },
+  created_at: { type: Date, default: Date.now },
+  updated_at: { type: Date, default: Date.now }
 })
 
 module.exports = mongoose.model('Restaurant', RestaurantSchema);
