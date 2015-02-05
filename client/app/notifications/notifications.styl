@@ -1,0 +1,30 @@
+$notificationPadding = 15px
+
+.notifications
+  position: absolute
+  width: 100%
+
+  .notification
+    position: relative
+
+  .message
+    font-size: 12px
+
+  .success, .error, .warning
+    padding: $notificationPadding
+    padding-right: ($notificationPadding * 2) + $notificationPadding
+    color: whiteColor
+
+  .success
+    background: successColor
+  .error
+    background: errorColor
+  .warning
+    background: warningColor
+
+  .close-click
+    font-size: 16px
+    position: absolute
+    top: $notificationPadding
+    right: $notificationPadding
+    cursor: pointer

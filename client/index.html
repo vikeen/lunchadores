@@ -28,7 +28,7 @@
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
-    <header>
+    <header id="siteHeader">
       <div class="wrapper">
         <div id="menu" class="pure-menu pure-menu-open pure-menu-horizontal" ng-controller="NavbarCtrl">
           <a ng-href="/" class="pure-menu-heading">Lunchadores</a>
@@ -53,6 +53,7 @@
           </div>
         </div>
       </div>
+      <notifications-bar class="notifications"></notifications-bar>
     </header>
 
     <div class="wrapper content" role="main">
@@ -104,6 +105,9 @@
           <script src="app/main/main.controller.js"></script>
           <script src="app/main/main.js"></script>
           <script src="app/maps/maps.service.js"></script>
+          <script src="app/notifications/notifications.directive.js"></script>
+          <script src="app/notifications/notifications.factory.js"></script>
+          <script src="app/notifications/notifications.provider.js"></script>
           <script src="app/restaurants/restaurants.controller.js"></script>
           <script src="app/restaurants/restaurants.js"></script>
           <script src="app/restaurants/restaurants.service.js"></script>

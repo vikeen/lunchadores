@@ -41,7 +41,7 @@ angular.module('lunchadoresApp', [
     };
   })
 
-  .run(function ($rootScope, $location) {
+  .run(function ($rootScope, $location, notifications) {
     // Redirect to login if route requires auth and you're not logged in
     $rootScope.$on('$stateChangeStart', function (event, next) {
       $rootScope.isLoggedInAsync(function(loggedIn) {
@@ -53,12 +53,29 @@ angular.module('lunchadoresApp', [
       });
     });
 
-    // prompt for geolocation
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(function(position){
-        $rootScope.$apply(function(){
-          $rootScope.position = position;
+    /*
+     * Handle User Geolocation Acceptance
+     *
+     */
+    $(function() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+          $rootScope.$apply(function(){
+            $rootScope.position = position;
+          });
+        }, function() {
+          notifications.showError({
+            id: 'denied-geolocation',
+            saveResponse: true,
+            message: 'You have disabled geolocation. This will prevent us from using your location to improve your experience.'
+          });
         });
-      });
-    }
+      } else {
+        notifications.showError({
+          id: 'unsupported-geolocation',
+          saveResponse: true,
+          message: 'Your device does not support geolocation. This will prevent us from using your location to improve your experience.'
+        });
+      }
+    });
   });
