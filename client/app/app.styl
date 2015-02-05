@@ -63,23 +63,6 @@ footer
   font-size: 130%
   text-align: center
 
-#gravatar
-  padding: 0
-
-  &:hover, &:focus
-    background: initial
-
-  img
-    display: block;
-
-[class*="pure-u-"]
-  input[type="text"],
-  input[type="phone"],
-  input[type="email"],
-  input[type="password"],
-  input[type="date"]
-    width: 100%;
-
 // Responsive: Portrait tablets and up
 @media screen and (min-width: 768px)
   .wrapper
@@ -90,6 +73,8 @@ footer
 @import '_colors.styl';
 @import 'account/login/login.styl';
 @import 'admin/admin.styl';
+@import 'forms/forms.styl';
+@import 'gravatar/gravatar.styl';
 @import 'lets-eat/lets-eat.styl';
 @import 'main/main.styl';
 @import 'maps/maps.styl';
@@ -100,13 +85,3 @@ footer
 @import 'utility/buttons.styl';
 @import 'utility/utility.styl';
 // endinjector
-
-.form-error-messages
-  padding: 0
-  margin: 0
-  list-style: none
-  background: errorColor
-  color: white
-
-  .error-message
-    padding: 10px
