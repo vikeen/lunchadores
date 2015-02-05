@@ -68,11 +68,19 @@ angular.module('lunchadoresApp').controller('RestaurantsCtrl',
 
     // TODO: evaluate this for performance. It's likely much more performant to loop through until we find the one then splice that index out
     $scope.deleteRestaurant = function(id) {
-      restaurants.delete({'id': id}).$promise.then(function() {
-        $scope.restaurants = _.filter($scope.restaurants, function(restaurant) {
-          return restaurant._id !==  id;
+      if (window.confirm('Delete Restaurant?')) {
+        restaurants.delete({'id': id}).$promise.then(function() {
+          _.every($scope.restaurants, function(restaurant, index) {
+
+            if (restaurant._id === id) {
+              $scope.restaurants.splice(index, 1);
+              return false;
+            }
+
+            return true;
+          });
         });
-      });
+      }
     };
   }
 );
