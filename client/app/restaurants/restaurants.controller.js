@@ -3,8 +3,9 @@
 'use strict';
 
 angular.module('lunchadoresApp').controller('RestaurantsCtrl',
-  function ($scope, restaurants, maps, notifications) {
+  function ($scope, $q, restaurants, maps, notifications) {
     $scope.newRestaurant = {};
+    $scope.errorMessages = [];
     $scope.activeStep = 'information-step';
 
     restaurants.query().$promise.then(function(response) {
@@ -12,11 +13,22 @@ angular.module('lunchadoresApp').controller('RestaurantsCtrl',
     });
 
     $scope.restaurantInformationStepComplete = function() {
+      $scope.verifyingAddress = true;
+      $scope.errorMessages = [];
+
+      var loadingDeferred = $q.defer();
+
+      loadingDeferred.promise.finally(function() {
+        $scope.verifyingAddress = false;
+      });
+
       new google.maps.Geocoder().geocode({ address: $scope.newRestaurant.address }, function(results, status) {
         if (status === google.maps.GeocoderStatus.OK) {
           if (results.length === 0) {
-            // TODO: flesh this funcitonality out
-            console.error('no results found');
+            $scope.errorMessages.push({
+              message: 'No Results Found.'
+            });
+            loadingDeferred.reject();
           } else if (results.length === 1) {
             $scope.activeStep = 'confirmation-step';
 
@@ -39,14 +51,19 @@ angular.module('lunchadoresApp').controller('RestaurantsCtrl',
               });
 
               google.maps.event.trigger($scope.map, 'resize');
+              loadingDeferred.resolve();
             }, 250);
           } else {
-            // TODO: flesh this funcitonality out
-            console.error('too many results found. refine the search');
+            $scope.errorMessages.push({
+              message: 'Too many results found. Please refine your search parameters.'
+            });
+            loadingDeferred.reject();
           }
         } else {
-          // TODO: flesh this funcitonality out
-          console.error('there was an issue requesting the data from google');
+          $scope.errorMessages.push({
+            message: 'Unkown Error Encountered.'
+          });
+          loadingDeferred.reject();
         }
       });
     };

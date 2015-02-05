@@ -18,8 +18,13 @@
                 input(type='checkbox', id='outside_seating', name='outside_seating',
                   ng-model='newRestaurant.outside_seating')
                 = ' Outside Seating'
+            .pure-u-1-1
+              ul.form-error-messages
+                li.error-message(ng-repeat='error in errorMessages')
+                  | {{error.message}}
             .pure-u-1
-              button.pure-button.button-success(type='submit') Verify Address
+              button.pure-button.button-success(type='submit', ng-disabled='verifyingAddress') Verify Address
+              i#verificationLoading.fa.fa-circle-o-notch.fa-spin(ng-show='verifyingAddress')
         article.pure-g.confirmation-step(ng-show="activeStep === 'confirmation-step'")
           .pure-u-1.pure-u-md-1-2
             #map

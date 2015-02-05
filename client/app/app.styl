@@ -80,7 +80,6 @@ footer
   input[type="date"]
     width: 100%;
 
-
 // Responsive: Portrait tablets and up
 @media screen and (min-width: 768px)
   .wrapper
@@ -101,3 +100,13 @@ footer
 @import 'utility/buttons.styl';
 @import 'utility/utility.styl';
 // endinjector
+
+.form-error-messages
+  padding: 0
+  margin: 0
+  list-style: none
+  background: errorColor
+  color: white
+
+  .error-message
+    padding: 10px
