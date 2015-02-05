@@ -3,7 +3,7 @@
 'use strict';
 
 angular.module('lunchadoresApp').controller('RestaurantsCtrl',
-  function ($scope, restaurants, maps) {
+  function ($scope, restaurants, maps, notifications) {
     $scope.newRestaurant = {};
     $scope.activeStep = 'information-step';
 
@@ -54,6 +54,12 @@ angular.module('lunchadoresApp').controller('RestaurantsCtrl',
     $scope.createRestaurant = function() {
       restaurants.save($scope.newRestaurant).$promise.then(function(response) {
         $scope.restaurants.push(response.toJSON());
+
+        notifications.showSuccess({
+          message: 'Successfully added "' + $scope.newRestaurant.name + '".',
+          hide: true
+        });
+
         $scope.newRestaurant = {};
       });
 
