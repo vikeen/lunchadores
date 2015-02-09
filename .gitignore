@@ -10,7 +10,10 @@ dist
 /server/config/local.env.js
 
 data/db
+*.rdb
 
+# OS
 .DS_Store
 
+# Editor
 *.sublime-workspace

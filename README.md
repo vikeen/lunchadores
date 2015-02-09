@@ -12,9 +12,11 @@ http://lunchadores.com/
   - Install node modules. `npm install`
   - Install bower modules. `bower install`
   - Install mongodb. `brew install mongodb`
+  - Install redis. `brew install redis`
 
 ##### Bootstrap Processes
   - `mongod`. It's assumed that `/data/db/` exists on your machine. If not then create it or use a relative database `mongod --dbpath data/db`
+  - `redis-server`
   - `grunt serve`
   - go to [http://localhost:9000](http://localhost:9000)
 
