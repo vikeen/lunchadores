@@ -58,10 +58,9 @@ exports.destroy = function(req, res) {
 // Rate the restaurant
 exports.rateRestaurant = function(req, res) {
   restaurantRatingQueue.publish(JSON.stringify({
-    user: req.user._id,
-    rating: req.params.rating,
+    user_id: req.user._id,
     restaurant_id: req.params.id,
-    previously_rated: req.body.previously_rated
+    rating: req.params.rating
   }));
 
   return res.send(201);

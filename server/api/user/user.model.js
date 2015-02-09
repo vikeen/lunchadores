@@ -13,7 +13,16 @@ var UserSchema = new Schema({
   },
   hashedPassword: String,
   provider: String,
-  salt: String
+  salt: String,
+  resaurant_ratings: {
+    type: [
+      {
+        restaurant_id: { type: Number, required: true },
+        rating: { type: Number, required: true }
+      }
+    ],
+    default: []
+  }
 });
 
 /**
