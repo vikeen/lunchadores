@@ -2,6 +2,7 @@
 
 var _ = require('lodash');
 var Restaurant = require('./restaurant.model');
+var restaurantRatingQueue = require('../../redis/restaurant-ratings.queue');
 
 // Get list of restaurants
 exports.index = function(req, res) {
@@ -53,6 +54,18 @@ exports.destroy = function(req, res) {
     });
   });
 };
+
+// Rate the restaurant
+exports.rateRestaurant = function(req, res) {
+  restaurantRatingQueue.publish(JSON.stringify({
+    user: req.user._id,
+    rating: req.params.rating,
+    restaurant_id: req.params.id,
+    previously_rated: req.body.previously_rated
+  }));
+
+  return res.send(201);
+}
 
 function handleError(res, err) {
   return res.send(500, err);

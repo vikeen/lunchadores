@@ -11,6 +11,14 @@ angular.module('lunchadoresApp').service('restaurants',
         params: {
           id: '@id'
         }
+      },
+      rate: {
+        method: 'POST',
+        url: baseUrl + '/:id/rate/:rating',
+        params: {
+          id: '@id',
+          rating: '@rating'
+        }
       }
     });
   }
