@@ -89,7 +89,12 @@ angular.module('lunchadoresApp').controller('RestaurantsCtrl',
         restaurants.delete({'id': id}).$promise.then(function() {
           _.every($scope.restaurants, function(restaurant, index) {
 
-            if (restaurant._id === id) {
+            if (restaurant.id === id) {
+              notifications.showSuccess({
+                message: 'Successfully removed "' + restaurant.name + '".',
+                hide: true
+              });
+
               $scope.restaurants.splice(index, 1);
               return false;
             }

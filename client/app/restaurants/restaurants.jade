@@ -61,4 +61,4 @@
               i.fa.fa-check.success(ng-if='restaurant.outside_seating')
               i.fa.fa-close.error(ng-if='!restaurant.outside_seating')
             td(ng-if="isAdmin();")
-              button.pure-button.button-error(ng-click='deleteRestaurant(restaurant._id);') Delete
+              button.pure-button.button-error(ng-click='deleteRestaurant(restaurant.id);') Delete

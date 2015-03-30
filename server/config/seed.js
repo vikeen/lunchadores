@@ -5,55 +5,70 @@
 
 'use strict';
 
-var Restaurant = require('../api/restaurant/restaurant.model');
-var User = require('../api/user/user.model');
+var models = require('../models')();
 
-Restaurant.find({}).remove(function() {
-  Restaurant.create({
-    name: 'Q39 Kansas City BBQ',
-    address: '1000 West 39th Street, Kansas City, MO 64111, USA',
-    lat: 39.0574043,
-    lng: -94.5981116,
-    active: true,
-    outside_seating: true
-  }, {
-    name: 'The Farmhouse',
-    address: '300 Delaware Street, Kansas City, MO 64105, USA',
-    lat: 39.1093695,
-    lng: -94.5848291,
-    active: false,
-    outside_seating: false
-  }, {
-    name: 'Jersey Boyz',
-    address: '315 Armour Road, Kansas City, MO 64116, USA',
-    lat: 39.1420553,
-    lng: -94.5768657,
-    active: true,
-    outside_seating: true
-  }, function() {
-    console.log('finished populating restaurants');
+models.restaurant.find({}).remove(function() {
+  models.restaurant.create([
+    {
+      name: 'Q39 Kansas City BBQ',
+      address: '1000 West 39th Street, Kansas City, MO 64111, USA',
+      lat: 39.0574043,
+      lng: -94.5981116,
+      active: true,
+      outside_seating: true
+    }, {
+      name: 'The Farmhouse',
+      address: '300 Delaware Street, Kansas City, MO 64105, USA',
+      lat: 39.1093695,
+      lng: -94.5848291,
+      active: false,
+      outside_seating: false
+    }, {
+      name: 'Jersey Boyz',
+      address: '315 Armour Road, Kansas City, MO 64116, USA',
+      lat: 39.1420553,
+      lng: -94.5768657,
+      active: true,
+      outside_seating: true
+    }
+  ], function(err, items) {
+    if (err) {
+      console.error(err);
+    } else {
+      console.log('finished populating restaurants');
+    }
   });
 });
 
-User.find({}).remove(function() {
-  User.create({
-    provider: 'local',
-    name: 'Test User',
-    email: 'test@test.com',
-    password: 'test'
-  }, {
-    provider: 'local',
-    role: 'admin',
-    name: 'Admin',
-    email: 'admin@admin.com',
-    password: 'admin'
-  }, {
-    provider: 'local',
-    role: 'admin',
-    name: 'John Rake',
-    email: 'john.rake12@gmail.com',
-    password: 'admin'
-  }, function() {
-    console.log('finished populating users');
+models.user.find({}).remove(function() {
+  models.user.create([
+    {
+      provider: 'local',
+      role: 'user',
+      first_name: 'Test',
+      last_name: 'User',
+      email_address: 'test@test.com',
+      password: 'test'
+    }, {
+      provider: 'local',
+      role: 'admin',
+      first_name: 'Admin',
+      last_name: 'Admin',
+      email_address: 'ADMIN@admin.com',
+      password: 'admin'
+    }, {
+      provider: 'local',
+      role: 'admin',
+      first_name: 'John',
+      last_name: 'Rake',
+      email_address: 'john.rake12@gmail.com',
+      password: 'admin'
+    }
+  ], function(err, items) {
+    if (err) {
+      console.error(err);
+    } else {
+      console.log('finished populating users');
+    }
   });
 });

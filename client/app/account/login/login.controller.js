@@ -8,9 +8,9 @@ angular.module('lunchadoresApp')
     $scope.login = function(form) {
       $scope.submitted = true;
 
-      if(form.$valid) {
+      if (form.$valid) {
         Auth.login({
-          email: $scope.user.email,
+          email_address: $scope.user.email_address,
           password: $scope.user.password
         })
         .then( function() {

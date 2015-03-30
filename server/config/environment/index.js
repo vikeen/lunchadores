@@ -41,6 +41,15 @@ var all = {
     }
   },
 
+  // Postgres connection options
+  postgres: {
+    options: {
+      db: {
+        safe: true
+      }
+    }
+  }
+
 };
 
 // Export the config object based on the NODE_ENV

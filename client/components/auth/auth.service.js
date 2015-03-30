@@ -55,7 +55,7 @@ angular.module('lunchadoresApp')
         var deferred = $q.defer();
 
         $http.post('/auth/local', {
-          email: user.email,
+          email_address: user.email_address,
           password: user.password
         }).
         success(function(data) {
@@ -116,7 +116,7 @@ angular.module('lunchadoresApp')
       changePassword: function(oldPassword, newPassword, callback) {
         var cb = callback || angular.noop;
 
-        return User.changePassword({ id: currentUser._id }, {
+        return User.changePassword({ id: currentUser.id }, {
           oldPassword: oldPassword,
           newPassword: newPassword
         }, function(user) {

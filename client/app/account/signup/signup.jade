@@ -2,14 +2,17 @@ form.pure-form.pure-form-aligned(name='form', ng-submit='register(form)')
   legend Sign up
   fieldset
     .pure-control-group
-      label(for='name') Name
-      input(type='text', name='name', ng-model='user.name', required='')
+      label(for='first_name') First Name
+      input(type='text', id='first_name' name='first_name', ng-model='user.first_name', required='')
     .pure-control-group
-      label(for='email') Email
-      input(type='email', name='email', ng-model='user.email', required='')
+      label(for='last_name') Last Name
+      input(type='text', id='last_name' name='last_name', ng-model='user.last_name', required='')
+    .pure-control-group
+      label(for='email_address') Email
+      input(type='email', id='email_address' name='email_address', ng-model='user.email_address', required='')
     .pure-control-group
       label(for='password') Password
-      input(type='password', name='password', ng-model='user.password', ng-minlength='3', required='' )
+      input(type='password', id='password' name='password', ng-model='user.password', ng-minlength='3', required='' )
 
     .pure-controls
       button.pure-button.pure-button-primary(type='submit') Sign up

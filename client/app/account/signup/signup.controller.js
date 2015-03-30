@@ -10,8 +10,9 @@ angular.module('lunchadoresApp')
 
       if(form.$valid) {
         Auth.createUser({
-          name: $scope.user.name,
-          email: $scope.user.email,
+          first_name: $scope.user.first_name,
+          last_name: $scope.user.first_name,
+          email_address: $scope.user.email_address,
           password: $scope.user.password
         })
         .then( function() {
@@ -21,12 +22,6 @@ angular.module('lunchadoresApp')
         .catch( function(err) {
           err = err.data;
           $scope.errors = {};
-
-          // Update validity of form fields that match the mongoose errors
-          angular.forEach(err.errors, function(error, field) {
-            form[field].$setValidity('mongoose', false);
-            $scope.errors[field] = error.message;
-          });
         });
       }
     };

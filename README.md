@@ -11,12 +11,17 @@ http://lunchadores.com/
 ##### Install Dependencies
   - Install node modules. `npm install`
   - Install bower modules. `bower install`
-  - Install mongodb. `brew install mongodb`
-  - Install redis. `brew install redis`
+  - Install postgres. `brew install postgres`
 
 ##### Bootstrap Processes
-  - `mongod`. It's assumed that `/data/db/` exists on your machine. If not then create it or use a relative database `mongod --dbpath data/db`
-  - `redis-server`
+  - postgres
+    1. `CREATE DATABASE lunchadores_dev;`
+    2. `CREATE DATABASE lunchadores_test;`
+    3. `CREATE ROLE lunchadores_user WITH PASSWORD 'foodie' LOGIN;`
+    4. `GRANT ALL ON DATABASE lunchadores_dev TO lunchadores_user;`
+    5. `GRANT ALL ON DATABASE lunchadores_test TO lunchadores_user;`
+  - Move to the root of the repo and migrate your database. 'grunt migrate'. Refer to grunt-db-migrate and db-migrate docs for more details on this.
+
   - `grunt serve`
   - go to [http://localhost:9000](http://localhost:9000)
 

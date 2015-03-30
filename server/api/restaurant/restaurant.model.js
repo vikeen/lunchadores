@@ -1,28 +1,23 @@
 'use strict';
 
-var mongoose = require('mongoose'),
-    Schema = mongoose.Schema;
-
-var RestaurantSchema = new Schema({
-  name: { type: String, required: true },
-  address: { type: String, required: true },
-  lat: { type: Number, required: true },
-  lng: { type: Number, required: true },
-  active: { type: Boolean, default: false },
-  outside_seating: { type: Boolean, default: false },
-  ratings: {
-    type: [
-      {
-        user_id: { type: String, required: true },
-        rating: { type: Number, required: true }
+module.exports = function(db) {
+  return db.define('restaurant', {
+    name: String,
+    address: String,
+    lat: Number,
+    lng: Number,
+    active: Boolean,
+    outside_seating: Boolean,
+    created_at: {type: 'date', time: true},
+    updated_at: {type: 'date', time: true}
+  }, {
+    hooks: {
+      beforeCreate: function() {
+        this.created_at = new Date();
+      },
+      beforeSave: function() {
+        this.updated_at = new Date();
       }
-    ],
-    default: []
-  },
-  number_of_ratings: { type: Number, default: 0 },
-  average_rating: { type: Number, default: 0 },
-  created_at: { type: Date, default: Date.now },
-  updated_at: { type: Date, default: Date.now }
-})
-
-module.exports = mongoose.model('Restaurant', RestaurantSchema);
+    }
+  });
+};

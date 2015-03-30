@@ -9,6 +9,9 @@ module.exports = function (grunt) {
     localConfig = {};
   }
 
+  // TODO: figure out the purpose of the local config versus a development config
+  var config = require('./server/config/environment');
+
   // Load grunt tasks automatically, when needed
   require('jit-grunt')(grunt, {
     express: 'grunt-express-server',
@@ -17,7 +20,8 @@ module.exports = function (grunt) {
     cdnify: 'grunt-google-cdn',
     protractor: 'grunt-protractor-runner',
     injector: 'grunt-asset-injector',
-    buildcontrol: 'grunt-build-control'
+    buildcontrol: 'grunt-build-control',
+    migrate: 'grunt-db-migrate'
   });
 
   // Time how long tasks take. Can help when optimizing build times
@@ -571,6 +575,15 @@ module.exports = function (grunt) {
         }
       }
     },
+
+    migrate: {
+      options: {
+        env: {
+          DATABASE_URL: config.postgres.uri
+        },
+        verbose: true
+      }
+    }
   });
 
   // Used for delaying livereload until after server has restarted
