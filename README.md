@@ -29,5 +29,6 @@ http://lunchadores.com/
 - confirm all your changes with `grunt serve:dist`. This will use production versions of everything including a non-seeded database.
 - commit your updates. `git commit`
 - push to github. `git push origin master`
-- deploy to production environment. `./bin/deploy.sh`. This is just a wrapper for `git build && git buildcontrol:heroku`
+- push to heroku. `grunt buildcontrol:heroku`
+- migrate production if needed. `heroku run db-migrate up`
 - verify changes are in place on [production](http://lunchadores.com/)
