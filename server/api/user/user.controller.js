@@ -42,7 +42,7 @@ exports.show = function (req, res, next) {
   models.user.get(userId, function (err, user) {
     if (err) return next(err);
     if (!user) return res.send(401);
-    res.json(user.profile);
+    res.json(user.profile(false));
   });
 };
 
@@ -89,7 +89,7 @@ exports.me = function(req, res, next) {
   models.user.get(req.user.id, function(err, user) {
     if (err) return next(err);
     if (!user) return res.json(401);
-    res.json(user);
+    res.json(user.profile(true));
   });
 };
 
@@ -99,3 +99,5 @@ exports.me = function(req, res, next) {
 exports.authCallback = function(req, res, next) {
   res.redirect('/');
 };
+
+

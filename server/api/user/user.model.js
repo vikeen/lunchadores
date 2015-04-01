@@ -1,6 +1,7 @@
 'use strict';
 
-var orm = require('orm'),
+var _ = require('lodash'),
+    orm = require('orm'),
     crypto = require('crypto');
 
 function makeSalt() {
@@ -50,6 +51,13 @@ module.exports = function(db) {
       },
       fullName: function() {
         return this.first_name + ' ' + this.last_name;
+      },
+      profile: function(isOwnUser) {
+        var user = _.cloneDeep(this);
+        delete user.password;
+        delete user.salt;
+        user.fullName = this.fullName();
+        return user;
       }
     }
   });
