@@ -10,10 +10,14 @@ angular.module('lunchadoresApp').directive('letsEat',
       templateUrl: 'app/lets-eat/lets-eat.html',
       controllerAs: 'letsEatCtrl',
       controller: function($rootScope, $scope, maps) {
-        $scope.resetFlow = function() {
+        $scope.resetFlow = function(selectRestaurant) {
           $scope.buttonText = 'Find Food';
           $scope.restaurantChosen= false;
           $scope.randomRestaurant = undefined;
+
+          if (selectRestaurant) {
+            $scope.selectRandomRestaurant();
+          }
         };
 
         $scope.selectRandomRestaurant = function() {

@@ -1,0 +1,31 @@
+form.pure-form.pure-form-stacked(ng-submit='canUpdate() && updateRestaurant();')
+  legend
+    span(ng-if='!editingName' ng-click='canUpdate() && editName();') {{::restaurant.name}}
+    i.edit.fa.fa-pencil-square-o(ng-if='canUpdate() && !editingName' ng-click='editName();')
+    input(type='text' id='name' name='name' style='display: inline' ng-model='restaurant.name' ng-if='editingName')
+
+  fieldset
+    .pure-g
+      .pure-u-1-1
+        label(for='address') Address
+        input(type='text' id='address' name='address' required='required' ng-readonly='!canUpdate();' ng-model='restaurant.address')
+      .pure-u-1-1.pure-u-sm-1-2
+        label(for='lat') Latitude
+        input(type='text' id='lat' name='lat' readonly='readonly' ng-model='restaurant.lat')
+      .pure-u-1-1.pure-u-sm-1-2
+        label(for='lng') Longitude
+        input(type='text' id='lng' name='lng' readonly='readonly' ng-model='restaurant.lng')
+      label.pure-u-1-4.pure-u-sm-1-8(for='active') Active
+      .pure-u-1-4.pure-u-sm-1-8
+        input(type='checkbox' id='active' name='active' ng-disabled='!canUpdate();' ng-model='restaurant.active')
+      label.pure-u-1-4.pure-u-sm-1-8(for='outside_seating') Outside Seating
+      .pure-u-1-4.pure-u-sm-1-8
+        input(type='checkbox' id='outside_seating' name='outside_seating' ng-disabled='!canUpdate();' ng-model='restaurant.outside_seating')
+
+      .pure-u-1-1
+        ul.form-error-messages
+          li.error-message(ng-repeat='error in errorMessages')
+            | {{error.message}}
+
+      .pure-controls
+        button.pure-button.pure-button-primary(ng-if='canUpdate();') Update

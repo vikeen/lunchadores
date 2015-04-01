@@ -55,7 +55,8 @@
           th(ng-if="isAdmin();")
         tbody
           tr(ng-repeat='restaurant in restaurants | filter:restaurantFilter:strict')
-            td {{restaurant.name}}
+            td
+              a(href='/restaurants/{{restaurant.id}}'){{restaurant.name}}
             td {{restaurant.address}}
             td.text-center
               i.fa.fa-check.success(ng-if='restaurant.outside_seating')

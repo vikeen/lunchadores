@@ -6,10 +6,9 @@
 #letsEatResult.pure-g
   .pure-u-1-1
     h4#restaurantName
-      button.pure-button.button-error.button-xs(ng-show='restaurantChosen', ng-click='resetFlow();')
+      button.pure-button.button-error.button-xs(ng-show='restaurantChosen', ng-click='resetFlow(true);')
         i.fa.fa-reply
-      = ' '
-      {{randomRestaurant.name}}
+      = ' {{randomRestaurant.name}}'
   .pure-u-1-1.map-result-container(ng-show='restaurantChosen')
     #map.pure-u-1-1.pure-u-sm-1-2
     #map-steps.pure-u-1-1.pure-u-sm-1-2

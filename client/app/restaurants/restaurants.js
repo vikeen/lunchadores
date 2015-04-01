@@ -7,5 +7,10 @@ angular.module('lunchadoresApp')
         url: '/restaurants',
         templateUrl: 'app/restaurants/restaurants.html',
         controller: 'RestaurantsCtrl'
+      })
+      .state('restaurant', {
+        url: '/restaurants/:id',
+        templateUrl: 'app/restaurants/restaurant.html',
+        controller: 'RestaurantCtrl'
       });
   });

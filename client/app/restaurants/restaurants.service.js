@@ -5,6 +5,13 @@ angular.module('lunchadoresApp').service('restaurants',
     var baseUrl = 'api/restaurants';
 
     return $resource(baseUrl, {}, {
+      update: {
+        method: 'PUT',
+        url: baseUrl + '/:id',
+        params: {
+          id: '@id'
+        }
+      },
       delete: {
         method: 'DELETE',
         url: baseUrl + '/:id',
@@ -19,6 +26,11 @@ angular.module('lunchadoresApp').service('restaurants',
           id: '@id',
           rating: '@rating'
         }
+      },
+      get: {
+        method: 'GET',
+        url: baseUrl + '/:id',
+        id: '@id'
       }
     });
   }
