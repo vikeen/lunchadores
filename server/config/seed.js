@@ -15,21 +15,24 @@ models.restaurant.find({}).remove(function() {
       lat: 39.0574043,
       lng: -94.5981116,
       active: true,
-      outside_seating: true
+      outside_seating: true,
+      rating: 1.2
     }, {
       name: 'The Farmhouse',
       address: '300 Delaware Street, Kansas City, MO 64105, USA',
       lat: 39.1093695,
       lng: -94.5848291,
-      active: false,
-      outside_seating: false
+      active: true,
+      outside_seating: false,
+      rating: 5
     }, {
       name: 'Jersey Boyz',
       address: '315 Armour Road, Kansas City, MO 64116, USA',
       lat: 39.1420553,
       lng: -94.5768657,
       active: true,
-      outside_seating: true
+      outside_seating: true,
+      rating: 0
     }
   ], function(err, items) {
     if (err) {

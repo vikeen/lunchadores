@@ -5,10 +5,11 @@ var _ = require('lodash'),
 
 // Get list of restaurants
 function index(req, res) {
-  models.restaurant.find(function (err, restaurants) {
-    if(err) { return handleError(res, err); }
-    return res.json(200, restaurants);
-  });
+  models.restaurant.find({active: true},
+    function (err, restaurants) {
+      if(err) { return handleError(res, err); }
+      return res.json(200, restaurants);
+    });
 }
 
 // Get a single restaurant

@@ -7,6 +7,7 @@ module.exports = function(db) {
     lat: Number,
     lng: Number,
     active: Boolean,
+    rating: Number,
     outside_seating: Boolean,
     created_at: {type: 'date', time: true},
     updated_at: {type: 'date', time: true}

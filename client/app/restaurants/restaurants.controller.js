@@ -7,6 +7,13 @@ angular.module('lunchadoresApp').controller('RestaurantsCtrl',
     $scope.newRestaurant = {};
     $scope.errorMessages = [];
     $scope.activeStep = 'information-step';
+    $scope.sortBy = null;
+    $scope.reverseSort = false;
+
+    $scope.setColumnSorting = function(newSortBy) {
+      $scope.reverseSort = (newSortBy === $scope.sortBy) ? !$scope.reverseSort : false;
+      $scope.sortBy = newSortBy;
+    };
 
     restaurants.query().$promise.then(function(response) {
       $scope.restaurants = response;
