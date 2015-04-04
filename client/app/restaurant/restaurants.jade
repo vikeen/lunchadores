@@ -1,0 +1,21 @@
+h2 Restaurants
+
+form.pure-form
+  input(type='search' id='restaurantNameSearch' class='pure-input-rounded' name='restaurantNameSearch' placeholder='Search...'
+    ng-model='restaurantFilter.name')
+table.pure-table
+  thead
+    th.sortable(ng-click='setColumnSorting("name")') Name
+    th.sortable(ng-click='setColumnSorting("rating")') Rating
+    th Address
+    th Outside
+  tbody
+    tr(ng-repeat='restaurant in restaurants | filter:restaurantFilter:strict | orderBy:sortBy:reverseSort')
+      td
+        a(ui-sref="restaurant.show({id: restaurant.id})"){{restaurant.name}}
+      td
+        rating(rating-value='restaurant.rating')
+      td {{restaurant.address}}
+      td.text-center
+        i.fa.fa-check.success(ng-if='restaurant.outside_seating')
+        i.fa.fa-close.error(ng-if='!restaurant.outside_seating')

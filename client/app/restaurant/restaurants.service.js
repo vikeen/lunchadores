@@ -2,7 +2,7 @@
 
 angular.module('lunchadoresApp').service('restaurants',
   function ($resource) {
-    var baseUrl = 'api/restaurants';
+    var baseUrl = 'api/restaurant';
 
     return $resource(baseUrl, {}, {
       update: {

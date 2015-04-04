@@ -12,7 +12,6 @@ angular.module('lunchadoresApp')
           $scope.message = 'Password successfully changed.';
         })
         .catch( function() {
-          form.password.$setValidity('mongoose', false);
           $scope.errors.other = 'Incorrect password';
           $scope.message = '';
         });

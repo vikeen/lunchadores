@@ -2,7 +2,7 @@
 
 angular.module('lunchadoresApp')
   .factory('User', function ($resource) {
-    return $resource('/api/users/:id/:controller', {
+    return $resource('/api/user/:id/:controller', {
       id: '@id'
     },
     {

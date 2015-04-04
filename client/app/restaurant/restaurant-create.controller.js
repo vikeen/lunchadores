@@ -1,23 +1,10 @@
-/* jshint camelcase: false */
-
 'use strict';
 
-angular.module('lunchadoresApp').controller('RestaurantsCtrl',
+angular.module('lunchadoresApp').controller('RestaurantCreateCtrl',
   function ($scope, $q, restaurants, maps, notifications) {
     $scope.newRestaurant = {};
     $scope.errorMessages = [];
     $scope.activeStep = 'information-step';
-    $scope.sortBy = null;
-    $scope.reverseSort = false;
-
-    $scope.setColumnSorting = function(newSortBy) {
-      $scope.reverseSort = (newSortBy === $scope.sortBy) ? !$scope.reverseSort : false;
-      $scope.sortBy = newSortBy;
-    };
-
-    restaurants.query().$promise.then(function(response) {
-      $scope.restaurants = response;
-    });
 
     $scope.restaurantInformationStepComplete = function() {
       $scope.verifyingAddress = true;
@@ -88,28 +75,6 @@ angular.module('lunchadoresApp').controller('RestaurantsCtrl',
       });
 
       $scope.activeStep = 'information-step';
-    };
-
-    // TODO: evaluate this for performance. It's likely much more performant to loop through until we find the one then splice that index out
-    $scope.deleteRestaurant = function(id) {
-      if (window.confirm('Delete Restaurant?')) {
-        restaurants.delete({'id': id}).$promise.then(function() {
-          _.every($scope.restaurants, function(restaurant, index) {
-
-            if (restaurant.id === id) {
-              notifications.showSuccess({
-                message: 'Successfully removed "' + restaurant.name + '".',
-                hide: true
-              });
-
-              $scope.restaurants.splice(index, 1);
-              return false;
-            }
-
-            return true;
-          });
-        });
-      }
     };
   }
 );
