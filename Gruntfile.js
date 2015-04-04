@@ -591,6 +591,15 @@ module.exports = function (grunt) {
     }
   });
 
+  grunt.registerTask('cleandb', 'Clean db and re-apply all migrations', function () {
+    var fs = require('fs');
+    var files = fs.readdirSync('./migrations');
+    for (var i = 0; i < files.length; i++) {
+      grunt.task.run('migrate:down');
+    }
+    grunt.task.run('migrate:up');
+  });
+
   // Used for delaying livereload until after server has restarted
   grunt.registerTask('wait', function () {
     grunt.log.ok('Waiting for server reload...');
