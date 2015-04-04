@@ -1,16 +1,18 @@
-h2 Restaurants
-
-form.pure-form
-  input(type='search' id='restaurantNameSearch' class='pure-input-rounded' name='restaurantNameSearch' placeholder='Search...'
-    ng-model='restaurantFilter.name')
-table.pure-table
+.pure-g
+  .pure-u-1-2
+    h3.restaurants-title {{filteredRestaurants.length}} Restaurants
+  .pure-u-1-2
+    form.pure-form
+      input.pure-input-rounded.pull-right(type='search' id='restaurantNameSearch' name='restaurantNameSearch' placeholder='Search...'
+        ng-model='restaurantFilter.name')
+table.pure-table(ng-show='filteredRestaurants.length')
   thead
     th.sortable(ng-click='setColumnSorting("name")') Name
     th.sortable(ng-click='setColumnSorting("rating")') Rating
     th Address
     th Outside
   tbody
-    tr(ng-repeat='restaurant in restaurants | filter:restaurantFilter:strict | orderBy:sortBy:reverseSort')
+    tr(ng-repeat='restaurant in filteredRestaurants = (restaurants | filter:restaurantFilter:strict | orderBy:sortBy:reverseSort)')
       td
         a(ui-sref="restaurant.show({id: restaurant.id})"){{restaurant.name}}
       td

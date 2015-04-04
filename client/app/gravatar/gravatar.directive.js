@@ -19,7 +19,7 @@ angular.module('lunchadoresApp').directive('gravatar',
         // md5.createHash
         $scope.buildImageSrc = function() {
           return location.protocol + '//www.gravatar.com/avatar/' +
-            md5.createHash(Auth.getCurrentUser().email_address) + '?' +
+            md5.createHash(Auth.getCurrentUser().emailAddress) + '?' +
             [
               'size=' + $scope.gravatarSize,
               'default=' + $scope.gravatarDefault

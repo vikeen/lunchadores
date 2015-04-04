@@ -47,6 +47,7 @@ models.user.find({}).remove(function() {
   models.user.create([
     {
       provider: 'local',
+      active: true,
       role: 'user',
       first_name: 'Test',
       last_name: 'User',
@@ -54,6 +55,7 @@ models.user.find({}).remove(function() {
       password: 'test'
     }, {
       provider: 'local',
+      active: true,
       role: 'admin',
       first_name: 'Admin',
       last_name: 'Admin',
@@ -61,6 +63,7 @@ models.user.find({}).remove(function() {
       password: 'admin'
     }, {
       provider: 'local',
+      active: true,
       role: 'admin',
       first_name: 'John',
       last_name: 'Rake',

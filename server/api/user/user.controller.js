@@ -1,6 +1,7 @@
 'use strict';
 
-var models = require('../../models')(),
+var _ = require('lodash'),
+    models = require('../../models')(),
     config = require('../../config/environment'),
     jwt = require('jsonwebtoken');
 
@@ -15,7 +16,7 @@ var validationError = function(res, err) {
 exports.index = function(req, res) {
   models.user.find({}, function (err, users) {
     if(err) return res.send(500, err);
-    res.json(200, users);
+    res.json(200, _.map(users, function(user) { return user.profile() }));
   });
 };
 
@@ -26,6 +27,7 @@ exports.create = function (req, res, next) {
   var newUser = new models.user(req.body);
   newUser.provider = 'local';
   newUser.role = 'user';
+  newUser.active = true;
   newUser.save(function(err, user) {
     if (err) return validationError(res, err);
     var token = jwt.sign({id: user.id }, config.secrets.session, { expiresInMinutes: 60*5 });

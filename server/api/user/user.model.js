@@ -4,6 +4,33 @@ var _ = require('lodash'),
     orm = require('orm'),
     crypto = require('crypto');
 
+function camelizeString(string) {
+  var result = "";
+  _.forEach(string.split('_'), function(item, index) {
+    if (index === 0) {
+      result += item;
+    } else {
+      result += item.substr(0, 1).toUpperCase() + item.substr(1);
+    }
+  });
+  return result;
+}
+
+function camelizeObject(object) {
+  _.forEach(_.keys(object), function(key) {
+    if (typeof key === 'string') {
+      var newKey = camelizeString(key);
+
+      if (newKey !== key) {
+        object[camelizeString(key)] = object[key];
+        delete object[key];
+      }
+    }
+  });
+
+  return object;
+}
+
 function makeSalt() {
   return crypto.randomBytes(16).toString('base64');
 }
@@ -56,8 +83,8 @@ module.exports = function(db) {
         var user = _.cloneDeep(this);
         delete user.password;
         delete user.salt;
-        user.fullName = this.fullName();
-        return user;
+        user.full_name = this.fullName();
+        return camelizeObject(user);
       }
     }
   });
