@@ -15,3 +15,23 @@ legend
 
   .error-message
     padding: 10px
+
+.form-title
+  font-weight: bold
+  font-size: 120%
+  margin: 5px 0 0 0
+
+form
+  &.search
+    position: relative
+
+    input[type="search"]
+      font-size: 80%
+      position: static
+
+
+@media screen and (min-width: 35.5em)
+  form.search
+    input[type="search"]
+      position: absolute
+      right: 0

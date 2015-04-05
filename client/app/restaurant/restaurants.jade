@@ -1,10 +1,9 @@
 .pure-g
-  .pure-u-1-2
-    h3.restaurants-title {{filteredRestaurants.length}} Restaurants
-  .pure-u-1-2
-    form.pure-form
-      input.pure-input-rounded.pull-right(type='search' id='restaurantNameSearch' name='restaurantNameSearch' placeholder='Search...'
-        ng-model='restaurantFilter.name')
+  .pure-u-1-1.pure-u-sm-1-2
+    .form-title {{filteredRestaurants.length}} Restaurants
+  .pure-u-1-1.pure-u-sm-1-2
+    form.pure-form.search
+      input(type='search' placeholder='Search...' ng-model='restaurantFilter.name')
 table.pure-table(ng-show='filteredRestaurants.length')
   thead
     th.sortable(ng-click='setColumnSorting("name")') Name
