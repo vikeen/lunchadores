@@ -1,15 +1,36 @@
-form.pure-form.pure-form-aligned(name='form', ng-submit='changePassword(form)')
+form.pure-form.pure-form-stacked(name='updateUserForm' ng-submit='updateUserProfile(updateUserForm)')
+  legend Profile
+  fieldset
+    .pure-g
+      .pure-u-1-1.pure-u-sm-1-2
+        label(for='first_name') First Name
+        input(type='text' id='first_name' ng-model='user.first_name' required='required')
+      .pure-u-1-1.pure-u-sm-1-2
+        label(for='last_name') Last Name
+        input(type='text' id='last_name' ng-model='user.last_name' required='required')
+      .pure-u-1-1.pure-u-sm-1-2
+        label(for='email_address') Email
+        input(type='text' id='emailAddress' ng-model='user.email_address' required='required')
+      .pure-u-1-1
+        ul.form-error-messages
+          li.error-message(ng-repeat='error in errorMessages')
+            | {{error.message}}
+      .pure-controls.pure-u-1-1
+        button.pure-button.pure-button-primary(type='submit') Update Profile
+
+form.pure-form.pure-form-stacked(name='changePasswordForm' ng-submit='changePassword(changePasswordForm)')
   legend Change Password
   fieldset
-    .pure-control-group
-      label(for='password') Password
-      input(type='password' id='password' name='password' ng-model='user.oldPassword' required='')
-    .pure-control-group
-      label(for='newPassword') New Password
-      input.form-control(type='password' id='newPassword' name='newPassword' ng-model='user.newPassword' ng-minlength='3' required='')
-      p.help-block(ng-show='(form.newPassword.$error.minlength || form.newPassword.$error.required) && (form.newPassword.$dirty || submitted)')
-        | Password must be at least 3 characters.
-    p.help-block  {{ message }}
-
-    .pure-controls
-      button.pure-button.pure-button-primary(type='submit') Save changes
+    .pure-g
+      .pure-u-1-1.pure-u-sm-1-2
+        label(for='oldPassword') Password
+        input(type='password' id='oldPassword' ng-model='user.oldPassword' required='required')
+      .pure-u-1-1.pure-u-sm-1-2
+        label(for='newPassword') New Password
+        input.form-control(type='password' id='newPassword' ng-model='user.newPassword' ng-minlength='3' required='required')
+      .pure-u-1-1
+        ul.form-error-messages
+          li.error-message(ng-repeat='error in errorMessages')
+            | {{error.message}}
+      .pure-controls.pure-u-1-1
+        button.pure-button.pure-button-primary(type='submit') Change Password

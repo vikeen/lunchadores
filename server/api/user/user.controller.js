@@ -36,6 +36,28 @@ exports.create = function (req, res, next) {
 };
 
 /**
+ * Update a user
+ */
+exports.update = function (req, res, next) {
+  var userId = req.params.id;
+
+  models.user.get(userId, function (err, user) {
+    if (err) return next(err);
+
+    // TODO: find a better way to strip invalid update parameters
+    var updated = _.merge(user, {
+      first_name: req.body.first_name,
+      last_name: req.body.last_name,
+      email_address: req.body.email_address
+    });
+    updated.save(function (err) {
+      if (err) { return next(err); }
+      return res.json(200, user.profile(false));
+    });
+  });
+};
+
+/**
  * Get a single user
  */
 exports.show = function (req, res, next) {

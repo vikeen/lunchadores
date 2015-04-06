@@ -19,9 +19,9 @@
           th Active
           th
       tbody
-        tr(ng-repeat='user in filteredUsers = (users | filter:userFilter:strict | orderBy: ["lastName", "firstName"])')
-          td {{user.fullName}}
-          td {{user.emailAddress}}
+        tr(ng-repeat='user in filteredUsers = (users | filter:userFilter:strict | orderBy: ["last_name", "first_name"])')
+          td {{user.full_name}}
+          td {{user.email_address}}
           td {{user.role}}
           td {{user.provider}}
           td.text-center
@@ -45,7 +45,8 @@
           th
       tbody
         tr(ng-repeat='restaurant in filteredRestaurants = (restaurants | filter:restaurantFilter:strict)')
-          td {{restaurant.name}}
+          td
+            a(ui-sref="restaurant.show({id: restaurant.id})") {{restaurant.name}}
           td {{restaurant.address}}
           td
             a.trash.pull-right(ng-click='deleteRestaurant(restaurant)')

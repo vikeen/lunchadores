@@ -12,6 +12,9 @@ angular.module('lunchadoresApp')
           controller:'password'
         }
       },
+      updateProfile: {
+        method: 'PUT'
+      },
       get: {
         method: 'GET',
         params: {
