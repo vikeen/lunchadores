@@ -1,67 +1,69 @@
 (function() {
   'use strict';
 
-  angular.module('lunchadoresApp').controller('RestaurantCtrl',
-    function ($scope, $stateParams, $q, restaurants, notifications) {
-      $scope.errorMessages = [];
-      $scope.editingName = false;
+  angular.module('lunchadoresApp').controller('RestaurantCtrl', RestaurantCtrl);
 
-      $scope.canUpdate = function () {
-        return $scope.isAdmin();
-      };
+  function RestaurantCtrl($rootScope, $stateParams, $q, restaurants, notifications) {
+    var self = this;
 
-      restaurants.get({id: $stateParams.id}).$promise.then(function (response) {
-        $scope.restaurant = response;
-      });
+    self.errorMessages = [];
+    self.editingName = false;
 
-      $scope.editName = function () {
-        $scope.editingName = true;
-      };
+    self.canUpdate = function () {
+      return $rootScope.isAdmin();
+    };
 
-      $scope.getGeoCoordinates = function () {
-        var deferred = $q.defer();
+    restaurants.get({id: $stateParams.id}).$promise.then(function (response) {
+      self.restaurant = response;
+    });
 
-        new google.maps.Geocoder().geocode({address: $scope.restaurant.address}, function (results, status) {
-          if (status === google.maps.GeocoderStatus.OK) {
-            if (results.length === 0) {
-              $scope.errorMessages.push({
-                message: 'No Results Found.'
-              });
-              deferred.reject();
-            } else if (results.length === 1) {
-              $scope.restaurant.address = results[0].formatted_address;
-              $scope.restaurant.lat = results[0].geometry.location.lat();
-              $scope.restaurant.lng = results[0].geometry.location.lng();
+    self.editName = function () {
+      self.editingName = true;
+    };
 
-              deferred.resolve();
-            } else {
-              $scope.errorMessages.push({
-                message: 'Too many results found. Please refine your search parameters.'
-              });
-              deferred.reject();
-            }
+    self.getGeoCoordinates = function () {
+      var deferred = $q.defer();
+
+      new google.maps.Geocoder().geocode({address: self.restaurant.address}, function (results, status) {
+        if (status === google.maps.GeocoderStatus.OK) {
+          if (results.length === 0) {
+            self.errorMessages.push({
+              message: 'No Results Found.'
+            });
+            deferred.reject();
+          } else if (results.length === 1) {
+            self.restaurant.address = results[0].formatted_address;
+            self.restaurant.lat = results[0].geometry.location.lat();
+            self.restaurant.lng = results[0].geometry.location.lng();
+
+            deferred.resolve();
           } else {
-            $scope.errorMessages.push({
-              message: 'Unkown Error Encountered.'
+            self.errorMessages.push({
+              message: 'Too many results found. Please refine your search parameters.'
             });
             deferred.reject();
           }
-        });
+        } else {
+          self.errorMessages.push({
+            message: 'Unkown Error Encountered.'
+          });
+          deferred.reject();
+        }
+      });
 
-        return deferred.promise;
-      };
+      return deferred.promise;
+    };
 
-      $scope.updateRestaurant = function () {
-        $scope.getGeoCoordinates().then(function () {
-          restaurants.update({id: $scope.restaurant.id}, $scope.restaurant).$promise.then(function (response) {
-            $scope.errorMessages = [];
-            notifications.showSuccess({
-              message: 'Updated "' + $scope.restaurant.name + '".',
-              hide: true
-            });
+    self.updateRestaurant = function () {
+      self.getGeoCoordinates().then(function () {
+        restaurants.update({id: self.restaurant.id}, self.restaurant).$promise.then(function (response) {
+          self.errorMessages = [];
+          notifications.showSuccess({
+            message: 'Updated "' + self.restaurant.name + '".',
+            hide: true
           });
         });
-      };
-    }
-  );
+      });
+    };
+  }
 })();

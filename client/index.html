@@ -30,7 +30,7 @@
     <![endif]-->
     <header id="siteHeader">
       <div class="wrapper">
-        <div id="menu" class="pure-menu pure-menu-open pure-menu-horizontal" ng-controller="NavbarCtrl">
+        <div id="menu" class="pure-menu pure-menu-open pure-menu-horizontal" ng-controller="NavbarCtrl as NavbarCtrl">
           <a ng-href="/" class="pure-menu-heading">Lunchadores</a>
           <ul class="pull-right">
             <li ng-hide="isLoggedIn()">
@@ -48,7 +48,7 @@
               </a>
             </li>
             <li ng-show="isLoggedIn()">
-              <a href="" ng-click="logout()">Logout</a>
+              <a href="" ng-click="NavbarCtrl.logout()">Logout</a>
             </li>
           </div>
         </div>

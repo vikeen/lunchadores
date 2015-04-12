@@ -1,24 +1,25 @@
 (function() {
   'use strict';
 
-  angular.module('lunchadoresApp').factory('notifications',
-    function ($rootScope) {
-      var showError = function (message) {
-        $rootScope.$broadcast('notifications:error', message);
-      };
+  angular.module('lunchadoresApp').factory('notifications', NotificationsFactory);
 
-      var showWarning = function (message) {
-        $rootScope.$broadcast('notifications:warning', message);
-      };
+  function NotificationsFactory($rootScope) {
+    return {
+      showError: showError,
+      showWarning: showWarning,
+      showSuccess: showSuccess
+    };
 
-      var showSuccess = function (message) {
-        $rootScope.$broadcast('notifications:success', message);
-      };
+    function showError(message) {
+      $rootScope.$broadcast('notifications:error', message);
+    }
 
-      return {
-        showError: showError,
-        showWarning: showWarning,
-        showSuccess: showSuccess
-      };
-    });
+    function showWarning(message) {
+      $rootScope.$broadcast('notifications:warning', message);
+    }
+
+    function showSuccess(message) {
+      $rootScope.$broadcast('notifications:success', message);
+    }
+  }
 })();

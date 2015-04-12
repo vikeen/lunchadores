@@ -1,50 +1,51 @@
 (function() {
   'use strict';
 
-  angular.module('lunchadoresApp').provider('notificationsConfig',
-    function () {
-      var config = {
-        hideDelay: 3000,
-        autoHide: false,
-        saveReponse: false
-      };
+  angular.module('lunchadoresApp').provider('notificationsConfig', NotificationsConfig);
 
-      function setHideDelay(value) {
-        config.hideDelay = value;
+  function NotificationsConfig() {
+    var config = {
+      hideDelay: 3000,
+      autoHide: false,
+      saveReponse: false
+    };
+
+    return {
+      'setHideDelay': setHideDelay,
+      'setAutoHide': setAutoHide,
+      'setSaveResponse': setSaveResponse,
+
+      $get: function() {
+        return {
+          'getHideDelay': getHideDelay,
+          'getAutoHide': getAutoHide,
+          'getSaveResponse': getSaveResponse
+        };
       }
+    };
 
-      function getHideDelay() {
-        return config.hideDelay;
-      }
+    function setHideDelay(value) {
+      config.hideDelay = value;
+    }
 
-      function setAutoHide(value) {
-        config.autoHide = value;
-      }
+    function getHideDelay() {
+      return config.hideDelay;
+    }
 
-      function getAutoHide() {
-        return config.autoHide;
-      }
+    function setAutoHide(value) {
+      config.autoHide = value;
+    }
 
-      function setSaveResponse(value) {
-        config.saveResponse = value;
-      }
+    function getAutoHide() {
+      return config.autoHide;
+    }
 
-      function getSaveResponse() {
-        return config.saveResponse;
-      }
+    function setSaveResponse(value) {
+      config.saveResponse = value;
+    }
 
-      return {
-        'setHideDelay': setHideDelay,
-        'setAutoHide': setAutoHide,
-        'setSaveResponse': setSaveResponse,
-
-        $get: function () {
-          return {
-            'getHideDelay': getHideDelay,
-            'getAutoHide': getAutoHide,
-            'getSaveResponse': getSaveResponse
-          };
-        }
-      };
-    });
+    function getSaveResponse() {
+      return config.saveResponse;
+    }
+  }
 })();

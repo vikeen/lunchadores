@@ -10,17 +10,20 @@
         .state('restaurant.index', {
           url: '/restaurant',
           templateUrl: 'app/restaurant/restaurants.html',
-          controller: 'RestaurantsCtrl'
+          controller: 'RestaurantsCtrl',
+          controllerAs: 'RestaurantsCtrl'
         })
         .state('restaurant.show', {
           url: '/restaurant/:id',
           templateUrl: 'app/restaurant/restaurant.html',
-          controller: 'RestaurantCtrl'
+          controller: 'RestaurantCtrl',
+          controllerAs: 'RestaurantCtrl'
         })
         .state('restaurant.create', {
           url: '/restaurant/create',
           templateUrl: 'app/restaurant/restaurant-create.html',
-          controller: 'RestaurantCreateCtrl'
+          controller: 'RestaurantCreateCtrl',
+          controllerAs: 'RestaurantCreateCtrl'
         });
     });
 })();

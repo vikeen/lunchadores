@@ -7,15 +7,12 @@
     return {
       restrict: 'EA',
       scope: {
-        ratingValue: '=ratingValue'
+        ratingValue: '='
       },
       templateUrl: 'components/rating/rating.html',
       controllerAs: 'ratingCtrl',
-      controller: function ($rootScope, $scope) {
-
-      },
-      link: function ($scope, $element, $attr) {
-      }
+      controller: function () {},
+      link: function ($scope, $element, $attr) {}
     };
   }
 })();

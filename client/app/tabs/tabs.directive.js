@@ -7,8 +7,7 @@
     return {
       restrict: 'A',
       controllerAs: 'tabsCtrl',
-      controller: function () {
-      },
+      controller: function () {},
       link: function (scope, element) {
         var _init = function () {
           $(element).find('.titles .title').on('click', function (event) {

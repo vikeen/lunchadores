@@ -1,14 +1,14 @@
-form.pure-form.pure-form-aligned(name='form', ng-submit='login(form);')
+form.pure-form.pure-form-aligned(name='form', ng-submit='LoginCtrl.login(form);')
   legend Login
   fieldset
     .pure-control-group
       label(for='email_address') Email
-      input(type='email', id="email_address" ng-model='user.email_address', required="required")
+      input(type='email', id="email_address" ng-model='LoginCtrl.user.email_address', required="required")
     .pure-control-group
       label(for='password') Password
-      input(type='password', id="password" ng-model='user.password', required="required")
+      input(type='password', id="password" ng-model='LoginCtrl.user.password', required="required")
 
-    .pure-alert.pure-alert-error(ng-if="loginError") {{loginError}}
+    .pure-alert.pure-alert-error(ng-if="LoginCtrl.loginError") {{LoginCtrl.loginError}}
 
     .pure-controls
       button.pure-button.pure-button-primary(type='submit') Login

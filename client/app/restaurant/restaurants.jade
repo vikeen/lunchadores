@@ -1,19 +1,19 @@
 .pure-g
   .pure-u-1-1.pure-u-sm-1-2
-    .form-title {{filteredRestaurants.length}} Restaurants
+    .form-title {{RestaurantsCtrl.filteredRestaurants.length}} Restaurants
   .pure-u-1-1.pure-u-sm-1-2
     form.pure-form.search
-      input(type='search' placeholder='Search...' ng-model='restaurantFilter.name')
-table.pure-table(ng-show='filteredRestaurants.length')
+      input(type='search' placeholder='Search...' ng-model='RestaurantsCtrl.restaurantFilter.name')
+table.pure-table(ng-show='RestaurantsCtrl.filteredRestaurants.length')
   thead
-    th.sortable(ng-click='setColumnSorting("name")') Name
-    th.sortable(ng-click='setColumnSorting("rating")') Rating
+    th.sortable(ng-click='RestaurantsCtrl.setColumnSorting("name")') Name
+    th.sortable(ng-click='RestaurantsCtrl.setColumnSorting("rating")') Rating
     th Address
     th Outside
   tbody
-    tr(ng-repeat='restaurant in filteredRestaurants = (restaurants | filter:restaurantFilter:strict | orderBy:sortBy:reverseSort)')
+    tr(ng-repeat='restaurant in RestaurantsCtrl.filteredRestaurants = (RestaurantsCtrl.restaurants | filter:RestaurantsCtrl.restaurantFilter:strict | orderBy:sortBy:RestaurantsCtrl.reverseSort)')
       td
-        a(ui-sref="restaurant.show({id: restaurant.id})"){{restaurant.name}}
+        a(ui-sref="restaurant.show({id: restaurant.id})") {{restaurant.name}}
       td
         rating(rating-value='restaurant.rating')
       td {{restaurant.address}}

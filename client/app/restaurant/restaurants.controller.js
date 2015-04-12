@@ -1,21 +1,21 @@
 (function() {
-  /* jshint camelcase: false */
-
   'use strict';
 
-  angular.module('lunchadoresApp').controller('RestaurantsCtrl',
-    function ($scope, restaurants, notifications) {
-      $scope.sortBy = null;
-      $scope.reverseSort = false;
+  angular.module('lunchadoresApp').controller('RestaurantsCtrl', RestaurantsCtrl);
 
-      $scope.setColumnSorting = function (newSortBy) {
-        $scope.reverseSort = (newSortBy === $scope.sortBy) ? !$scope.reverseSort : false;
-        $scope.sortBy = newSortBy;
-      };
+  function RestaurantsCtrl(restaurants) {
+    var self = this;
 
-      restaurants.query().$promise.then(function (response) {
-        $scope.restaurants = response;
-      });
-    }
-  );
+    self.sortBy = null;
+    self.reverseSort = false;
+
+    self.setColumnSorting = function (newSortBy) {
+      self.reverseSort = (newSortBy === self.sortBy) ? !self.reverseSort : false;
+      self.sortBy = newSortBy;
+    };
+
+    restaurants.query().$promise.then(function (response) {
+      self.restaurants = response;
+    });
+  }
 })();

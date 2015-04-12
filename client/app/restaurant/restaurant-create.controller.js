@@ -1,82 +1,82 @@
 (function() {
   'use strict';
 
-  angular.module('lunchadoresApp').controller('RestaurantCreateCtrl',
-    function ($scope, $q, restaurants, maps, notifications) {
-      $scope.newRestaurant = {};
-      $scope.errorMessages = [];
-      $scope.activeStep = 'information-step';
+  angular.module('lunchadoresApp').controller('RestaurantCreateCtrl', RestaurantCreateCtrl);
 
-      $scope.restaurantInformationStepComplete = function() {
-        $scope.verifyingAddress = true;
-        $scope.errorMessages = [];
+  function RestaurantCreateCtrl($q, restaurants, maps, notifications) {
+    var self = this;
 
-        var loadingDeferred = $q.defer();
+    self.newRestaurant = {};
+    self.errorMessages = [];
+    self.activeStep = 'information-step';
 
-        loadingDeferred.promise.finally(function() {
-          $scope.verifyingAddress = false;
-        });
+    self.restaurantInformationStepComplete = function() {
+      self.verifyingAddress = true;
+      self.errorMessages = [];
 
-        new google.maps.Geocoder().geocode({ address: $scope.newRestaurant.address }, function(results, status) {
-          if (status === google.maps.GeocoderStatus.OK) {
-            if (results.length === 0) {
-              $scope.errorMessages.push({
-                message: 'No Results Found.'
+      var loadingDeferred = $q.defer();
+
+      loadingDeferred.promise.finally(function() {
+        self.verifyingAddress = false;
+      });
+
+      new google.maps.Geocoder().geocode({ address: self.newRestaurant.address }, function(results, status) {
+        if (status === google.maps.GeocoderStatus.OK) {
+          if (results.length === 0) {
+            self.errorMessages.push({
+              message: 'No Results Found.'
+            });
+            loadingDeferred.reject();
+          } else if (results.length === 1) {
+            self.activeStep = 'confirmation-step';
+
+            self.newRestaurant.officialAddress = results[0].formatted_address;
+            self.newRestaurant.lat = results[0].geometry.location.lat();
+            self.newRestaurant.lng = results[0].geometry.location.lng();
+
+            // Hacky mechanic to give time for the dom to render before issuing google maps
+            setTimeout(function() {
+              self.map = maps.createMap('map', {
+                lat: self.newRestaurant.lat,
+                lng: self.newRestaurant.lng
               });
-              loadingDeferred.reject();
-            } else if (results.length === 1) {
-              $scope.activeStep = 'confirmation-step';
 
-              $scope.newRestaurant.officialAddress = results[0].formatted_address;
-              $scope.newRestaurant.lat = results[0].geometry.location.lat();
-              $scope.newRestaurant.lng = results[0].geometry.location.lng();
-
-              // Hacky mechanic to give time for the dom to render before issuing google maps
-              setTimeout(function() {
-                $scope.map = maps.createMap('map', {
-                  lat: $scope.newRestaurant.lat,
-                  lng: $scope.newRestaurant.lng
-                });
-
-                maps.createMarker({
-                  lat: $scope.newRestaurant.lat,
-                  lng: $scope.newRestaurant.lng,
-                  map: $scope.map,
-                  title: $scope.newRestaurant.title
-                });
-
-                google.maps.event.trigger($scope.map, 'resize');
-                loadingDeferred.resolve();
-              }, 250);
-            } else {
-              $scope.errorMessages.push({
-                message: 'Too many results found. Please refine your search parameters.'
+              maps.createMarker({
+                lat: self.newRestaurant.lat,
+                lng: self.newRestaurant.lng,
+                map: self.map,
+                title: self.newRestaurant.title
               });
-              loadingDeferred.reject();
-            }
+
+              google.maps.event.trigger(self.map, 'resize');
+              loadingDeferred.resolve();
+            }, 250);
           } else {
-            $scope.errorMessages.push({
-              message: 'Unkown Error Encountered.'
+            self.errorMessages.push({
+              message: 'Too many results found. Please refine your search parameters.'
             });
             loadingDeferred.reject();
           }
-        });
-      };
-
-      $scope.createRestaurant = function() {
-        restaurants.save($scope.newRestaurant).$promise.then(function(response) {
-          $scope.restaurants.push(response.toJSON());
-
-          notifications.showSuccess({
-            message: 'Successfully added "' + $scope.newRestaurant.name + '".',
-            hide: true
+        } else {
+          self.errorMessages.push({
+            message: 'Unkown Error Encountered.'
           });
+          loadingDeferred.reject();
+        }
+      });
+    };
 
-          $scope.newRestaurant = {};
+    self.createRestaurant = function() {
+      restaurants.save(self.newRestaurant).$promise.then(function(response) {
+        notifications.showSuccess({
+          message: 'Successfully added "' + self.newRestaurant.name + '".',
+          hide: true
         });
 
-        $scope.activeStep = 'information-step';
-      };
-    }
-  );
+        self.newRestaurant = {};
+      });
+
+      self.activeStep = 'information-step';
+    };
+  }
 })();

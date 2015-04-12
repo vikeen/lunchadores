@@ -3,27 +3,27 @@
 
   angular.module('lunchadoresApp').controller('LoginCtrl', LoginCtrl);
 
-  function LoginCtrl($scope, Auth, $location) {
-    $scope.user = {};
-    $scope.errors = {};
+  function LoginCtrl(Auth, $location) {
+    var self = this;
 
-    $scope.login = function (form) {
-      $scope.submitted = true;
+    self.user = {};
+
+    self.login = function (form) {
+      self.submitted = true;
 
       if (form.$valid) {
         Auth.login({
-          email_address: $scope.user.email_address,
-          password: $scope.user.password
+          email_address: self.user.email_address,
+          password: self.user.password
         })
           .then(function () {
             // Logged in, redirect to home
             $location.path('/');
           })
           .catch(function (err) {
-            $scope.loginError = err.message;
+            self.loginError = err.message;
           });
       }
     };
-
   }
 })();

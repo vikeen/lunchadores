@@ -4,14 +4,16 @@
   angular.module('lunchadoresApp').controller('NavbarCtrl', NavBarCtrl);
 
   function NavBarCtrl($scope, $location, Auth) {
-    $scope.getCurrentUser = Auth.getCurrentUser;
+    var self = this;
 
-    $scope.logout = function () {
+    self.getCurrentUser = Auth.getCurrentUser;
+
+    self.logout = function () {
       Auth.logout();
       $location.path('/login');
     };
 
-    $scope.isActive = function (route) {
+    self.isActive = function (route) {
       return route === $location.path();
     };
   }

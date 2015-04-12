@@ -3,12 +3,14 @@
 
   angular.module('lunchadoresApp').controller('SettingsCtrl', SettingsCtrl);
 
-  function SettingsCtrl($scope, User, Auth, notifications) {
-    $scope.user = Auth.getCurrentUser();
+  function SettingsCtrl(User, Auth, notifications) {
+    var self = this;
 
-    $scope.updateUserProfile = function (form) {
+    self.user = Auth.getCurrentUser();
+
+    self.updateUserProfile = function (form) {
       if (form.$valid) {
-        User.updateProfile({id: $scope.user.id}, $scope.user).$promise
+        User.updateProfile({id: self.user.id}, self.user).$promise
           .then(function () {
             notifications.showSuccess({
               message: 'Profile updated.',
@@ -24,9 +26,9 @@
       }
     };
 
-    $scope.changePassword = function (form) {
+    self.changePassword = function (form) {
       if (form.$valid) {
-        Auth.changePassword($scope.user.oldPassword, $scope.user.newPassword)
+        Auth.changePassword(self.user.oldPassword, self.user.newPassword)
           .then(function () {
             notifications.showSuccess({
               message: 'Password changed.',
@@ -40,8 +42,8 @@
             });
           })
           .finally(function () {
-            $scope.user.oldPassword = null;
-            $scope.user.newPassword = null;
+            self.user.oldPassword = null;
+            self.user.newPassword = null;
           });
       }
     };

@@ -1,36 +1,34 @@
-form.pure-form.pure-form-stacked(name='updateUserForm' ng-submit='updateUserProfile(updateUserForm)')
+form.pure-form.pure-form-stacked(name='updateUserForm' ng-submit='SettingsCtrl.updateUserProfile(updateUserForm)')
   legend Profile
   fieldset
     .pure-g
       .pure-u-1-1.pure-u-sm-1-2
         label(for='first_name') First Name
-        input(type='text' id='first_name' ng-model='user.first_name' required='required')
+        input(type='text' id='first_name' ng-model='SettingsCtrl.user.first_name' required='required')
       .pure-u-1-1.pure-u-sm-1-2
         label(for='last_name') Last Name
-        input(type='text' id='last_name' ng-model='user.last_name' required='required')
+        input(type='text' id='last_name' ng-model='SettingsCtrl.user.last_name' required='required')
       .pure-u-1-1.pure-u-sm-1-2
         label(for='email_address') Email
-        input(type='text' id='emailAddress' ng-model='user.email_address' required='required')
+        input(type='text' id='emailAddress' ng-model='SettingsCtrl.user.email_address' required='required')
       .pure-u-1-1
         ul.form-error-messages
-          li.error-message(ng-repeat='error in errorMessages')
-            | {{error.message}}
+          li.error-message(ng-repeat='error in SettingsCtrl.errorMessages') {{error.message}}
       .pure-controls.pure-u-1-1
         button.pure-button.pure-button-primary(type='submit') Update Profile
 
-form.pure-form.pure-form-stacked(name='changePasswordForm' ng-submit='changePassword(changePasswordForm)')
+form.pure-form.pure-form-stacked(name='changePasswordForm' ng-submit='SettingsCtrl.changePassword(changePasswordForm)')
   legend Change Password
   fieldset
     .pure-g
       .pure-u-1-1.pure-u-sm-1-2
-        label(for='oldPassword') Password
-        input(type='password' id='oldPassword' ng-model='user.oldPassword' required='required')
+        label(for='oldPassword') Current Password
+        input(type='password' id='oldPassword' ng-model='SettingsCtrl.user.oldPassword' required='required')
       .pure-u-1-1.pure-u-sm-1-2
         label(for='newPassword') New Password
-        input.form-control(type='password' id='newPassword' ng-model='user.newPassword' ng-minlength='3' required='required')
+        input.form-control(type='password' id='newPassword' ng-model='SettingsCtrl.user.newPassword' ng-minlength='3' required='required')
       .pure-u-1-1
         ul.form-error-messages
-          li.error-message(ng-repeat='error in errorMessages')
-            | {{error.message}}
+          li.error-message(ng-repeat='error in SettingsCtrl.errorMessages') {{error.message}}
       .pure-controls.pure-u-1-1
         button.pure-button.pure-button-primary(type='submit') Change Password
