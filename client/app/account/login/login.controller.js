@@ -1,28 +1,29 @@
 (function() {
   'use strict';
 
-  angular.module('lunchadoresApp')
-    .controller('LoginCtrl', function ($scope, Auth, $location) {
-      $scope.user = {};
-      $scope.errors = {};
+  angular.module('lunchadoresApp').controller('LoginCtrl', LoginCtrl);
 
-      $scope.login = function (form) {
-        $scope.submitted = true;
+  function LoginCtrl($scope, Auth, $location) {
+    $scope.user = {};
+    $scope.errors = {};
 
-        if (form.$valid) {
-          Auth.login({
-            email_address: $scope.user.email_address,
-            password: $scope.user.password
+    $scope.login = function (form) {
+      $scope.submitted = true;
+
+      if (form.$valid) {
+        Auth.login({
+          email_address: $scope.user.email_address,
+          password: $scope.user.password
+        })
+          .then(function () {
+            // Logged in, redirect to home
+            $location.path('/');
           })
-            .then(function () {
-              // Logged in, redirect to home
-              $location.path('/');
-            })
-            .catch(function (err) {
-              $scope.loginError = err.message;
-            });
-        }
-      };
+          .catch(function (err) {
+            $scope.loginError = err.message;
+          });
+      }
+    };
 
-    });
+  }
 })();

@@ -1,17 +1,18 @@
 (function() {
   'use strict';
 
-  angular.module('lunchadoresApp')
-    .controller('NavbarCtrl', function ($scope, $location, Auth) {
-      $scope.getCurrentUser = Auth.getCurrentUser;
+  angular.module('lunchadoresApp').controller('NavbarCtrl', NavBarCtrl);
 
-      $scope.logout = function () {
-        Auth.logout();
-        $location.path('/login');
-      };
+  function NavBarCtrl($scope, $location, Auth) {
+    $scope.getCurrentUser = Auth.getCurrentUser;
 
-      $scope.isActive = function (route) {
-        return route === $location.path();
-      };
-    });
+    $scope.logout = function () {
+      Auth.logout();
+      $location.path('/login');
+    };
+
+    $scope.isActive = function (route) {
+      return route === $location.path();
+    };
+  }
 })();
