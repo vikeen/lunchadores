@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  angular.module('lunchadoresApp').directive('rating', RatingDirective);
+  angular.module('lunchadoresApp').directive('lunchadoresRating', RatingDirective);
 
   function RatingDirective() {
     return {
@@ -10,7 +10,7 @@
         ratingValue: '='
       },
       templateUrl: 'components/rating/rating.html',
-      controllerAs: 'ratingCtrl',
+      controllerAs: 'RatingCtrl',
       controller: function () {},
       link: function ($scope, $element, $attr) {}
     };

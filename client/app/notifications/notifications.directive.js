@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  angular.module('lunchadoresApp').directive('notificationsBar', NotificationsDirective);
+  angular.module('lunchadoresApp').directive('lunchadoresNotificationsBar', NotificationsDirective);
 
   function NotificationsDirective(notificationsConfig, $timeout, $cookieStore) {
     return {

@@ -1,41 +1,45 @@
 (function() {
   'use strict';
 
-  angular.module('lunchadoresApp').directive('gravatar',
-    function () {
-      return {
-        restrict: 'A',
-        scope: {
-          gravatarSize: '@',
-          gravatarDefault: '@'
-        },
-        controllerAs: 'gravatarCtrl',
-        controller: function ($rootScope, $scope, md5, Auth) {
-          $scope.gravatarImageSrc = '';
+  angular.module('lunchadoresApp').directive('lunchadoresGravatar', GravatarDirective);
 
-          $scope.$on('userLoginSuccess', function () {
-            $scope.gravatarImageSrc = $scope.buildImageSrc();
-          });
+  function GravatarDirective() {
+    return {
+      restrict: 'EA',
+      scope: {
+        gravatarSize: '@',
+        gravatarDefault: '@'
+      },
+      bindToController: true,
+      controllerAs: 'GravatarCtrl',
+      controller: function ($rootScope, md5, Auth) {
+        var self = this;
 
-          // md5.createHash
-          $scope.buildImageSrc = function () {
-            return location.protocol + '//www.gravatar.com/avatar/' +
-              md5.createHash(Auth.getCurrentUser().email_address) + '?' +
-              [
-                'size=' + $scope.gravatarSize,
-                'default=' + $scope.gravatarDefault
-              ].join('&');
-          };
-        },
-        link: function (scope, element) {
-          scope.$watch('gravatarImageSrc', function (newValue, oldValue) {
-            if (!newValue) {
-              return;
-            }
+        self.buildImageSrc = buildImageSrc;
+        self.imageSrc = '';
 
-            $(element).attr('src', newValue);
-          });
+        $rootScope.$on('userLoginSuccess', function () {
+          self.imageSrc = self.buildImageSrc();
+        });
+
+        ////////////
+
+        function buildImageSrc() {
+          return location.protocol + '//www.gravatar.com/avatar/' +
+            md5.createHash(Auth.getCurrentUser().email_address) + '?' +
+            [
+              'size=' + self.gravatarSize,
+              'default=' + self.gravatarDefault
+            ].join('&');
         }
-      };
-    });
+      },
+      link: function (scope, element) {
+        scope.$watch('GravatarCtrl.imageSrc', function(newValue, oldValue) {
+          if (newValue) {
+            $(element).attr('src', scope.GravatarCtrl.imageSrc);
+          }
+        });
+      }
+    };
+  }
 })();

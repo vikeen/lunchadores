@@ -1,12 +1,12 @@
 (function() {
   'use strict';
 
-  angular.module('lunchadoresApp').directive('tabs', TabsDirective);
+  angular.module('lunchadoresApp').directive('lunchadoresTabs', TabsDirective);
 
   function TabsDirective($rootScope) {
     return {
-      restrict: 'A',
-      controllerAs: 'tabsCtrl',
+      restrict: 'EA',
+      controllerAs: 'TabsCtrl',
       controller: function () {},
       link: function (scope, element) {
         var _init = function () {
