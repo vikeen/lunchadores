@@ -7,14 +7,18 @@
     var self = this;
 
     self.getCurrentUser = Auth.getCurrentUser;
+    self.isActive = isActive;
+    self.logout = logout;
 
-    self.logout = function () {
+    ////////////
+
+    function isActive(route) {
+      return route === $location.path();
+    }
+
+    function logout() {
       Auth.logout();
       $location.path('/login');
-    };
-
-    self.isActive = function (route) {
-      return route === $location.path();
-    };
+    }
   }
 })();

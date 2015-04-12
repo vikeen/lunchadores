@@ -6,67 +6,17 @@
   function RestaurantCreateCtrl($q, restaurants, maps, notifications) {
     var self = this;
 
-    self.newRestaurant = {};
-    self.errorMessages = [];
     self.activeStep = 'information-step';
+    self.createRestaurant = createRestaurant;
+    self.errorMessages = [];
+    self.goToConfirmationStep = goToConfirmationStep;
+    self.goToInformationStep = goToInformationStep;
+    self.newRestaurant = {};
+    self.restaurantInformationStepComplete = restaurantInformationStepComplete;
 
-    self.restaurantInformationStepComplete = function() {
-      self.verifyingAddress = true;
-      self.errorMessages = [];
+    ////////////
 
-      var loadingDeferred = $q.defer();
-
-      loadingDeferred.promise.finally(function() {
-        self.verifyingAddress = false;
-      });
-
-      new google.maps.Geocoder().geocode({ address: self.newRestaurant.address }, function(results, status) {
-        if (status === google.maps.GeocoderStatus.OK) {
-          if (results.length === 0) {
-            self.errorMessages.push({
-              message: 'No Results Found.'
-            });
-            loadingDeferred.reject();
-          } else if (results.length === 1) {
-            self.activeStep = 'confirmation-step';
-
-            self.newRestaurant.officialAddress = results[0].formatted_address;
-            self.newRestaurant.lat = results[0].geometry.location.lat();
-            self.newRestaurant.lng = results[0].geometry.location.lng();
-
-            // Hacky mechanic to give time for the dom to render before issuing google maps
-            setTimeout(function() {
-              self.map = maps.createMap('map', {
-                lat: self.newRestaurant.lat,
-                lng: self.newRestaurant.lng
-              });
-
-              maps.createMarker({
-                lat: self.newRestaurant.lat,
-                lng: self.newRestaurant.lng,
-                map: self.map,
-                title: self.newRestaurant.title
-              });
-
-              google.maps.event.trigger(self.map, 'resize');
-              loadingDeferred.resolve();
-            }, 250);
-          } else {
-            self.errorMessages.push({
-              message: 'Too many results found. Please refine your search parameters.'
-            });
-            loadingDeferred.reject();
-          }
-        } else {
-          self.errorMessages.push({
-            message: 'Unkown Error Encountered.'
-          });
-          loadingDeferred.reject();
-        }
-      });
-    };
-
-    self.createRestaurant = function() {
+    function createRestaurant() {
       restaurants.save(self.newRestaurant).$promise.then(function(response) {
         notifications.showSuccess({
           message: 'Successfully added "' + self.newRestaurant.name + '".',
@@ -76,7 +26,53 @@
         self.newRestaurant = {};
       });
 
+      self.goToInformationStep();
+    }
+
+    function goToConfirmationStep() {
+      self.activeStep = 'confirmation-step';
+    }
+
+    function goToInformationStep() {
       self.activeStep = 'information-step';
-    };
+    }
+
+    function restaurantInformationStepComplete() {
+      self.verifyingAddress = true;
+      self.errorMessages = [];
+
+      maps.getGeoLocation(self.newRestaurant.address)
+        .then(function(response) {
+          self.goToConfirmationStep();
+
+          self.newRestaurant.officialAddress = response.address;
+          self.newRestaurant.lat = response.lat;
+          self.newRestaurant.lng = response.lng;
+
+          // Hacky mechanic to give time for the dom to render
+          // before issuing google maps
+          setTimeout(function() {
+            self.map = maps.createMap('map', {
+              lat: self.newRestaurant.lat,
+              lng: self.newRestaurant.lng
+            });
+
+            maps.createMarker({
+              lat: self.newRestaurant.lat,
+              lng: self.newRestaurant.lng,
+              map: self.map,
+              title: self.newRestaurant.title
+            });
+
+            google.maps.event.trigger(self.map, 'resize');
+          }, 250);
+        })
+        .catch(function(error) {
+          self.errorMessages.push(error);
+        })
+        .finally(function() {
+          self.verifyingAddress = false;
+        });
+    }
   }
 })();

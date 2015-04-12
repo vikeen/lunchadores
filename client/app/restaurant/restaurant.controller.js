@@ -6,22 +6,28 @@
   function RestaurantCtrl($rootScope, $stateParams, $q, restaurants, notifications) {
     var self = this;
 
-    self.errorMessages = [];
+    self.canUpdate = canUpdate;
+    self.editName = editName;
     self.editingName = false;
+    self.errorMessages = [];
+    self.getGeoCoordinates = getGeoCoordinates;
+    self.updateRestaurant = updateRestaurant;
 
-    self.canUpdate = function () {
-      return $rootScope.isAdmin();
-    };
+    ////////////
 
     restaurants.get({id: $stateParams.id}).$promise.then(function (response) {
       self.restaurant = response;
     });
 
-    self.editName = function () {
-      self.editingName = true;
-    };
+    function canUpdate() {
+      return $rootScope.isAdmin();
+    }
 
-    self.getGeoCoordinates = function () {
+    function editName() {
+      self.editingName = true;
+    }
+
+    function getGeoCoordinates() {
       var deferred = $q.defer();
 
       new google.maps.Geocoder().geocode({address: self.restaurant.address}, function (results, status) {
@@ -52,9 +58,9 @@
       });
 
       return deferred.promise;
-    };
+    }
 
-    self.updateRestaurant = function () {
+    function updateRestaurant() {
       self.getGeoCoordinates().then(function () {
         restaurants.update({id: self.restaurant.id}, self.restaurant).$promise.then(function (response) {
           self.errorMessages = [];
@@ -64,6 +70,6 @@
           });
         });
       });
-    };
+    }
   }
 })();
