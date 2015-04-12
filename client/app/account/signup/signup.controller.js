@@ -2,13 +2,17 @@
   'use strict';
 
   angular.module('lunchadoresApp').controller('SignupCtrl', SignupCtrl);
+
   function SignupCtrl(Auth, $location) {
     var self = this;
 
     self.user = {};
     self.errors = [];
+    self.register = register;
 
-    self.register = function (form) {
+    ////////////
+
+    function register(form) {
       self.submitted = true;
       self.errors = [];
 
@@ -27,6 +31,6 @@
             self.errors.push(err.data);
           });
       }
-    };
+    }
   }
 })();

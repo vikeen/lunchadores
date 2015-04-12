@@ -6,14 +6,17 @@
   function RestaurantsCtrl(restaurants) {
     var self = this;
 
-    self.getRestaurants = getRestaurants;
     self.reverseSort = false;
     self.setColumnSorting = setColumnSorting;
     self.sortBy = null;
 
+    activate();
+
     ////////////
 
-    self.getRestaurants();
+    function activate() {
+      getRestaurants();
+    }
 
     function getRestaurants() {
       restaurants.query().$promise.then(function (response) {

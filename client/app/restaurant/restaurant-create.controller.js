@@ -3,7 +3,7 @@
 
   angular.module('lunchadoresApp').controller('RestaurantCreateCtrl', RestaurantCreateCtrl);
 
-  function RestaurantCreateCtrl($q, restaurants, maps, notifications) {
+  function RestaurantCreateCtrl(restaurants, maps, notifications) {
     var self = this;
 
     self.activeStep = 'information-step';

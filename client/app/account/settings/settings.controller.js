@@ -6,9 +6,19 @@
   function SettingsCtrl(User, Auth, notifications) {
     var self = this;
 
-    self.user = Auth.getCurrentUser();
+    self.changePassword = changePassword;
+    self.updateUserProfile = updateUserProfile;
+    self.user = undefined;
 
-    self.updateUserProfile = function (form) {
+    activate();
+
+    ////////////
+
+    function activate() {
+      self.user = Auth.getCurrentUser();
+    }
+
+    function updateUserProfile(form) {
       if (form.$valid) {
         User.updateProfile({id: self.user.id}, self.user).$promise
           .then(function () {
@@ -24,9 +34,9 @@
             });
           })
       }
-    };
+    }
 
-    self.changePassword = function (form) {
+    function changePassword(form) {
       if (form.$valid) {
         Auth.changePassword(self.user.oldPassword, self.user.newPassword)
           .then(function () {
@@ -46,6 +56,6 @@
             self.user.newPassword = null;
           });
       }
-    };
+    }
   }
 })();

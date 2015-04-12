@@ -7,78 +7,82 @@
     return {
       restrict: 'EA',
       templateUrl: 'app/notifications/notifications.html',
-      link: function (scope) {
-        var notifications = scope.notifications = [];
-
-        var removeById = function (id) {
-          var found = -1;
-
-          notifications.forEach(function (el, index) {
-            if (el.id === id) {
-              found = index;
-            }
-          });
-
-          if (found >= 0) {
-            notifications.splice(found, 1);
-          }
-        };
-
-        var notificationHandler = function (event, data, type) {
-          var hideDelay = data.hideDelay || notificationsConfig.getHideDelay(),
-            hide = (typeof data.hide === 'undefined') ? notificationsConfig.getAutoHide() : !!data.hide,
-            saveResponse = data.saveResponse || notificationsConfig.getSaveResponse();
-
-          if (saveResponse && !data.id) {
-            console.error('notification error: must supply an \'id\' parameter with to in order to save the user response');
-            return;
-          }
-
-          var id = 'notif_' + String(data.id || Math.floor(Math.random() * 128));
-
-          var ignoreNotifications = $cookieStore.get('notificationsToIgnore') || {};
-          if (ignoreNotifications[id]) {
-            // this notification was previously ignored by the user
-            return;
-          }
-
-          notifications.push({
-            id: id,
-            type: type,
-            message: data.message,
-            ignore: saveResponse
-          });
-
-          if (hide) {
-            var timer = $timeout(function () {
-              removeById(id);
-              $timeout.cancel(timer);
-            }, hideDelay);
-          }
-        };
-
-        scope.$on('notifications:error', function (event, data) {
-          notificationHandler(event, data, 'error');
-        });
-
-        scope.$on('notifications:warning', function (event, data) {
-          notificationHandler(event, data, 'warning');
-        });
-
-        scope.$on('notifications:success', function (event, data) {
-          notificationHandler(event, data, 'success');
-        });
-
-        scope.close = function (index) {
-          if (notifications[index].ignore) {
-            var currentIgnoreIDs = $cookieStore.get('notificationsToIgnore') || {};
-            currentIgnoreIDs[notifications[index].id] = true;
-            $cookieStore.put('notificationsToIgnore', currentIgnoreIDs);
-          }
-
-          notifications.splice(index, 1);
-        };
-      }
+      bindToController: true,
+      controllerAs: 'NotificationsController',
+      controller: NotificationsController,
+      link: link
     };
+
+    function NotificationsController($rootScope) {
+      var self = this;
+
+      self.close = close;
+      self.notifications = [];
+      self.notificationHandler = notificationHandler;
+      self.removeById = removeById;
+
+      active();
+
+      ////////////
+
+      function active() {
+        $rootScope.$on('notifications:error', function (event, data) { self.notificationHandler(event, data, 'error'); });
+        $rootScope.$on('notifications:warning', function (event, data) { self.notificationHandler(event, data, 'warning'); });
+        $rootScope.$on('notifications:success', function (event, data) { self.notificationHandler(event, data, 'success'); });
+      }
+
+      function close(index) {
+        if (notifications[index].ignore) {
+          var currentIgnoreIDs = $cookieStore.get('notificationsToIgnore') || {};
+          currentIgnoreIDs[self.notifications[index].id] = true;
+          $cookieStore.put('notificationsToIgnore', currentIgnoreIDs);
+        }
+
+        self.notifications.splice(index, 1);
+      }
+
+      function notificationHandler(event, data, type) {
+        var hideDelay = data.hideDelay || notificationsConfig.getHideDelay(),
+          hide = (typeof data.hide === 'undefined') ? notificationsConfig.getAutoHide() : !!data.hide,
+          saveResponse = data.saveResponse || notificationsConfig.getSaveResponse();
+
+        if (saveResponse && !data.id) {
+          console.error('notification error: must supply an \'id\' parameter with to in order to save the user response');
+          return;
+        }
+
+        var id = 'notif_' + String(data.id || Date.now());
+
+        var ignoreNotifications = $cookieStore.get('notificationsToIgnore') || {};
+        if (ignoreNotifications[id]) {
+          // this notification was previously ignored by the user
+          return;
+        }
+
+        self.notifications.push({
+          id: id,
+          type: type,
+          message: data.message,
+          ignore: saveResponse
+        });
+
+        if (hide) {
+          var timer = $timeout(function () {
+            self.removeById(id);
+            $timeout.cancel(timer);
+          }, hideDelay);
+        }
+      }
+
+      function removeById(id) {
+        self.notifications.forEach(function (el, index) {
+          if (el.id === id) {
+            self.notifications.splice(index, 1);
+          }
+        });
+      }
+    }
+
+    function link(scope, element, attrs) {}
   }
 })();

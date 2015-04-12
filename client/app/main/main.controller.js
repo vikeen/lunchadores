@@ -6,8 +6,20 @@
   function MainCtrl(restaurants) {
     var self = this;
 
-    restaurants.query().$promise.then(function (response) {
-      self.restaurants = response;
-    });
+    self.restaurants = undefined;
+
+    activate();
+
+    ////////////
+
+    function activate() {
+      getRestaurants();
+    }
+
+    function getRestaurants() {
+      restaurants.query().$promise.then(function (response) {
+        self.restaurants = response;
+      });
+    }
   }
 })();

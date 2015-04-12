@@ -11,13 +11,18 @@
     self.editingName = false;
     self.errorMessages = [];
     self.getGeoCoordinates = getGeoCoordinates;
+    self.restaurant = undefined;
     self.updateRestaurant = updateRestaurant;
+
+    activate();
 
     ////////////
 
-    restaurants.get({id: $stateParams.id}).$promise.then(function (response) {
-      self.restaurant = response;
-    });
+    function activate() {
+      restaurants.get({id: $stateParams.id}).$promise.then(function (response) {
+        self.restaurant = response;
+      });
+    }
 
     function canUpdate() {
       return $rootScope.isAdmin();

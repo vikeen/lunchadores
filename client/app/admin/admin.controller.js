@@ -1,44 +1,56 @@
 (function() {
   'use strict';
 
-  angular.module('lunchadoresApp')
-    .controller('AdminCtrl', function ($scope, $http, Auth, User, restaurants, notifications) {
+  angular.module('lunchadoresApp').controller('AdminCtrl', AdminCtrl);
 
-      // Use the User $resource to fetch all users
-      $scope.users = User.query();
+  function AdminCtrl($http, Auth, User, restaurants, notifications) {
+    var self = this;
 
-      $scope.deleteUser = function (user) {
-        User.remove({id: user.id}).$promise.then(function (response) {
-          angular.forEach($scope.users, function (u, i) {
-            if (u === user) {
-              $scope.users.splice(i, 1);
+    self.deleteRestaurant = deleteRestaurant;
+    self.deleteUser = deleteUser;
+    self.users = undefined;
+    self.restaurants = undefined;
+
+    activate();
+
+    ////////////
+
+    function activate() {
+      self.users = User.query();
+      self.restaurants = restaurants.query();
+    }
+
+    function deleteUser(user) {
+      User.remove({id: user.id}).$promise.then(function (response) {
+        angular.forEach(self.users, function (u, i) {
+          if (u === user) {
+            self.users.splice(i, 1);
+          }
+        });
+
+        notifications.showSuccess({
+          message: 'Removed user: "' + self.user.fullName + '".',
+          hide: true
+        });
+      });
+    }
+
+
+    function deleteRestaurant(restaurant) {
+      if (window.confirm("Remove restaurant: " + restaurant.name + "?")) {
+        restaurants.delete({id: restaurant.id}).$promise.then(function (response) {
+          angular.forEach(self.restaurants, function (u, i) {
+            if (u === restaurant) {
+              self.restaurants.splice(i, 1);
             }
           });
 
           notifications.showSuccess({
-            message: 'Removed user: "' + $scope.user.fullName + '".',
+            message: 'Removed restaurant "' + restaurant.name + '".',
             hide: true
           });
         });
-      };
-
-      $scope.restaurants = restaurants.query();
-
-      $scope.deleteRestaurant = function (restaurant) {
-        if (window.confirm("Remove restaurant: " + restaurant.name + "?")) {
-          restaurants.delete({id: restaurant.id}).$promise.then(function (response) {
-            angular.forEach($scope.restaurants, function (u, i) {
-              if (u === restaurant) {
-                $scope.restaurants.splice(i, 1);
-              }
-            });
-
-            notifications.showSuccess({
-              message: 'Removed restaurant "' + restaurant.name + '".',
-              hide: true
-            });
-          });
-        }
-      };
-    });
+      }
+    }
+  }
 })();

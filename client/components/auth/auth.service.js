@@ -6,7 +6,7 @@
   function AuthFactory($location, $rootScope, $http, User, $cookieStore, $q) {
     var currentUser = {};
 
-    init();
+    activate();
 
     return {
       changePassword: changePassword,
@@ -17,7 +17,7 @@
 
     };
 
-    function init() {
+    function activate() {
       if ($cookieStore.get('token')) {
         currentUser = User.get();
       }

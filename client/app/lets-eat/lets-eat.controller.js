@@ -18,9 +18,13 @@
     self.resetFlow = resetFlow;
     self.selectRandomRestaurant = selectRandomRestaurant;
 
-    self.resetFlow();
+    activate();
 
     ////////////
+
+    function activate() {
+      self.resetFlow();
+    }
 
     function getDirections() {
       self.restaurantChosen = true;

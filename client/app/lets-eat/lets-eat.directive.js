@@ -13,7 +13,9 @@
       templateUrl: 'app/lets-eat/lets-eat.html',
       controllerAs: 'LetsEatCtrl',
       controller: 'LetsEatCtrl',
-      link: function ($scope, $element, $attr) {}
+      link: link
     };
+
+    function link(scope, element, attrs) {}
   }
 })();

@@ -6,9 +6,12 @@
   function LoginCtrl(Auth, $location) {
     var self = this;
 
+    self.login = login;
     self.user = {};
 
-    self.login = function (form) {
+    ////////////
+
+    function login(form) {
       self.submitted = true;
 
       if (form.$valid) {
@@ -24,6 +27,6 @@
             self.loginError = err.message;
           });
       }
-    };
+    }
   }
 })();

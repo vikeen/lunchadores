@@ -5,11 +5,11 @@
   section.users
     .pure-g
       .pure-u-1-1.pure-u-sm-1-2
-        .form-title {{filteredUsers.length}} Users
+        .form-title {{AdminCtrl.filteredUsers.length}} Users
       .pure-u-1-1.pure-u-sm-1-2
         form.pure-form.search
-          input(type='search' placeholder='Search...' ng-model='userFilter')
-    table.pure-table.pure-table-striped(ng-show='filteredUsers.length')
+          input(type='search' placeholder='Search...' ng-model='AdminCtrl.userFilter')
+    table.pure-table.pure-table-striped(ng-show='AdminCtrl.filteredUsers.length')
       thead
         tr
           th Name
@@ -19,7 +19,7 @@
           th Active
           th
       tbody
-        tr(ng-repeat='user in filteredUsers = (users | filter:userFilter:strict | orderBy: ["last_name", "first_name"])')
+        tr(ng-repeat='user in AdminCtrl.filteredUsers = (AdminCtrl.users | filter:AdminCtrl.userFilter:strict | orderBy: ["last_name", "first_name"])')
           td {{user.full_name}}
           td {{user.email_address}}
           td {{user.role}}
@@ -28,26 +28,26 @@
             i.fa.fa-check.success(ng-if='user.active')
             i.fa.fa-close.error(ng-if='!user.active')
           td
-            a.trash.pull-right(ng-click='deleteUser(user)')
+            a.trash.pull-right(ng-click='AdminCtrl.deleteUser(user)')
               i.fa.fa-trash
   section.restaurants
     .pure-g
       .pure-u-1-1.pure-u-sm-1-2
-        .form-title {{filteredRestaurants.length}} Restaurants
+        .form-title {{AdminCtrl.filteredRestaurants.length}} Restaurants
       .pure-u-1-1.pure-u-sm-1-2
         form.pure-form.search
-          input(type='search' placeholder='Search...' ng-model='restaurantFilter')
-    table.pure-table.pure-table-striped(ng-show='filteredRestaurants.length')
+          input(type='search' placeholder='Search...' ng-model='AdminCtrl.restaurantFilter')
+    table.pure-table.pure-table-striped(ng-show='AdminCtrl.filteredRestaurants.length')
       thead
         tr
           th Name
           th Address
           th
       tbody
-        tr(ng-repeat='restaurant in filteredRestaurants = (restaurants | filter:restaurantFilter:strict)')
+        tr(ng-repeat='restaurant in AdminCtrl.filteredRestaurants = (AdminCtrl.restaurants | filter:AdminCtrl.restaurantFilter:strict)')
           td
             a(ui-sref="restaurant.show({id: restaurant.id})") {{restaurant.name}}
           td {{restaurant.address}}
           td
-            a.trash.pull-right(ng-click='deleteRestaurant(restaurant)')
+            a.trash.pull-right(ng-click='AdminCtrl.deleteRestaurant(restaurant)')
               i.fa.fa-trash
