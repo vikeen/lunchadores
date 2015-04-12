@@ -21,7 +21,7 @@
     }
 
     function deleteUser(user) {
-      User.remove({id: user.id}).$promise.then(function (response) {
+      User.remove({id: user.id}).$promise.then(function () {
         angular.forEach(self.users, function (u, i) {
           if (u === user) {
             self.users.splice(i, 1);
@@ -37,8 +37,8 @@
 
 
     function deleteRestaurant(restaurant) {
-      if (window.confirm("Remove restaurant: " + restaurant.name + "?")) {
-        restaurants.delete({id: restaurant.id}).$promise.then(function (response) {
+      if (window.confirm('Remove restaurant: ' + restaurant.name + '?')) {
+        restaurants.delete({id: restaurant.id}).$promise.then(function () {
           angular.forEach(self.restaurants, function (u, i) {
             if (u === restaurant) {
               self.restaurants.splice(i, 1);

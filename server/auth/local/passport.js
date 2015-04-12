@@ -14,7 +14,7 @@ exports.setup = function (userModel, config) {
           return done(err);
         }
 
-        if (!user.length > 0) {
+        if (!user.length) {
           return done(null, false, { message: 'This email is not registered.' });
         }
 

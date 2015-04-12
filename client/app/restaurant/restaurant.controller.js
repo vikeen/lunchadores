@@ -1,4 +1,6 @@
 (function() {
+  /* jshint camelcase:false */
+
   'use strict';
 
   angular.module('lunchadoresApp').controller('RestaurantCtrl', RestaurantCtrl);
@@ -67,7 +69,7 @@
 
     function updateRestaurant() {
       self.getGeoCoordinates().then(function () {
-        restaurants.update({id: self.restaurant.id}, self.restaurant).$promise.then(function (response) {
+        restaurants.update({id: self.restaurant.id}, self.restaurant).$promise.then(function () {
           self.errorMessages = [];
           notifications.showSuccess({
             message: 'Updated "' + self.restaurant.name + '".',

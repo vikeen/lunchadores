@@ -32,7 +32,7 @@
               message: 'Error updating profile.',
               hide: true
             });
-          })
+          });
       }
     }
 

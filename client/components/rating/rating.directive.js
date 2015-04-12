@@ -12,7 +12,7 @@
       templateUrl: 'components/rating/rating.html',
       controllerAs: 'RatingCtrl',
       controller: function () {},
-      link: function ($scope, $element, $attr) {}
+      link: function () {}
     };
   }
 })();

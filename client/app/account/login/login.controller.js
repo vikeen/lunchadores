@@ -1,4 +1,5 @@
 (function() {
+  /* jshint camelcase:false */
   'use strict';
 
   angular.module('lunchadoresApp').controller('LoginCtrl', LoginCtrl);

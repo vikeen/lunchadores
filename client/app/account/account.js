@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  angular.module('lunchadoresApp').config(AccountConfig)
+  angular.module('lunchadoresApp').config(AccountConfig);
 
   function AccountConfig($stateProvider) {
     $stateProvider

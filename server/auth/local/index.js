@@ -15,7 +15,7 @@ router.post('/', function(req, res, next) {
       return res.json(401, error);
     }
 
-    if (!user.length > 0) {
+    if (!user.length) {
       return res.json(404, {message: 'Something went wrong, please try again.'});
     }
 

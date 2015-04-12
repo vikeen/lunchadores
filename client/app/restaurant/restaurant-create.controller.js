@@ -17,7 +17,7 @@
     ////////////
 
     function createRestaurant() {
-      restaurants.save(self.newRestaurant).$promise.then(function(response) {
+      restaurants.save(self.newRestaurant).$promise.then(function() {
         notifications.showSuccess({
           message: 'Successfully added "' + self.newRestaurant.name + '".',
           hide: true

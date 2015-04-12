@@ -1,4 +1,6 @@
 (function() {
+  /* jshint camelcase:false */
+
   'use strict';
 
   angular.module('lunchadoresApp').factory('Auth', AuthFactory);
@@ -9,12 +11,12 @@
     activate();
 
     return {
+      createUser: createUser,
       changePassword: changePassword,
       getCurrentUser: getCurrentUser,
       getToken: getToken,
       login: login,
       logout: logout
-
     };
 
     function activate() {
@@ -109,18 +111,18 @@
       $http.post('/auth/local', {
         email_address: user.email_address,
         password: user.password
-      }).
-        success(function (data) {
+      })
+        .success(function (data) {
           $cookieStore.put('token', data.token);
           currentUser = User.get();
           deferred.resolve(data);
           return cb();
-        }).
-        error(function (err) {
-          this.logout();
+        })
+        .error(function (err) {
+          logout();
           deferred.reject(err);
           return cb(err);
-        }.bind(this));
+        });
 
       return deferred.promise;
     }
@@ -128,7 +130,6 @@
     /**
      * Delete access token and user info
      *
-     * @param  {Function}
      */
     function logout() {
       $cookieStore.remove('token');
@@ -152,9 +153,9 @@
           return cb(user);
         },
         function (err) {
-          this.logout();
+          logout();
           return cb(err);
-        }.bind(this)).$promise;
+        }).$promise;
     }
   }
 })();
