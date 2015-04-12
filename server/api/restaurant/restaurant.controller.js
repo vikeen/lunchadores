@@ -23,6 +23,9 @@ function show(req, res) {
 
 // Creates a new restaurant in the DB.
 function create(req, res) {
+  req.body.active = true;
+  req.body.rating = 0;
+
   models.restaurant.create(req.body, function(err, restaurant) {
     if(err) { return handleError(res, err); }
     return res.json(201, restaurant);
