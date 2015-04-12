@@ -7,6 +7,7 @@
     return {
       createMap: createMap,
       createMarker: createMarker,
+      getDirections: getDirections,
       getGeoLocation: getGeoLocation
     };
 
@@ -30,6 +31,27 @@
         map: args.map,
         title: args.title
       });
+    }
+
+    function getDirections(map, request) {
+      var deferred = $q.defer();
+
+      var directionsService = new google.maps.DirectionsService();
+      var directionsDisplay = new google.maps.DirectionsRenderer();
+      directionsDisplay.setMap(map);
+
+      directionsService.route(request, function (result, status) {
+        if (status === google.maps.DirectionsStatus.OK) {
+          directionsDisplay.setDirections(result);
+
+          deferred.resolve(result);
+        } else {
+          // handle error here
+          deferred.reject();
+        }
+      });
+
+      return deferred.promise;
     }
 
     function getGeoLocation(address) {

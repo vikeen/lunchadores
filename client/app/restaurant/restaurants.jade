@@ -11,7 +11,7 @@ table.pure-table(ng-show='RestaurantsCtrl.filteredRestaurants.length')
     th Address
     th Outside
   tbody
-    tr(ng-repeat='restaurant in RestaurantsCtrl.filteredRestaurants = (RestaurantsCtrl.restaurants | filter:RestaurantsCtrl.restaurantFilter:strict | orderBy:sortBy:RestaurantsCtrl.reverseSort)')
+    tr(ng-repeat='restaurant in RestaurantsCtrl.filteredRestaurants = (RestaurantsCtrl.restaurants | filter:RestaurantsCtrl.restaurantFilter:strict | orderBy:RestaurantsCtrl.sortBy:RestaurantsCtrl.reverseSort)')
       td
         a(ui-sref="restaurant.show({id: restaurant.id})") {{restaurant.name}}
       td
