@@ -8,7 +8,8 @@
           url: '/admin',
           templateUrl: 'app/admin/admin.html',
           controller: 'AdminCtrl',
-          controllerAs: 'AdminCtrl'
+          controllerAs: 'AdminCtrl',
+          admin: true
         });
     });
 })();
