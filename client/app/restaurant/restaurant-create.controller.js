@@ -3,7 +3,7 @@
 
   angular.module('lunchadoresApp').controller('RestaurantCreateCtrl', RestaurantCreateCtrl);
 
-  function RestaurantCreateCtrl(restaurants, maps, notifications) {
+  function RestaurantCreateCtrl($timeout, restaurants, maps, notifications) {
     var self = this;
 
     self.activeStep = 'information-step';
@@ -51,7 +51,7 @@
 
           // Hacky mechanic to give time for the dom to render
           // before issuing google maps
-          setTimeout(function() {
+          $timeout(function() {
             self.map = maps.createMap('map', {
               lat: self.newRestaurant.lat,
               lng: self.newRestaurant.lng

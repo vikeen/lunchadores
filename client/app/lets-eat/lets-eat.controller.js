@@ -3,7 +3,7 @@
 
   angular.module('lunchadoresApp').controller('LetsEatCtrl', LetsEatCtrl);
 
-  function LetsEatCtrl($rootScope, maps) {
+  function LetsEatCtrl($rootScope, $timeout, maps) {
     var self = this;
 
     self.buttonText = 'Find Food';
@@ -35,7 +35,7 @@
         travelMode: google.maps.TravelMode.DRIVING
       };
 
-      setTimeout(function() {
+      $timeout(function() {
         self.map = maps.createMap('map', {
           lat: $rootScope.position.coords.latitude,
           lng: $rootScope.position.coords.longitude
