@@ -1,82 +1,53 @@
 'use strict';
 
 var _ = require('lodash'),
-    models = require('../../models')();
+  models = require('../../models')();
+
+module.exports = {
+  createRestaurant: createRestaurant,
+  deleteRestaurant: deleteRestaurant,
+  getActiveRestaurants: getActiveRestaurants,
+  getAllRestaurants: getAllRestaurants,
+  getRestaurantById: getRestaurantById,
+  rateRestaurant: rateRestaurant,
+  updateRestaurant: updateRestaurant
+};
 
 // Get list of restaurants
-function index(req, res) {
-  models.restaurant.find({active: true},
-    function (err, restaurants) {
-      if(err) { return handleError(res, err); }
-      return res.json(200, restaurants);
-    });
+function getActiveRestaurants(callback) {
+  models.restaurant.find({active: true}, callback);
+}
+
+// Get list of restaurants
+function getAllRestaurants(callback) {
+  models.restaurant.find({}, callback);
 }
 
 // Get a single restaurant
-function show(req, res) {
-  models.restaurant.get(req.params.id, function (err, restaurant) {
-    if(err) { return handleError(res, err); }
-    if(!restaurant) { return res.send(404); }
-    return res.json(restaurant);
-  });
+function getRestaurantById(id, callback) {
+  models.restaurant.get(id, callback);
 }
 
 // Creates a new restaurant in the DB.
-function create(req, res) {
-  req.body.active = true;
-  req.body.rating = 0;
-
-  models.restaurant.create(req.body, function(err, restaurant) {
-    if(err) { return handleError(res, err); }
-    return res.json(201, restaurant);
-  });
+function createRestaurant(payload, callback) {
+  payload.active = true;
+  payload.rating = 0;
+  models.restaurant.create(payload, callback);
 }
 
 // Updates an existing restaurant in the DB.
-function update(req, res) {
-  models.restaurant.get(req.params.id, function (err, restaurant) {
-    if (err) { return handleError(res, err); }
-    if(!restaurant) { return res.send(404); }
-    var updated = _.merge(restaurant, req.body);
-    updated.save(function (err) {
-      if (err) { return handleError(res, err); }
-      return res.json(200, restaurant);
-    });
+function updateRestaurant(payload, callback) {
+  models.restaurant.get(payload.id, function (err, restaurant) {
+    var updated = _.merge(restaurant, payload);
+    updated.save(callback);
   });
 }
 
 // Deletes a restaurant from the DB.
-function destroy(req, res) {
-  models.restaurant.get(req.params.id, function (err, restaurant) {
-    if(err) { return handleError(res, err); }
-    if(!restaurant) { return res.send(404); }
-    restaurant.remove(function(err) {
-      if(err) { return handleError(res, err); }
-      return res.send(204);
-    });
-  });
+function deleteRestaurant(restaurantId, callback) {
+  models.restaurant.find({id: restaurantId}).remove(callback);
 }
 
 // Rate the restaurant
-function rateRestaurant(req, res) {
-  //restaurantRatingQueue.publish(JSON.stringify({
-  //  user_id: req.user.id,
-  //  restaurant_id: req.params.id,
-  //  rating: req.params.rating
-  //}));
-  //
-  //return res.send(201);
+function rateRestaurant(userId, restaurantId, rating, callback) {
 }
-
-function handleError(res, err) {
-  return res.send(500, err);
-}
-
-module.exports = {
-  rateRestaurant: rateRestaurant,
-  index: index,
-  show: show,
-  create: create,
-  update: update,
-  destroy: destroy
-};

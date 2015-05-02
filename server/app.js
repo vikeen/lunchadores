@@ -8,25 +8,20 @@
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
 var express = require('express'),
-    orm = require("orm"),
-    config = require('./config/environment');
+  config = require('./config/environment');
 
 // Setup server
 var app = express();
 var server = require('http').createServer(app);
 
 // Bootstrap Database
-orm.connect(config.postgres.uri, function(err, db) {
-  if (err) {
-    return console.error('Connection error: ' + err);
-  } else {
-    require('./models')(db);
-    require('./config/express')(app);
-    require('./routes')(app);
+require('./database').connect(function (db) {
+  require('./models')(db);
+  require('./config/express')(app);
+  require('./routes')(app);
 
-    if (config.seedDB) {
-      require('./config/seed');
-    }
+  if (config.seedDB) {
+    require('./config/seed');
   }
 });
 

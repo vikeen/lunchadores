@@ -1,20 +1,15 @@
-/**
- * Express configuration
- */
-
 'use strict';
 
-var express = require('express');
-var favicon = require('serve-favicon');
-var morgan = require('morgan');
-var compression = require('compression');
-var bodyParser = require('body-parser');
-var methodOverride = require('method-override');
-var cookieParser = require('cookie-parser');
-var errorHandler = require('errorhandler');
-var path = require('path');
-var config = require('./environment');
-var passport = require('passport');
+var express = require('express'),
+    favicon = require('serve-favicon'),
+    morgan = require('morgan'),
+    compression = require('compression'),
+    bodyParser = require('body-parser'),
+    methodOverride = require('method-override'),
+    cookieParser = require('cookie-parser'),
+    path = require('path'),
+    config = require('./environment'),
+    passport = require('passport');
 
 module.exports = function(app) {
   var env = app.get('env');
@@ -27,6 +22,7 @@ module.exports = function(app) {
   app.use(methodOverride());
   app.use(cookieParser());
   app.use(passport.initialize());
+
   if (env === 'production') {
     app.use(favicon(path.join(config.root, 'public', 'favicon.ico')));
     app.use(express.static(path.join(config.root, 'public')));
@@ -40,6 +36,15 @@ module.exports = function(app) {
     app.use(express.static(path.join(config.root, 'client')));
     app.set('appPath', 'client');
     app.use(morgan('dev'));
-    app.use(errorHandler()); // Error handler - has to be last
   }
+
+  app.use(clientErrorHandler);
 };
+
+function clientErrorHandler(err, req, res, next) {
+  if (req.xhr) {
+    res.send(500);
+  } else {
+    next(err);
+  }
+}

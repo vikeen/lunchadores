@@ -1,18 +1,38 @@
 'use strict';
 
-var express = require('express');
-var controller = require('./restaurant.controller');
-var validators = require('./restaurant.validators');
-var auth = require('../../auth/auth.service');
+var express = require('express'),
+  router = express.Router(),
+  controller = require('./restaurant.controller'),
+  validators = require('./restaurant.validators'),
+  auth = require('../../auth/auth.service'),
+  requestHandler = require('../../components/helpers').requestHandler;
 
-var router = express.Router();
+router.get('/', function (req, res) {
+  controller.getActiveRestaurants(requestHandler(req, res));
+});
 
-router.get('/', controller.index);
-router.get('/:id', validators.hasValidIdParam, controller.show);
-router.post('/', auth.hasRole('admin'), controller.create);
-router.post('/:id/rate/:rating', validators.hasValidIdParam, validators.hasValidRatingParam, auth.hasRole('user'), controller.rateRestaurant);
-router.put('/:id', validators.hasValidIdParam, auth.hasRole('admin'), controller.update);
-router.patch('/:id', validators.hasValidIdParam, auth.hasRole('admin'), controller.update);
-router.delete('/:id', validators.hasValidIdParam, auth.hasRole('admin'), controller.destroy);
+router.get('/:id', validators.hasValidIdParam, function (req, res) {
+  controller.getRestaurantById(req.params.id, requestHandler(req, res));
+});
+
+router.post('/', auth.hasRole('admin'), function (req, res) {
+  controller.createRestaurant(req.body, requestHandler(req, res));
+});
+
+router.post('/:id/rate/:rating', validators.hasValidIdParam, validators.hasValidRatingParam, auth.hasRole('user'), function (req, res) {
+  controller.rateRestaurant(req.user.id, req.params.id, req.params.rating, requestHandler(req, res));
+});
+
+router.put('/:id', validators.hasValidIdParam, auth.hasRole('admin'), function (req, res) {
+  controller.updateRestaurant(req.body, requestHandler(req, res));
+});
+
+router.patch('/:id', validators.hasValidIdParam, auth.hasRole('admin'), function (req, res) {
+  controller.updateRestaurant(req.body, requestHandler(req, res));
+});
+
+router.delete('/:id', validators.hasValidIdParam, auth.hasRole('admin'), function (req, res) {
+  controller.deleteRestaurant(req.params.id, requestHandler(req, res));
+});
 
 module.exports = router;
