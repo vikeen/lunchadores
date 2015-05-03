@@ -1,5 +1,7 @@
 'use strict';
 
+var _ = require('lodash');
+
 module.exports = function(db) {
   return db.define('restaurant', {
     name: String,
@@ -15,6 +17,8 @@ module.exports = function(db) {
     hooks: {
       beforeCreate: function() {
         this.created_at = new Date();
+        this.active = _.isBoolean(this.active) ? this.active : true;
+        this.rating = _.isNumber(this.rating) ? this.rating : 0;
       },
       beforeSave: function() {
         this.updated_at = new Date();

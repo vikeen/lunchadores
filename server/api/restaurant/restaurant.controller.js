@@ -30,8 +30,6 @@ function getRestaurantById(id, callback) {
 
 // Creates a new restaurant in the DB.
 function createRestaurant(payload, callback) {
-  payload.active = true;
-  payload.rating = 0;
   models.restaurant.create(payload, callback);
 }
 
