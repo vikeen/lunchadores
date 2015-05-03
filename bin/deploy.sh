@@ -1,1 +1,1 @@
-grunt build && grunt buildcontrol:heroku
+grunt mochaTest && grunt build && grunt buildcontrol:heroku
