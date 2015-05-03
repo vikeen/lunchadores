@@ -44,7 +44,7 @@ module.exports = function(db) {
     methods: {
       changePassword: function(newPassword) {
         this.salt = makeSalt();
-        this.password = encryptPassword(this.password, this.salt);
+        this.password = encryptPassword(newPassword, this.salt);
       },
       authenticate: function(plainTextPassword) {
           return encryptPassword(plainTextPassword, this.salt) === this.password;
