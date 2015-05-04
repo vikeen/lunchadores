@@ -13,16 +13,16 @@
         gravatarDefault: '@'
       },
       bindToController: true,
-      controllerAs: 'GravatarCtrl',
       controller: 'GravatarCtrl',
+      controllerAs: 'gravatarCtrl',
       link: link
     };
   }
 
   function link(scope, element) {
-    scope.$watch('GravatarCtrl.imageSrc', function(newValue) {
+    scope.$watch('gravatarCtrl.imageSrc', function(newValue) {
       if (newValue) {
-        $(element).attr('src', scope.GravatarCtrl.imageSrc);
+        $(element).attr('src', scope.gravatarCtrl.imageSrc);
       }
     });
   }

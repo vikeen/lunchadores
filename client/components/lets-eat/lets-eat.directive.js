@@ -10,7 +10,7 @@
         restaurants: '='
       },
       bindToController: true,
-      templateUrl: 'app/lets-eat/lets-eat.html',
+      templateUrl: 'components/lets-eat/lets-eat.html',
       controllerAs: 'LetsEatCtrl',
       controller: 'LetsEatCtrl',
       link: link

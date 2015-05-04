@@ -1,22 +1,22 @@
-form.pure-form.pure-form-aligned(name='form', ng-submit='SignupCtrl.register(form)')
+form.pure-form.pure-form-aligned(name='form', ng-submit='signupCtrl.register(form)')
   legend Sign up
   fieldset
     .pure-control-group
       label(for='first_name') First Name
-      input(type='text', id='first_name' name='first_name', ng-model='SignupCtrl.user.first_name', required='')
+      input(type='text', id='first_name' name='first_name', ng-model='signupCtrl.user.first_name', required='')
     .pure-control-group
       label(for='last_name') Last Name
-      input(type='text', id='last_name' name='last_name', ng-model='SignupCtrl.user.last_name', required='')
+      input(type='text', id='last_name' name='last_name', ng-model='signupCtrl.user.last_name', required='')
     .pure-control-group
       label(for='email_address') Email
-      input(type='email', id='email_address' name='email_address', ng-model='SignupCtrl.user.email_address', required='')
+      input(type='email', id='email_address' name='email_address', ng-model='signupCtrl.user.email_address', required='')
     .pure-control-group
       label(for='password') Password
-      input(type='password', id='password' name='password', ng-model='SignupCtrl.user.password', ng-minlength='3', required='' )
+      input(type='password', id='password' name='password', ng-model='signupCtrl.user.password', ng-minlength='3', required='' )
 
     .pure-u-1-1
       ul.form-error-messages
-        li.error-message(ng-repeat='error in SignupCtrl.errors') {{error.message || error.msg}}
+        li.error-message(ng-repeat='error in signupCtrl.errors') {{error.message || error.msg}}
 
     .pure-controls
       button.pure-button.pure-button-primary(type='submit') Sign up

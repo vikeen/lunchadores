@@ -68,7 +68,7 @@ models.user.find({}).remove(function () {
       role: 'admin',
       first_name: 'Admin',
       last_name: 'Admin',
-      email_address: 'ADMIN@admin.com',
+      email_address: 'admin@admin.com',
       password: 'admin'
     }, {
       provider: 'local',

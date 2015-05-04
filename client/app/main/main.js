@@ -8,7 +8,7 @@
           url: '/',
           templateUrl: 'app/main/main.html',
           controller: 'MainCtrl',
-          controllerAs: 'MainCtrl'
+          controllerAs: 'mainCtrl'
         });
     });
 })();

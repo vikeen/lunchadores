@@ -5,11 +5,11 @@
 
   function NotificationsDirective() {
     return {
-      restrict: 'EA',
-      templateUrl: 'app/notifications/notifications.html',
+      restrict: 'E',
+      templateUrl: 'components/notifications/notifications.html',
       bindToController: true,
-      controllerAs: 'NotificationsCtrl',
       controller: 'NotificationsCtrl',
+      controllerAs: 'notificationsCtrl',
       link: link
     };
   }
