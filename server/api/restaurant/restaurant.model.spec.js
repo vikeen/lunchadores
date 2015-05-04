@@ -49,7 +49,7 @@ describe('Restaurant Model', function () {
     var newRestaurant = _.clone(mockRestaurants[0]);
     newRestaurant.id = mockRestaurants.length + 1;
     delete newRestaurant.active;
-    models.restaurant.create(newRestaurant, function(err, restaurant) {
+    models.restaurant.create(newRestaurant, function (err, restaurant) {
       restaurant.should.have.property('name', newRestaurant.name);
       restaurant.should.have.property('active', true);
       done();
@@ -60,9 +60,31 @@ describe('Restaurant Model', function () {
     var newRestaurant = _.clone(mockRestaurants[0]);
     newRestaurant.id = mockRestaurants.length + 1;
     delete newRestaurant.rating;
-    models.restaurant.create(newRestaurant, function(err, restaurant) {
+    models.restaurant.create(newRestaurant, function (err, restaurant) {
       restaurant.should.have.property('name', newRestaurant.name);
       restaurant.should.have.property('rating', 0);
+      done();
+    });
+  });
+
+  it('should default to not vegan on create', function (done) {
+    var newRestaurant = _.clone(mockRestaurants[0]);
+    newRestaurant.id = mockRestaurants.length + 1;
+    delete newRestaurant.vegan;
+    models.restaurant.create(newRestaurant, function (err, restaurant) {
+      restaurant.should.have.property('name', newRestaurant.name);
+      restaurant.should.have.property('vegan', false);
+      done();
+    });
+  });
+
+  it('should default to not vegetarian on create', function (done) {
+    var newRestaurant = _.clone(mockRestaurants[0]);
+    newRestaurant.id = mockRestaurants.length + 1;
+    delete newRestaurant.vegetarian;
+    models.restaurant.create(newRestaurant, function (err, restaurant) {
+      restaurant.should.have.property('name', newRestaurant.name);
+      restaurant.should.have.property('vegetarian', false);
       done();
     });
   });

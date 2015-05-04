@@ -7,7 +7,7 @@
 
 var models = require('../models')();
 
-models.restaurant.find({}).remove(function() {
+models.restaurant.find({}).remove(function () {
   models.restaurant.create([
     {
       name: 'Q39 Kansas City BBQ',
@@ -33,8 +33,17 @@ models.restaurant.find({}).remove(function() {
       active: true,
       outside_seating: true,
       rating: 0
+    }, {
+      name: 'Cafe Gratitude',
+      address: '333 Southwest Blvd, Kansas City, MO 64108, USA',
+      lat: 34,
+      lng: -95,
+      active: false,
+      outside_seating: false,
+      vegan: true,
+      vegetarian: true
     }
-  ], function(err, items) {
+  ], function (err, items) {
     if (err) {
       console.error(err);
     } else {
@@ -43,7 +52,7 @@ models.restaurant.find({}).remove(function() {
   });
 });
 
-models.user.find({}).remove(function() {
+models.user.find({}).remove(function () {
   models.user.create([
     {
       provider: 'local',
@@ -70,7 +79,7 @@ models.user.find({}).remove(function() {
       email_address: 'john.rake12@gmail.com',
       password: 'admin'
     }
-  ], function(err, items) {
+  ], function (err, items) {
     if (err) {
       console.error(err);
     } else {
