@@ -24,7 +24,7 @@
         url: '/restaurant/create',
         templateUrl: 'app/restaurant/restaurant-create.html',
         controller: 'RestaurantCreateCtrl',
-        controllerAs: 'RestaurantCreateCtrl'
+        controllerAs: 'restaurantCreateCtrl'
       });
   }
 })();

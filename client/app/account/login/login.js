@@ -10,6 +10,6 @@
         templateUrl: 'app/account/login/login.html',
         controller: 'LoginCtrl',
         controllerAs: 'loginCtrl'
-      })
+      });
   }
 })();
