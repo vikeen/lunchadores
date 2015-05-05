@@ -17,7 +17,7 @@
     }
 
     function getRestaurants() {
-      restaurants.query().$promise.then(function (response) {
+      restaurants.getActive().$promise.then(function (response) {
         self.restaurants = response;
       });
     }

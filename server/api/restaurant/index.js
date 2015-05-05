@@ -8,7 +8,11 @@ var express = require('express'),
   requestHandler = require('../../components/helpers').requestHandler;
 
 router.get('/', function (req, res) {
-  controller.getActiveRestaurants(requestHandler(req, res));
+  if (req.query.active === "true") {
+    controller.getActiveRestaurants(requestHandler(req, res));
+  } else {
+    controller.getAllRestaurants(requestHandler(req, res));
+  }
 });
 
 router.get('/:id', validators.hasValidIdParam, function (req, res) {

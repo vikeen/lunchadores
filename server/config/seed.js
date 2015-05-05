@@ -38,7 +38,7 @@ models.restaurant.find({}).remove(function () {
       address: '333 Southwest Blvd, Kansas City, MO 64108, USA',
       lat: 34,
       lng: -95,
-      active: false,
+      active: true,
       outside_seating: false,
       vegan: true,
       vegetarian: true

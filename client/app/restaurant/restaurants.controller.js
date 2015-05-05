@@ -15,11 +15,11 @@
     ////////////
 
     function activate() {
-      getRestaurants();
+      getActiveRestaurants();
     }
 
-    function getRestaurants() {
-      restaurants.query().$promise.then(function (response) {
+    function getActiveRestaurants() {
+      restaurants.getActive().$promise.then(function (response) {
         self.restaurants = response;
       });
     }

@@ -28,6 +28,14 @@
             rating: '@rating'
           }
         },
+        getActive: {
+          method: 'GET',
+          url: baseUrl,
+          isArray: true,
+          params: {
+            active: true
+          }
+        },
         get: {
           method: 'GET',
           url: baseUrl + '/:id',
