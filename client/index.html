@@ -18,7 +18,7 @@
   <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
   <!-- build:css(client) app/vendor.css -->
   <!-- bower:css -->
-  <link rel="stylesheet" href="bower_components/pure/pure.css" />
+  <link rel="stylesheet" href="bower_components/pure/pure.css"/>
   <!-- endbower -->
   <link rel="stylesheet" href="bower_components/pure/grids-responsive.css"/>
   <link rel="stylesheet" href="bower_components/pure-extras/css/pure-extras.css"/>
@@ -40,10 +40,10 @@
       <a ng-href="/" class="pure-menu-heading">Lunchadores</a>
       <ul class="pull-right">
         <li ng-hide="isLoggedIn()">
-          <a href="/signup">Sign up</a>
+          <a class="default" href="/signup">Sign up</a>
         </li>
         <li ng-hide="isLoggedIn()">
-          <a href="/login">Login</a>
+          <a class="default" href="/login">Login</a>
         </li>
         <li ng-show="isLoggedIn()">
           <a id="gravatar" href="/settings">
@@ -54,7 +54,9 @@
           </a>
         </li>
         <li ng-show="isLoggedIn()">
-          <a href="" ng-click="navBarCtrl.logout()">Logout</a>
+          <a class="default" href="#" ng-click="navBarCtrl.logout()">
+            <i class="fa fa-sign-out fa-lg"></i>
+          </a>
         </li>
       </ul>
     </div>
@@ -70,12 +72,18 @@
   <div class="wrapper">
     <ul class="pull-left" ng-show="isAdmin()">
       <li>
-        <a class="pure-button pure-button-error" ui-sref="admin">Admin</a>
+        <button class="pure-button pure-button-error" ui-sref="admin">
+          <i class="fa fa-lock"></i>
+          Admin
+        </button>
       </li>
     </ul>
     <ul class="pull-right">
       <li>
-        <a class="pure-button pure-button-primary" ui-sref="restaurant.index">Restaurants</a>
+        <button class="pure-button pure-button-primary" ui-sref="restaurant.index">
+          <i class="fa fa-cutlery"></i>
+          Restaurants
+        </button>
       </li>
     </ul>
   </div>

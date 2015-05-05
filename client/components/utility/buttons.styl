@@ -1,28 +1,32 @@
-.button-success,
-.button-error,
-.button-warning,
-.button-secondary,
-.pure-button-primary
-  color: $whiteColor !important
-  border-radius: 4px
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2)
+button, .button
+  &.button-success,
+  &.button-error,
+  &.button-warning,
+  &.button-secondary,
+  &.pure-button-primary
+    color: $whiteColor !important
+    border-radius: 4px
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2)
 
-.button-success
-  background: $successColor
-.button-error
-  background: $errorColor
-.button-warning
-  background: $warningColor
-.button-secondary
-  background: $secondaryColor
+  &.button-success
+    background: $successColor
+  &.button-error
+    background: $errorColor
+  &.button-warning
+    background: $warningColor
+  &.button-secondary
+    background: $secondaryColor
 
-.button-xs
-  padding: 0.35em .7em
-  font-size: 70%
-.button-sm
-  padding: 0.42em .85em
-  font-size: 85%
-.button-lg
-  font-size: 110%
-.button-xl
-  font-size: 125%
+  &.button-xs
+    padding: 0.35em .7em
+    font-size: 70%
+  &.button-sm
+    padding: 0.42em .85em
+    font-size: 85%
+  &.button-lg
+    font-size: 110%
+  &.button-xl
+    font-size: 125%
+
+  i
+    padding-right: 5px

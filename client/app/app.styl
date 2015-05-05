@@ -22,6 +22,10 @@ html {
   font-family: 'Ubuntu', sans-serif !important;
 }
 
+h2, h3, h4, h5, h6 {
+    font-weight: 300
+}
+
 .browsehappy
   background #ccc
   color #000
@@ -50,6 +54,10 @@ footer
 #siteHeader
   border-bottom: 1px solid #e5e5e5
   top: 0
+
+  a
+    &:hover, &:focus
+      background: none
 
 footer
   padding: 0
@@ -94,5 +102,6 @@ table
 @import 'overrides/pure.styl';
 @import 'rating/rating.styl';
 @import 'utility/buttons.styl';
+@import 'utility/links.styl';
 @import 'utility/utility.styl';
 // endinjector
