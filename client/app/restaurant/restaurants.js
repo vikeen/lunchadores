@@ -12,7 +12,7 @@
         url: '/restaurant',
         templateUrl: 'app/restaurant/restaurants.html',
         controller: 'RestaurantsCtrl',
-        controllerAs: 'RestaurantsCtrl'
+        controllerAs: 'restaurantsCtrl'
       })
       .state('restaurant.show', {
         url: '/restaurant/:id',

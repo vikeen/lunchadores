@@ -1,17 +1,19 @@
 .pure-g
   .pure-u-1-1.pure-u-sm-1-2
-    .form-title {{RestaurantsCtrl.filteredRestaurants.length}} Restaurants
+    .form-title {{restaurantsCtrl.filteredRestaurants.length}} Restaurants
   .pure-u-1-1.pure-u-sm-1-2
     form.pure-form.search
-      input(type='search' placeholder='Search...' ng-model='RestaurantsCtrl.restaurantFilter.name')
-table.pure-table(ng-show='RestaurantsCtrl.filteredRestaurants.length')
+      input(type='search' placeholder='Search...' ng-model='restaurantsCtrl.restaurantFilter.name')
+table.pure-table(ng-show='restaurantsCtrl.filteredRestaurants.length')
   thead
-    th.sortable(ng-click='RestaurantsCtrl.setColumnSorting("name")') Name
-    th.sortable(ng-click='RestaurantsCtrl.setColumnSorting("rating")') Rating
+    th.sortable(ng-click='restaurantsCtrl.setColumnSorting("name")') Name
+    th.sortable(ng-click='restaurantsCtrl.setColumnSorting("rating")') Rating
     th Address
     th Outside
+    th Vegan
+    th Vegetarian
   tbody
-    tr(ng-repeat='restaurant in RestaurantsCtrl.filteredRestaurants = (RestaurantsCtrl.restaurants | filter:RestaurantsCtrl.restaurantFilter:strict | orderBy:RestaurantsCtrl.sortBy:RestaurantsCtrl.reverseSort)')
+    tr(ng-repeat='restaurant in restaurantsCtrl.filteredRestaurants = (restaurantsCtrl.restaurants | filter:restaurantsCtrl.restaurantFilter:strict | orderBy:restaurantsCtrl.sortBy:restaurantsCtrl.reverseSort)')
       td
         a(ui-sref="restaurant.show({id: restaurant.id})") {{restaurant.name}}
       td
@@ -20,3 +22,9 @@ table.pure-table(ng-show='RestaurantsCtrl.filteredRestaurants.length')
       td.text-center
         i.fa.fa-check.success(ng-if='restaurant.outside_seating')
         i.fa.fa-close.error(ng-if='!restaurant.outside_seating')
+      td.text-center
+        i.fa.fa-check.success(ng-if='restaurant.vegan')
+        i.fa.fa-close.error(ng-if='!restaurant.vegan')
+      td.text-center
+        i.fa.fa-check.success(ng-if='restaurant.vegetarian')
+        i.fa.fa-close.error(ng-if='!restaurant.vegetarian')

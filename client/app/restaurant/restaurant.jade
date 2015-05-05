@@ -21,6 +21,12 @@ form.pure-form.pure-form-stacked(ng-submit='RestaurantCtrl.canUpdate() && Restau
       label.pure-u-1-4.pure-u-sm-1-8(for='outside_seating') Outside Seating
       .pure-u-1-4.pure-u-sm-1-8
         input(type='checkbox' id='outside_seating' name='outside_seating' ng-disabled='!RestaurantCtrl.canUpdate();' ng-model='RestaurantCtrl.restaurant.outside_seating')
+      label.pure-u-1-4.pure-u-sm-1-8(for='vegan') Vegan
+      .pure-u-1-4.pure-u-sm-1-8
+        input(type='checkbox' id='vegan' name='vegan' ng-disabled='!RestaurantCtrl.canUpdate();' ng-model='RestaurantCtrl.restaurant.vegan')
+      label.pure-u-1-4.pure-u-sm-1-8(for='vegetarian') Vegetarian
+      .pure-u-1-4.pure-u-sm-1-8
+        input(type='checkbox' id='vegetarian' name='vegetarian' ng-disabled='!RestaurantCtrl.canUpdate();' ng-model='RestaurantCtrl.restaurant.vegetarian')
 
       .pure-u-1-1
         ul.form-error-messages
