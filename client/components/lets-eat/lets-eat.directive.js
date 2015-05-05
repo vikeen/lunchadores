@@ -5,14 +5,14 @@
 
   function LetsEatDirective() {
     return {
-      restrict: 'EA',
+      restrict: 'E',
       scope: {
         restaurants: '='
       },
-      bindToController: true,
       templateUrl: 'components/lets-eat/lets-eat.html',
-      controllerAs: 'LetsEatCtrl',
+      bindToController: true,
       controller: 'LetsEatCtrl',
+      controllerAs: 'letsEatCtrl',
       link: link
     };
 

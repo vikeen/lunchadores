@@ -7,11 +7,11 @@
     var self = this;
 
     self.buttonText = 'Find Food';
-    self.distanceToRestaurant = undefined;
-    self.randomRestaurant = undefined;
+    self.distanceToRestaurant = null;
+    self.randomRestaurant = null;
     self.restaurantChosen = false;
-    self.stepsToGetToRestaurant = undefined;
-    self.timeToRestaurant = undefined;
+    self.stepsToGetToRestaurant = null;
+    self.timeToRestaurant = null;
 
     self.getDirections = getDirections;
     self.getRandomIndex = getRandomIndex;

@@ -1,30 +1,31 @@
+.lets-eat
+  .lets-eat-controls
+    button.pure-button.pure-button-primary(ng-click='letsEatCtrl.selectRandomRestaurant();') {{letsEatCtrl.buttonText}}
 
-#letsEatControls(ng-hide='LetsEatCtrl.restaurantChosen')
-  button#eat.pure-button.pure-button-primary(ng-click='LetsEatCtrl.selectRandomRestaurant();') {{LetsEatCtrl.buttonText}}
-  button#directions.pure-button.button-success(ng-show='LetsEatCtrl.randomRestaurant', ng-click='LetsEatCtrl.getDirections();') Let's Eat!
+  .lets-eat-result.pure-g(ng-show='letsEatCtrl.randomRestaurant')
+    .pure-u-1-1
+      .restaurant-card.pure-g
+        .pure-u-1-1.pure-u-sm-1-2
+          h2
+            a.default(href="#") {{letsEatCtrl.randomRestaurant.name}}
+        .pure-u-1-1.pure-u-sm-1-2
+          h2
+            lunchadores-rating(rating-value='letsEatCtrl.randomRestaurant.rating')
+        .pure-u-1-1
+          h4
+            a.default(href="#") {{letsEatCtrl.randomRestaurant.address}}
 
-#letsEatResult.pure-g
-  .pure-u-1-1
-    h4#restaurantName
-      button.pure-button.button-error.button-xs(ng-show='LetsEatCtrl.restaurantChosen', ng-click='LetsEatCtrl.resetFlow(true);')
-        i.fa.fa-reply
-      = ' {{LetsEatCtrl.randomRestaurant.name}}'
-  .pure-u-1-1.map-result-container(ng-show='LetsEatCtrl.restaurantChosen')
-    #map.pure-u-1-1.pure-u-sm-1-2
-    #map-steps.pure-u-1-1.pure-u-sm-1-2
-      table.pure-table
-        thead
-          tr
-            th Details
-            th Duration
-            th Distance
-        tbody
-          tr(ng-repeat='step in LetsEatCtrl.stepsToGetToRestaurant')
-            td(ng-bind-html='step.instructions')
-            td {{step.duration.text}}
-            td {{step.distance.text}}
-        tfoot
-          tr
-            th Totals
-            th {{LetsEatCtrl.timeToRestaurant}}
-            th {{LetsEatCtrl.distanceToRestaurant}}
+        .pure-u-1-1
+          dl
+            dt Outside Seating
+            dd
+              i.fa.fa-check.success(ng-if='letsEatCtrl.randomRestaurant.outside_seating')
+              i.fa.fa-close.error(ng-if='!letsEatCtrl.randomRestaurant.outside_seating')
+            dt Vegan
+            dd
+              i.fa.fa-check.success(ng-if='letsEatCtrl.randomRestaurant.vegan')
+              i.fa.fa-close.error(ng-if='!letsEatCtrl.randomRestaurant.vegan')
+            dt Vegetarian
+            dd
+              i.fa.fa-check.success(ng-if='letsEatCtrl.randomRestaurant.vegetarian')
+              i.fa.fa-close.error(ng-if='!letsEatCtrl.randomRestaurant.vegetarian')
