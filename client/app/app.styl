@@ -1,5 +1,26 @@
 @import "font-awesome/css/font-awesome.css"
 
+// Component styles are injected through grunt
+// injector
+@import '_colors.styl';
+@import '_variables.styl';
+@import 'account/login/login.styl';
+@import 'admin/admin.styl';
+@import 'main/main.styl';
+@import 'restaurant/create/restaurant-create.styl';
+@import 'restaurant/restaurants.styl';
+@import 'forms/forms.styl';
+@import 'gravatar/gravatar.styl';
+@import 'lets-eat/lets-eat.styl';
+@import 'maps/maps.styl';
+@import 'notifications/notifications.styl';
+@import 'overrides/pure.styl';
+@import 'rating/rating.styl';
+@import 'utility/buttons.styl';
+@import 'utility/links.styl';
+@import 'utility/utility.styl';
+// endinjector
+
 //
 // Font Awesome Fonts
 //
@@ -42,6 +63,7 @@ h2, h3, h4, h5, h6 {
 .content
   margin-top: 100px
   margin-bottom: 95px
+  padding-bottom: 20px
 
 #siteHeader,
 footer
@@ -82,26 +104,6 @@ table
     text-decoration: underline
 
 // Responsive: Portrait tablets and up
-@media screen and (min-width: 768px)
+@media screen and (min-width: $md)
   .wrapper
     max-width 730px
-
-// Component styles are injected through grunt
-// injector
-@import '_colors.styl';
-@import 'account/login/login.styl';
-@import 'admin/admin.styl';
-@import 'main/main.styl';
-@import 'restaurant/create/restaurant-create.styl';
-@import 'restaurant/restaurants.styl';
-@import 'forms/forms.styl';
-@import 'gravatar/gravatar.styl';
-@import 'lets-eat/lets-eat.styl';
-@import 'maps/maps.styl';
-@import 'notifications/notifications.styl';
-@import 'overrides/pure.styl';
-@import 'rating/rating.styl';
-@import 'utility/buttons.styl';
-@import 'utility/links.styl';
-@import 'utility/utility.styl';
-// endinjector
