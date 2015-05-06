@@ -21,8 +21,8 @@
         controllerAs: 'RestaurantCtrl'
       })
       .state('restaurant.create', {
-        url: '/restaurant/create',
-        templateUrl: 'app/restaurant/restaurant-create.html',
+        url: '/create-restaurant',
+        templateUrl: 'app/restaurant/create/restaurant-create.html',
         controller: 'RestaurantCreateCtrl',
         controllerAs: 'restaurantCreateCtrl'
       });
