@@ -59,7 +59,7 @@ describe('Restaurant Controller', function () {
 
   it('should get all active restaurants', function (done) {
     restaurantController.getActiveRestaurants(function (err, restaurants) {
-      restaurants.should.have.lengthOf(2);
+      restaurants.should.have.lengthOf(1);
       restaurants[0].should.have.property('name', mockRestaurants[0].name);
       restaurants[0].should.have.property('active', mockRestaurants[0].active);
       done();
