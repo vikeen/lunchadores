@@ -3,28 +3,33 @@
 
   angular.module('lunchadoresApp').controller('LetsEatCtrl', LetsEatCtrl);
 
-  function LetsEatCtrl($rootScope, $timeout, maps) {
+  function LetsEatCtrl($rootScope, $timeout, restaurants, maps) {
     var self = this;
 
     self.buttonText = 'Find Food';
     self.distanceToRestaurant = null;
+    self.maxDistance = 25; // Miles
     self.randomRestaurant = null;
+    self.restaurants = null;
     self.restaurantChosen = false;
+    self.restaurantsLoading = null;
     self.stepsToGetToRestaurant = null;
     self.timeToRestaurant = null;
 
     self.getDirections = getDirections;
-    self.getRandomIndex = getRandomIndex;
     self.resetFlow = resetFlow;
     self.selectRandomRestaurant = selectRandomRestaurant;
 
     activate();
 
-    ////////////
-
     function activate() {
       self.resetFlow();
+      _getRestaurants();
     }
+
+    /*
+     * Public API
+     */
 
     function getDirections() {
       self.restaurantChosen = true;
@@ -55,10 +60,6 @@
       }, 250);
     }
 
-    function getRandomIndex() {
-      return Math.floor(Math.random() * self.restaurants.length);
-    }
-
     function resetFlow(selectRestaurant) {
       self.buttonText = 'Find Food';
       self.restaurantChosen = false;
@@ -72,14 +73,36 @@
     function selectRandomRestaurant() {
       self.buttonText = 'Spin Again';
 
-      var newRandomIndex = self.getRandomIndex();
+      var newRandomIndex = self._getRandomIndex(self.restaurants.length);
 
       while (newRandomIndex === self.randomRestaurantIndex) {
-        newRandomIndex = self.getRandomIndex();
+        newRandomIndex = self._getRandomIndex(self.restaurants.length);
       }
 
       self.randomRestaurantIndex = newRandomIndex;
       self.randomRestaurant = self.restaurants[newRandomIndex];
+    }
+
+    /*
+     * Private API
+     */
+
+    function _getRandomIndex(max) {
+      return Math.floor(Math.random() * max);
+    }
+
+    function _getRestaurants() {
+      self.restaurantsLoading = true;
+      $rootScope.geolocationPromise.then(function(position) {
+        restaurants.getActive({
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+          distance: self.maxDistance
+        }).$promise.then(function (response) {
+            self.restaurantsLoading = false;
+            self.restaurants = response;
+          });
+      });
     }
   }
 })();

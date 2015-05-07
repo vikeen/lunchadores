@@ -42,6 +42,15 @@ models.restaurant.find({}).remove(function () {
       outside_seating: false,
       vegan: true,
       vegetarian: true
+    },
+    {
+      name: 'Shnazzy Pizza',
+      address: '300 Delaware Street, Kansas City, MO 64105, USA',
+      lat: 10.1093695,
+      lng: -94.5848291,
+      active: true,
+      outside_seating: false,
+      rating: 5
     }
   ], function (err, items) {
     if (err) {

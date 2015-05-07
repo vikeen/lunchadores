@@ -1,6 +1,7 @@
 .lets-eat
   .lets-eat-controls
-    button.pure-button.pure-button-primary(ng-click='letsEatCtrl.selectRandomRestaurant();') {{letsEatCtrl.buttonText}}
+    button.pure-button.pure-button-primary(ng-click='letsEatCtrl.selectRandomRestaurant()' ng-disabled='letsEatCtrl.restaurantsLoading') {{letsEatCtrl.buttonText}}
+    i.loading.fa.fa-circle-o-notch.fa-spin(ng-show='letsEatCtrl.restaurantsLoading')
 
   .lets-eat-result.pure-g(ng-show='letsEatCtrl.randomRestaurant')
     .pure-u-1-1

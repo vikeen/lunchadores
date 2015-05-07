@@ -6,9 +6,6 @@
   function LetsEatDirective() {
     return {
       restrict: 'E',
-      scope: {
-        restaurants: '='
-      },
       templateUrl: 'components/lets-eat/lets-eat.html',
       bindToController: true,
       controller: 'LetsEatCtrl',

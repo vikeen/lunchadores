@@ -9,7 +9,14 @@ var express = require('express'),
 
 router.get('/', function (req, res) {
   if (req.query.active === "true") {
-    controller.getActiveRestaurants(requestHandler(req, res));
+    if (req.query.distance && req.query.lat && req.query.lng) {
+      controller.getActiveRestaurantsByLocation({
+        lat: req.query.lat,
+        lng: req.query.lng
+      }, req.query.distance, requestHandler(req, res));
+    } else {
+      controller.getActiveRestaurants(requestHandler(req, res));
+    }
   } else {
     controller.getAllRestaurants(requestHandler(req, res));
   }

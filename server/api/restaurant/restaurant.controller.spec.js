@@ -19,6 +19,16 @@ var mockRestaurants = [
   },
   {
     id: 2,
+    name: 'Nordyk\'s Place',
+    address: '101 Main Street Kansas City, MO, USA',
+    lat: 50.10233,
+    lng: -75.2020,
+    active: true,
+    outside_seating: true,
+    rating: 1.2
+  },
+  {
+    id: 3,
     name: 'Pizza Shoppe',
     address: '1000 West 39th Street, Kansas City, MO 64111, USA',
     lat: 2.2654,
@@ -49,7 +59,7 @@ describe('Restaurant Controller', function () {
 
   it('should get all active restaurants', function (done) {
     restaurantController.getActiveRestaurants(function (err, restaurants) {
-      restaurants.should.have.lengthOf(1);
+      restaurants.should.have.lengthOf(2);
       restaurants[0].should.have.property('name', mockRestaurants[0].name);
       restaurants[0].should.have.property('active', mockRestaurants[0].active);
       done();
@@ -58,11 +68,24 @@ describe('Restaurant Controller', function () {
 
   it('should get all restaurants', function (done) {
     restaurantController.getAllRestaurants(function (err, restaurants) {
-      restaurants.should.have.lengthOf(2);
+      restaurants.should.have.lengthOf(3);
       restaurants[0].should.have.property('name', mockRestaurants[0].name);
       restaurants[0].should.have.property('active', mockRestaurants[0].active);
       restaurants[1].should.have.property('name', mockRestaurants[1].name);
       restaurants[1].should.have.property('active', mockRestaurants[1].active);
+      done();
+    });
+  });
+
+  it('should get all active restaurants in the location distance', function (done) {
+    var location = {lat: 39, lng: -94};
+    var maxDistance = 25;
+    restaurantController.getActiveRestaurantsByLocation(location, maxDistance, function (err, restaurants) {
+      restaurants.should.have.lengthOf(2);
+      restaurants[0].should.have.property('name', mockRestaurants[0].name);
+      restaurants[0].should.have.property('active', true);
+      restaurants[1].should.have.property('name', mockRestaurants[1].name);
+      restaurants[1].should.have.property('active', true);
       done();
     });
   });
@@ -120,5 +143,4 @@ describe('Restaurant Controller', function () {
       done();
     });
   });
-
 });
