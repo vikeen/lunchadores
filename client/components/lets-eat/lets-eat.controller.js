@@ -73,10 +73,10 @@
     function selectRandomRestaurant() {
       self.buttonText = 'Spin Again';
 
-      var newRandomIndex = self._getRandomIndex(self.restaurants.length);
+      var newRandomIndex = _getRandomIndex(self.restaurants.length);
 
       while (newRandomIndex === self.randomRestaurantIndex) {
-        newRandomIndex = self._getRandomIndex(self.restaurants.length);
+        newRandomIndex = _getRandomIndex(self.restaurants.length);
       }
 
       self.randomRestaurantIndex = newRandomIndex;
