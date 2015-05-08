@@ -10,6 +10,7 @@ var models = require('../models')();
 models.restaurant.find({}).remove(function () {
   models.restaurant.create([
     {
+      id: 1,
       name: 'Q39 Kansas City BBQ',
       address: '1000 West 39th Street, Kansas City, MO 64111, USA',
       lat: 39.0574043,
@@ -18,6 +19,7 @@ models.restaurant.find({}).remove(function () {
       outside_seating: true,
       rating: 1.2
     }, {
+      id: 2,
       name: 'The Farmhouse',
       address: '300 Delaware Street, Kansas City, MO 64105, USA',
       lat: 39.1093695,
@@ -26,6 +28,7 @@ models.restaurant.find({}).remove(function () {
       outside_seating: false,
       rating: 5
     }, {
+      id: 3,
       name: 'Jersey Boyz',
       address: '315 Armour Road, Kansas City, MO 64116, USA',
       lat: 39.1420553,
@@ -34,6 +37,7 @@ models.restaurant.find({}).remove(function () {
       outside_seating: true,
       rating: 0
     }, {
+      id: 4,
       name: 'Cafe Gratitude',
       address: '333 Southwest Blvd, Kansas City, MO 64108, USA',
       lat: 34,
@@ -44,6 +48,7 @@ models.restaurant.find({}).remove(function () {
       vegetarian: true
     },
     {
+      id: 5,
       name: 'Shnazzy Pizza',
       address: '300 Delaware Street, Kansas City, MO 64105, USA',
       lat: 10.1093695,
@@ -64,6 +69,7 @@ models.restaurant.find({}).remove(function () {
 models.user.find({}).remove(function () {
   models.user.create([
     {
+      id: 1,
       provider: 'local',
       active: true,
       role: 'user',
@@ -72,6 +78,7 @@ models.user.find({}).remove(function () {
       email_address: 'test@test.com',
       password: 'test'
     }, {
+      id: 2,
       provider: 'local',
       active: true,
       role: 'admin',
@@ -80,6 +87,7 @@ models.user.find({}).remove(function () {
       email_address: 'admin@admin.com',
       password: 'admin'
     }, {
+      id: 3,
       provider: 'local',
       active: true,
       role: 'admin',
@@ -93,6 +101,32 @@ models.user.find({}).remove(function () {
       console.error(err);
     } else {
       console.log('finished populating users');
+      populatePasswordReset(); // Foreign key constraint
     }
   });
 });
+
+function populatePasswordReset() {
+  models.password_reset.find({}).remove(function() {
+    models.password_reset.create([
+      {
+        user_id: 1,
+        verification_id: '11d97080-7796-49e1-a76a-4b73383c299b'
+      },
+      {
+        user_id: 2,
+        verification_id: '21d97080-7796-49e1-a76a-4b73383c299b'
+      },
+      {
+        user_id: 3,
+        verification_id: '31d97080-7796-49e1-a76a-4b73383c299b'
+      }
+    ], function (err, passwordResets) {
+      if (err) {
+        console.error(err);
+      } else {
+        console.log('finished populating password resets');
+      }
+    });
+  });
+}

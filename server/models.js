@@ -8,6 +8,7 @@ var config = require('./config/environment'),
     models = null;
 
 function setup(db) {
+  require('./api/password-reset/password-reset.model')(db);
   require('./api/restaurant/restaurant.model')(db);
   require('./api/user/user.model')(db);
 

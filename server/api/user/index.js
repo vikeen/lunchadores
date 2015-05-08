@@ -15,7 +15,4 @@ router.put('/:id', auth.isAuthenticated(), controller.update);
 router.get('/:id', auth.isAuthenticated(), controller.show);
 router.post('/', controller.create);
 
-router.post('/password-reset', controller.passwordReset);
-router.post('/password-reset/:verificationId', controller.passwordResetVerification);
-
 module.exports = router;

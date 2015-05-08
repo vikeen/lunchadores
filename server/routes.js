@@ -5,6 +5,7 @@ var errors = require('./components/errors');
 module.exports = function (app) {
 
   // Insert routes below
+  app.use('/api/password-reset', require('./api/password-reset'));
   app.use('/api/restaurant', require('./api/restaurant'));
   app.use('/api/user', require('./api/user'));
 

@@ -14,11 +14,11 @@
       {
         passwordReset: {
           method: 'POST',
-          url: buildURL('/password-reset')
+          url: '/api/password-reset'
         },
         passwordResetVerification: {
           method: 'POST',
-          url: buildURL('/password-reset/:verificationId')
+          url: '/api/password-reset/:verificationId'
         },
         changePassword: {
           method: 'PUT',

@@ -18,13 +18,10 @@
       self.errors = [];
 
       if (form.$valid) {
-        User.passwordResetVerification({
-          verificationId: $stateParams.verificationId
-        }, {
+        User.passwordResetVerification({verificationId: $stateParams.verificationId}, {
           new_password: self.new_password,
           email_address: self.email_address
-        }).$promise
-          .then(function (response) {
+        }).$promise.then(function (response) {
             notifications.showSuccess({
               message: 'Password updated successfully.',
               hide: true
@@ -37,7 +34,7 @@
               $location.path('/');
             });
           })
-          .catch(function (error) {
+          .catch(function () {
             notifications.showError({
               message: 'Error resetting password.',
               hide: true
