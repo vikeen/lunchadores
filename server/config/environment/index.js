@@ -32,6 +32,13 @@ var all = {
   // List of user roles
   userRoles: ['guest', 'user', 'admin'],
 
+  // Postmark Email uuid
+  postmark: {
+    clientId: '62067ddc-f6ef-48bd-8a71-5654e609bdf4'
+  },
+
+  robotEmail: "robot@lunchadores.com",
+
   // MongoDB connection options
   mongo: {
     options: {

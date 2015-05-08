@@ -48,6 +48,9 @@
   }
 
   function ApplicationRun($rootScope, $location, $q, notifications) {
+    var geolocationPromise = $q.defer();
+    $rootScope.geolocationPromise = geolocationPromise.promise;
+
     // Redirect to login if route requires auth and you're not logged in
     $rootScope.$on('$stateChangeStart', function (event, next) {
       $rootScope.isLoggedInAsync(function (loggedIn) {
@@ -70,9 +73,6 @@
      *
      */
     $(function () {
-      var geolocationPromise = $q.defer();
-      $rootScope.geolocationPromise = geolocationPromise.promise;
-
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
           geolocationPromise.resolve(position);
