@@ -3,6 +3,8 @@
 // Production specific configuration
 // =================================
 module.exports = {
+  applicationUrl: 'http://www.lunchadores.com',
+
   // Server IP
   ip: process.env.OPENSHIFT_NODEJS_IP ||
       process.env.IP ||
@@ -20,6 +22,10 @@ module.exports = {
   //       process.env.OPENSHIFT_MONGODB_DB_URL+process.env.OPENSHIFT_APP_NAME ||
   //       'mongodb://localhost/lunchadores_dev'
   //},
+
+  postmark: {
+    clientId: process.env.POSTMARK_API_KEY
+  },
 
   postgres: {
     uri: process.env.DATABASE_URL ||

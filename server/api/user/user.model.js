@@ -2,6 +2,7 @@
 
 var _ = require('lodash'),
   orm = require('orm'),
+  uuid = require('uuid'),
   crypto = require('crypto');
 
 function makeSalt() {
@@ -29,6 +30,7 @@ module.exports = function (db) {
     hooks: {
       beforeCreate: function () {
         this.created_at = new Date();
+        this.active = _.isBoolean(this.active) ? this.active : true;
         this.email_address = this.email_address.toLowerCase();
         this.salt = makeSalt();
         this.password = encryptPassword(this.password, this.salt);
@@ -58,6 +60,24 @@ module.exports = function (db) {
         delete user.salt;
         user.full_name = this.fullName();
         return user;
+      }
+    }
+  });
+
+  db.define('password_reset', {
+    user_id: String,
+    verification_id: String,
+    created_at: {type: 'date', time: true},
+    updated_at: {type: 'date', time: true}
+  }, {
+    hooks: {
+      beforeCreate: function () {
+        this.created_at = new Date();
+        this.verification_id = uuid.v4();
+      },
+      beforeSave: function () {
+        this.verification_id = uuid.v4();
+        this.updated_at = new Date();
       }
     }
   });

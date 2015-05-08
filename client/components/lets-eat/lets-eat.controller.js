@@ -1,4 +1,4 @@
-(function() {
+(function () {
   'use strict';
 
   angular.module('lunchadoresApp').controller('LetsEatCtrl', LetsEatCtrl);
@@ -40,7 +40,7 @@
         travelMode: google.maps.TravelMode.DRIVING
       };
 
-      $timeout(function() {
+      $timeout(function () {
         self.map = maps.createMap('map', {
           lat: $rootScope.position.coords.latitude,
           lng: $rootScope.position.coords.longitude
@@ -73,10 +73,10 @@
     function selectRandomRestaurant() {
       self.buttonText = 'Spin Again';
 
-      var newRandomIndex = self._getRandomIndex(self.restaurants.length);
+      var newRandomIndex = _getRandomIndex(self.restaurants.length);
 
       while (newRandomIndex === self.randomRestaurantIndex) {
-        newRandomIndex = self._getRandomIndex(self.restaurants.length);
+        newRandomIndex = _getRandomIndex(self.restaurants.length);
       }
 
       self.randomRestaurantIndex = newRandomIndex;
@@ -93,16 +93,17 @@
 
     function _getRestaurants() {
       self.restaurantsLoading = true;
-      $rootScope.geolocationPromise.then(function(position) {
-        restaurants.getActive({
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-          distance: self.maxDistance
-        }).$promise.then(function (response) {
-            self.restaurantsLoading = false;
-            self.restaurants = response;
-          });
-      });
+      $rootScope.geolocationPromise
+        .then(function (position) {
+          restaurants.getActive({
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+            distance: self.maxDistance
+          }).$promise.then(function (response) {
+              self.restaurantsLoading = false;
+              self.restaurants = response;
+            });
+        });
     }
   }
 })();

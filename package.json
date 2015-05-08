@@ -22,7 +22,9 @@
     "passport": "~0.2.0",
     "passport-local": "~0.1.6",
     "pg": "^4.3.0",
-    "serve-favicon": "~2.0.1"
+    "postmark": "^1.0.0",
+    "serve-favicon": "~2.0.1",
+    "uuid": "^2.0.1"
   },
   "devDependencies": {
     "connect-livereload": "~0.4.0",

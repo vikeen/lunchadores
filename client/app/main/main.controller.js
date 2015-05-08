@@ -3,7 +3,5 @@
 
   angular.module('lunchadoresApp').controller('MainCtrl', MainCtrl);
 
-  function MainCtrl($rootScope, restaurants) {
-    var self = this;
-  }
+  function MainCtrl() {}
 })();
