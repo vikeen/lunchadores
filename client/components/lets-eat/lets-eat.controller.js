@@ -97,9 +97,9 @@
       $rootScope.geolocationPromise
         .then(function (position) {
           restaurants.getActive({
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-            distance: self.maxDistance
+            //lat: position.coords.latitude,
+            //lng: position.coords.longitude,
+            //distance: self.maxDistance
           }).$promise.then(function (response) {
               self.restaurantsLoading = false;
               self.restaurants = response;
