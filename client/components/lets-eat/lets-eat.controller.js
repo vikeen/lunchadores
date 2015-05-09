@@ -3,12 +3,13 @@
 
   angular.module('lunchadoresApp').controller('LetsEatCtrl', LetsEatCtrl);
 
-  function LetsEatCtrl($rootScope, $timeout, restaurants, maps) {
+  function LetsEatCtrl($scope, $rootScope, $timeout, restaurants, maps) {
     var self = this;
 
     self.buttonText = 'Find Food';
     self.distanceToRestaurant = null;
-    self.maxDistance = 25; // Miles
+    self.distance = 25; // Miles
+    self.maxDistance = 50; // Miles
     self.randomRestaurant = null;
     self.restaurants = null;
     self.restaurantChosen = false;

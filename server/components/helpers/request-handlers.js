@@ -15,7 +15,7 @@ function requestHandler(req, res) {
 // Private
 
 function _errorHandler(error) {
-  console.err(error);
+  console.error(error);
   throw error;
 }
 

@@ -1,36 +1,24 @@
-form.pure-form.pure-form-stacked(ng-submit='RestaurantCtrl.canUpdate() && RestaurantCtrl.updateRestaurant();')
-  legend
-    span(ng-if='!RestaurantCtrl.editingName' ng-click='RestaurantCtrl.canUpdate() && RestaurantCtrl.editName();') {{::RestaurantCtrl.restaurant.name}}
-    i.edit.fa.fa-pencil-square-o(ng-if='RestaurantCtrl.canUpdate() && !RestaurantCtrl.editingName' ng-click='RestaurantCtrl.editName();')
-    input(type='text' id='name' name='name' style='display: inline' ng-model='RestaurantCtrl.restaurant.name' ng-if='RestaurantCtrl.editingName')
+form(layout='row' layout-align='start center' layout-wrap ng-submit='RestaurantCtrl.canUpdate() && RestaurantCtrl.updateRestaurant();')
+  md-input-container(flex='100')
+    label Name
+    input(type='text' required='required' ng-readonly='!RestaurantCtrl.canUpdate()' ng-model='RestaurantCtrl.restaurant.name')
+  md-input-container(flex='100')
+    label Address
+    input(type='text' required='required' ng-readonly='!RestaurantCtrl.canUpdate()' ng-model='RestaurantCtrl.restaurant.address')
+  md-input-container(flex='100' flex-gt-sm='50')
+    label Latitude
+    input(type='text' required='required' readonly='readonly' ng-model='RestaurantCtrl.restaurant.lat')
+  md-input-container(flex='100' flex-gt-sm='50')
+    label Longitude
+    input(type='text' required='required' readonly='readonly' ng-model='RestaurantCtrl.restaurant.lng')
 
-  fieldset
-    .pure-g
-      .pure-u-1-1
-        label(for='address') Address
-        input(type='text' id='address' name='address' required='required' ng-readonly='!RestaurantCtrl.canUpdate();' ng-model='RestaurantCtrl.restaurant.address')
-      .pure-u-1-1.pure-u-sm-1-2
-        label(for='lat') Latitude
-        input(type='text' id='lat' name='lat' readonly='readonly' ng-model='RestaurantCtrl.restaurant.lat')
-      .pure-u-1-1.pure-u-sm-1-2
-        label(for='lng') Longitude
-        input(type='text' id='lng' name='lng' readonly='readonly' ng-model='RestaurantCtrl.restaurant.lng')
-      label.pure-u-1-4.pure-u-sm-1-8(for='active') Active
-      .pure-u-1-4.pure-u-sm-1-8
-        input(type='checkbox' id='active' name='active' ng-disabled='!RestaurantCtrl.canUpdate();' ng-model='RestaurantCtrl.restaurant.active')
-      label.pure-u-1-4.pure-u-sm-1-8(for='outside_seating') Outside Seating
-      .pure-u-1-4.pure-u-sm-1-8
-        input(type='checkbox' id='outside_seating' name='outside_seating' ng-disabled='!RestaurantCtrl.canUpdate();' ng-model='RestaurantCtrl.restaurant.outside_seating')
-      label.pure-u-1-4.pure-u-sm-1-8(for='vegan') Vegan
-      .pure-u-1-4.pure-u-sm-1-8
-        input(type='checkbox' id='vegan' name='vegan' ng-disabled='!RestaurantCtrl.canUpdate();' ng-model='RestaurantCtrl.restaurant.vegan')
-      label.pure-u-1-4.pure-u-sm-1-8(for='vegetarian') Vegetarian
-      .pure-u-1-4.pure-u-sm-1-8
-        input(type='checkbox' id='vegetarian' name='vegetarian' ng-disabled='!RestaurantCtrl.canUpdate();' ng-model='RestaurantCtrl.restaurant.vegetarian')
+  md-checkbox.md-primary(flex ng-readonly='!RestaurantCtrl.canUpdate()' ng-model='RestaurantCtrl.restaurant.active') Active
+  md-checkbox.md-primary(flex ng-readonly='!RestaurantCtrl.canUpdate()' ng-model='RestaurantCtrl.restaurant.outside_seating') Outside Seating
+  md-checkbox.md-primary(flex ng-readonly='!RestaurantCtrl.canUpdate()' ng-model='RestaurantCtrl.restaurant.vegan') Vegan
+  md-checkbox.md-primary(flex ng-readonly='!RestaurantCtrl.canUpdate()' ng-model='RestaurantCtrl.restaurant.vegetarian') Vegetarian
 
-      .pure-u-1-1
-        ul.form-error-messages
-          li.error-message(ng-repeat='error in RestaurantCtrl.errorMessages') {{error.message}}
+  ul(flex='100').form-error-messages
+    li.error-message(ng-repeat='error in RestaurantCtrl.errorMessages') {{error.message}}
 
-      .pure-controls
-        button.pure-button.pure-button-primary(ng-if='RestaurantCtrl.canUpdate();') Update
+
+  md-button.md-primary.md-raised(type='submit' ng-if='RestaurantCtrl.canUpdate();') Update

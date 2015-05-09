@@ -1,34 +1,27 @@
-form.pure-form.pure-form-stacked(name='updateUserForm' ng-submit='settingsCtrl.updateUserProfile(updateUserForm)')
+form.m-b-40(layout='row' layout-wrap name='updateUserForm' ng-submit='settingsCtrl.updateUserProfile(updateUserForm)')
   legend Profile
-  fieldset
-    .pure-g
-      .pure-u-1-1.pure-u-sm-1-2
-        label(for='first_name') First Name
-        input(type='text' id='first_name' ng-model='settingsCtrl.user.first_name' required='required')
-      .pure-u-1-1.pure-u-sm-1-2
-        label(for='last_name') Last Name
-        input(type='text' id='last_name' ng-model='settingsCtrl.user.last_name' required='required')
-      .pure-u-1-1.pure-u-sm-1-2
-        label(for='email_address') Email
-        input(type='text' id='emailAddress' ng-model='settingsCtrl.user.email_address' required='required')
-      .pure-u-1-1
-        ul.form-error-messages
-          li.error-message(ng-repeat='error in settingsCtrl.errorMessages') {{error.message}}
-      .pure-controls.pure-u-1-1
-        button.pure-button.pure-button-primary(type='submit') Update Profile
+  md-input-container(flex='100' flex-gt-sm='50')
+    label First Name
+    input(type='text' ng-model='settingsCtrl.user.first_name' required='required')
+  md-input-container(flex='100' flex-gt-sm='50')
+    label Last Name
+    input(type='text' ng-model='settingsCtrl.user.last_name' required='required')
+  md-input-container(flex='100')
+    label Email
+    input(type='text' ng-model='settingsCtrl.user.email_address' required='required')
+  ul(flex='100').form-error-messages
+    li.error-message(ng-repeat='error in settingsCtrl.errorMessages') {{error.message}}
+  md-button.md-raised.md-primary(type='submit') Update Profile
 
-form.pure-form.pure-form-stacked(name='changePasswordForm' ng-submit='settingsCtrl.changePassword(changePasswordForm)')
+form(layout='row' layout-wrap name='changePasswordForm' ng-submit='settingsCtrl.changePassword(changePasswordForm)')
   legend Change Password
-  fieldset
-    .pure-g
-      .pure-u-1-1.pure-u-sm-1-2
-        label(for='oldPassword') Current Password
-        input(type='password' id='oldPassword' ng-model='settingsCtrl.user.oldPassword' required='required')
-      .pure-u-1-1.pure-u-sm-1-2
-        label(for='newPassword') New Password
-        input.form-control(type='password' id='newPassword' ng-model='settingsCtrl.user.newPassword' ng-minlength='3' required='required')
-      .pure-u-1-1
-        ul.form-error-messages
-          li.error-message(ng-repeat='error in settingsCtrl.errorMessages') {{error.message}}
-      .pure-controls.pure-u-1-1
-        button.pure-button.pure-button-primary(type='submit') Change Password
+  md-input-container(flex='100' flex-gt-sm='50')
+    label Current Password
+    input(type='password' ng-model='settingsCtrl.user.oldPassword' required='required')
+  md-input-container(flex='100' flex-gt-sm='50')
+    label New Password
+    input.form-control(type='password' ng-model='settingsCtrl.user.newPassword' ng-minlength='3' required='required')
+
+  ul(flex='100').form-error-messages
+    li.error-message(ng-repeat='error in settingsCtrl.errorMessages') {{error.message}}
+  md-button.md-raised.md-primary(type='submit') Change Password

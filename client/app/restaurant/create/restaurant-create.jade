@@ -1,39 +1,37 @@
-h2 Create Restaurant
+h2.md-headline Create Restaurant
 
 section.new-restaurant-wizard
-  article.pure-g.information-step(ng-show="restaurantCreateCtrl.activeStep === 'information-step'")
-    form.pure-form.pure-form-stacked(ng-submit='restaurantCreateCtrl.restaurantInformationStepComplete();')
-      .pure-u-1-1.pure-u-sm-1-2
+  article.information-step(ng-show="restaurantCreateCtrl.activeStep === 'information-step'")
+    form(layout='row' layout-wrap ng-submit='restaurantCreateCtrl.restaurantInformationStepComplete()')
+      md-input-container(flex='100' flex-gt-sm='50')
         label(for='name') Name
         input(type='text' id='name' name='name' required='required' ng-model='restaurantCreateCtrl.newRestaurant.name')
-      .pure-u-1-1.pure-u-sm-1-2
+      md-input-container(flex='100' flex-gt-sm='50')
         label(for='address') Address
         input(type='text' id='address' name='address' required='required' ng-model='restaurantCreateCtrl.newRestaurant.address')
-      .pure-u-1-1
-        label(for='outside_seating', class='pure-checkbox')
-          input(type='checkbox' id='outside_seating' name='outside_seating' ng-model='restaurantCreateCtrl.newRestaurant.outside_seating')
-          = ' Outside Seating'
+      md-checkbox.md-primary(flex ng-model='restaurantCreateCtrl.newRestaurant.outside_seating') Outside Seating
+      md-checkbox.md-primary(flex ng-model='restaurantCreateCtrl.newRestaurant.vegan') Vegan
+      md-checkbox.md-primary(flex ng-model='restaurantCreateCtrl.newRestaurant.vegetarian') Outside Seating
+
       .pure-u-1-1
         ul.form-error-messages
           li.error-message(ng-repeat='error in restaurantCreateCtrl.errorMessages') {{error.message}}
-      .pure-u-1
-        button.pure-button.button-success(type='submit', ng-disabled='restaurantCreateCtrl.verifyingAddress') Verify Address
+
+        md-button.md-raised.md-primary(type='submit', ng-disabled='restaurantCreateCtrl.verifyingAddress') Verify Address
         i#verificationLoading.fa.fa-circle-o-notch.fa-spin(ng-show='restaurantCreateCtrl.verifyingAddress')
-  article.pure-g.confirmation-step(ng-show="restaurantCreateCtrl.activeStep === 'confirmation-step'")
-    .pure-u-1.pure-u-md-1-2
-      #map
-    .pure-u-1-1
-      table.pure-table
-        thead
-          tr
-            th Name
-            th Address
-        tbody
-          tr
-            td {{restaurantCreateCtrl.newRestaurant.name}}
-            td {{restaurantCreateCtrl.newRestaurant.officialAddress}}
-    .pure-u-1-1.pure-controls
-      span Is this information correct?
-      button.pure-button.button-success(ng-click='restaurantCreateCtrl.createRestaurant();') Yes
+  article.confirmation-step(layout='row' layout-wrap layout-align='start center' ng-show="restaurantCreateCtrl.activeStep === 'confirmation-step'")
+    #map.m-b-20(flex='100' flex-gt-sm='50')
+    table.pure-table.m-b-20(flex='100' flex-gt-sm='50')
+      thead
+        tr
+          th Name
+          th Address
+      tbody
+        tr
+          td {{restaurantCreateCtrl.newRestaurant.name}}
+          td {{restaurantCreateCtrl.newRestaurant.officialAddress}}
+    span(flex='100' flex-gt-sm='50') Is this information correct?
+    div(flex='100' flex-gt-sm='50')
+      md-button.md-raised.md-primary(ng-click='restaurantCreateCtrl.createRestaurant();') Yes
       = ' '
-      button.pure-button.button-error(ng-click="restaurantCreateCtrl.activeStep = 'information-step';") No
+      md-button.md-raised.md-warn(ng-click="restaurantCreateCtrl.activeStep = 'information-step';") No

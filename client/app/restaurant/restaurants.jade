@@ -1,8 +1,8 @@
-.pure-g
-  .pure-u-1-1.pure-u-sm-1-2
-    .form-title {{restaurantsCtrl.filteredRestaurants.length}} Restaurants
-  .pure-u-1-1.pure-u-sm-1-2
-    form.pure-form.search
+div(layout='row' layout-wrap layout-align='center center')
+  h2.md-title.m-0(flex='100' flex-gt-sm='50') {{restaurantsCtrl.filteredRestaurants.length}} Restaurants
+  div(flex='100' flex-gt-sm='50')
+    md-input-container
+      label Search
       input(type='search' placeholder='Search...' ng-model='restaurantsCtrl.restaurantFilter.name')
 table.pure-table(ng-show='restaurantsCtrl.filteredRestaurants.length')
   thead

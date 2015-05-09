@@ -4,6 +4,7 @@
   angular.module('lunchadoresApp', [
     'ngCookies',
     'ngMd5',
+    'ngMaterial',
     'ngResource',
     'ngSanitize',
     'ui.router'

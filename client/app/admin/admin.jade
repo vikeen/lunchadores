@@ -1,14 +1,11 @@
 #admin
-  section.quick-links
-    .create-restaurant
+  section.quick-links(flex='100')
       a(ui-sref="restaurant.create") Create Restaurant
-  section.users
-    .pure-g
-      .pure-u-1-1.pure-u-sm-1-2
-        .form-title {{adminCtrl.filteredUsers.length}} Users
-      .pure-u-1-1.pure-u-sm-1-2
-        form.pure-form.search
-          input(type='search' placeholder='Search...' ng-model='adminCtrl.userFilter')
+  section.users(layout='row' layout-wrap layout-align='start center')
+    h2.md-title(flex='100' flex-gt-sm='50') {{adminCtrl.filteredUsers.length}} Users
+    md-input-container(flex='100' flex-gt-sm='50')
+      label Search
+      input(type='search' placeholder='Search...' ng-model='adminCtrl.userFilter')
     table.pure-table.pure-table-striped(ng-show='adminCtrl.filteredUsers.length')
       thead
         tr
@@ -30,13 +27,11 @@
           td
             a.trash.pull-right(ng-click='adminCtrl.deleteUser(user)')
               i.fa.fa-trash
-  section.restaurants
-    .pure-g
-      .pure-u-1-1.pure-u-sm-1-2
-        .form-title {{adminCtrl.filteredRestaurants.length}} Restaurants
-      .pure-u-1-1.pure-u-sm-1-2
-        form.pure-form.search
-          input(type='search' placeholder='Search...' ng-model='adminCtrl.restaurantFilter')
+  section.restaurants(layout='row' layout-wrap layout-align='start center')
+    h2.md-title(flex='100' flex-gt-sm='50') {{adminCtrl.filteredRestaurants.length}} Restaurants
+    md-input-container(flex='100' flex-gt-sm='50')
+      label Search
+      input(type='search' placeholder='Search...' ng-model='adminCtrl.restaurantFilter')
     table.pure-table.pure-table-striped(ng-show='adminCtrl.filteredRestaurants.length')
       thead
         tr

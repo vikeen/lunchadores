@@ -1,37 +1,27 @@
-legend
-  font-size: 135%
-
-  i
-    font-size: 14px !important
-    margin-left: 10px
-    cursor: pointer
-
-.form-error-messages
-  padding: 0
-  margin: 0
-  list-style: none
-  background: $errorColor
-  color: white
-
-  .error-message
-    padding: 10px
-
-.form-title
-  font-weight: 300
-  font-size: 120%
-  margin: 5px 0 0 0
-
 form
-  &.search
-    position: relative
+  button[type="submit"]
+    margin-left: 0;
 
-    input[type="search"]
-      font-size: 80%
-      position: static
+  legend
+    display: block
+    width: 100%
+    padding: 0;
+    margin-bottom: .5em;
+    border-bottom: 1px solid #e5e5e5;
+    font-size: 135%
 
+  .form-error-messages
+    padding: 0
+    margin: 0
+    list-style: none
+    background: $errorColor
+    color: white
 
-@media screen and (min-width: $sm)
-  form.search
-    input[type="search"]
-      position: absolute
-      right: 0
+    .error-message
+      padding: 10px
+
+//@media screen and (min-width: $sm)
+//  form.search
+//    input[type="search"]
+//      position: absolute
+//      right: 0

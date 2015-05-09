@@ -19,6 +19,7 @@
   <!-- build:css(client) app/vendor.css -->
   <!-- bower:css -->
   <link rel="stylesheet" href="bower_components/pure/pure.css" />
+  <link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
   <!-- endbower -->
   <link rel="stylesheet" href="bower_components/pure/grids-responsive.css"/>
   <link rel="stylesheet" href="bower_components/pure-extras/css/pure-extras.css"/>
@@ -54,8 +55,8 @@
           </a>
         </li>
         <li ng-show="isLoggedIn()">
-          <a class="default" href="#" ng-click="navBarCtrl.logout()">
-            <i class="fa fa-sign-out fa-lg"></i>
+          <a class="default">
+            <i class="fa fa-sign-out fa-lg" ng-click="navBarCtrl.logout()"></i>
           </a>
         </li>
       </ul>
@@ -65,25 +66,27 @@
 </header>
 
 <div class="wrapper content" role="main">
-  <div ui-view=""></div>
+  <md-content>
+    <div ui-view=""></div>
+  </md-content>
 </div>
 
 <footer>
   <div class="wrapper">
     <ul class="pull-left" ng-show="isAdmin()">
       <li>
-        <button class="pure-button pure-button-error" ui-sref="admin">
+        <md-button class="md-raised md-warn" ui-sref="admin">
           <i class="fa fa-lock"></i>
           Admin
-        </button>
+        </md-button>
       </li>
     </ul>
     <ul class="pull-right">
       <li>
-        <button class="pure-button pure-button-primary" ui-sref="restaurant.index">
+        <md-button class="md-raised md-primary" ui-sref="restaurant.index">
           <i class="fa fa-cutlery"></i>
           Restaurants
-        </button>
+        </md-button>
       </li>
     </ul>
   </div>
@@ -105,6 +108,9 @@
 <script src="bower_components/lodash/dist/lodash.compat.js"></script>
 <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
 <script src="bower_components/angular-md5/angular-md5.js"></script>
+<script src="bower_components/angular-animate/angular-animate.js"></script>
+<script src="bower_components/angular-aria/angular-aria.js"></script>
+<script src="bower_components/angular-material/angular-material.js"></script>
 <!-- endbower -->
 <!-- endbuild -->
 
