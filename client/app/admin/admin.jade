@@ -5,7 +5,7 @@
     h2.md-title(flex='100' flex-gt-sm='50') {{adminCtrl.filteredUsers.length}} Users
     md-input-container(flex='100' flex-gt-sm='50')
       label Search
-      input(type='search' placeholder='Search...' ng-model='adminCtrl.userFilter')
+      input(type='search' ng-model='adminCtrl.userFilter')
     table.pure-table.pure-table-striped(ng-show='adminCtrl.filteredUsers.length')
       thead
         tr
@@ -31,7 +31,7 @@
     h2.md-title(flex='100' flex-gt-sm='50') {{adminCtrl.filteredRestaurants.length}} Restaurants
     md-input-container(flex='100' flex-gt-sm='50')
       label Search
-      input(type='search' placeholder='Search...' ng-model='adminCtrl.restaurantFilter')
+      input(type='search' ng-model='adminCtrl.restaurantFilter')
     table.pure-table.pure-table-striped(ng-show='adminCtrl.filteredRestaurants.length')
       thead
         tr
