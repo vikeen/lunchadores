@@ -4,8 +4,9 @@
       //div(layout='row' layout-align='start center')
       //  h2.md-title(flex='25') Distance
       //  md-slider.md-primary(flex='50' md-discrete step='5' min='0' max='letsEatCtrl.maxDistance' aria-label='Distance' ng-model='letsEatCtrl.distance')
-    md-button.md-raised.md-primary(ng-click='letsEatCtrl.selectRandomRestaurant()' ng-disabled='letsEatCtrl.restaurantsLoading') {{letsEatCtrl.buttonText}}
-    i.loading.fa.fa-circle-o-notch.fa-spin(ng-show='letsEatCtrl.restaurantsLoading')
+    md-button.md-raised.md-primary(ng-click='letsEatCtrl.selectRandomRestaurant()' ng-disabled='letsEatCtrl.restaurantsLoading')
+      span(ng-hide='letsEatCtrl.restaurantsLoading') Find Restaurant
+      lunchadores-loading-icon(is-loading='letsEatCtrl.restaurantsLoading' ng-show='letsEatCtrl.restaurantsLoading')
 
   .lets-eat-result(layout='row' layout-wrap ng-show='letsEatCtrl.randomRestaurant')
       h2.md-headline.m-0(flex='100' flex-gt-sm='50')

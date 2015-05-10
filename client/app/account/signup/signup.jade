@@ -13,7 +13,6 @@ form(layout='row' layout-wrap name='form', ng-submit='signupCtrl.register(form)'
     label Password
     input(type='password', ng-model='signupCtrl.user.password', ng-minlength='3', required='' )
 
-  ul(flex='100').form-error-messages
-    li.error-message(ng-repeat='error in signupCtrl.errors') {{error.message || error.msg}}
+  lunchadores-form-errors(errors='signupCtrl.errors')
 
   md-button.md-raised.md-primary(type='submit') Sign up

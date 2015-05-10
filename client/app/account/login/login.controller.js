@@ -1,4 +1,4 @@
-(function() {
+(function () {
   /* jshint camelcase:false */
   'use strict';
 
@@ -7,26 +7,28 @@
   function LoginCtrl(Auth, $location) {
     var self = this;
 
+    self.errors = [];
     self.login = login;
+    self.loginWaiting = false;
     self.user = {};
 
     ////////////
 
     function login(form) {
-      self.submitted = true;
+      self.errors = [];
+      self.loginWaiting = true;
 
       if (form.$valid) {
         Auth.login({
           email_address: self.user.email_address,
           password: self.user.password
-        })
-          .then(function () {
-            // Logged in, redirect to home
-            $location.path('/');
-          })
-          .catch(function (err) {
-            self.loginError = err.message;
-          });
+        }).then(function () {
+          $location.path('/');
+        }).catch(function (err) {
+          self.errors.push(err);
+        }).finally(function () {
+          self.loginWaiting = false;
+        });
       }
     }
   }

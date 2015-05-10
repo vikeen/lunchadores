@@ -11,14 +11,15 @@ section.new-restaurant-wizard
         input(type='text' id='address' name='address' required='required' ng-model='restaurantCreateCtrl.newRestaurant.address')
       md-checkbox.md-primary(flex ng-model='restaurantCreateCtrl.newRestaurant.outside_seating') Outside Seating
       md-checkbox.md-primary(flex ng-model='restaurantCreateCtrl.newRestaurant.vegan') Vegan
-      md-checkbox.md-primary(flex ng-model='restaurantCreateCtrl.newRestaurant.vegetarian') Outside Seating
+      md-checkbox.md-primary(flex ng-model='restaurantCreateCtrl.newRestaurant.vegetarian') Vegetarian
 
-      .pure-u-1-1
-        ul.form-error-messages
-          li.error-message(ng-repeat='error in restaurantCreateCtrl.errorMessages') {{error.message}}
+      lunchadores-form-errors(flex='100' errors='restaurantCreateCtrl.errorMessages')
 
-        md-button.md-raised.md-primary(type='submit', ng-disabled='restaurantCreateCtrl.verifyingAddress') Verify Address
-        i#verificationLoading.fa.fa-circle-o-notch.fa-spin(ng-show='restaurantCreateCtrl.verifyingAddress')
+      div(flex='100')
+        md-button.md-raised.md-primary(type='submit', ng-disabled='restaurantCreateCtrl.verifyingAddress')
+          span(ng-hide='restaurantCreateCtrl.verifyingAddress') Verify Address
+          lunchadores-loading-icon(is-loading='loginCtrl.loginWaiting' ng-show='restaurantCreateCtrl.verifyingAddress')
+
   article.confirmation-step(layout='row' layout-wrap layout-align='start center' ng-show="restaurantCreateCtrl.activeStep === 'confirmation-step'")
     #map.m-b-20(flex='100' flex-gt-sm='50')
     table.pure-table.m-b-20(flex='100' flex-gt-sm='50')

@@ -8,8 +8,11 @@ form(name='form', ng-submit='loginCtrl.login(form)')
       label(for='password') Password
       input(type='password', id="password" ng-model='loginCtrl.user.password', required="required")
 
-    .pure-alert.pure-alert-error(ng-if="loginCtrl.loginError") {{loginCtrl.loginError}}
 
-    md-button.md-raised.md-primary(type='submit') Login
-    = ' '
-    a.default.underline(ui-sref="password-reset") Forgot Password?
+  lunchadores-form-errors(errors='loginCtrl.errors')
+
+  md-button.md-raised.md-primary(type='submit' ng-disabled='loginCtrl.loginWaiting')
+    span(ng-hide='loginCtrl.loginWaiting') Login
+    lunchadores-loading-icon(is-loading='loginCtrl.loginWaiting' ng-show='loginCtrl.loginWaiting')
+  = ' '
+  a.default.underline(ui-sref="password-reset") Forgot Password?

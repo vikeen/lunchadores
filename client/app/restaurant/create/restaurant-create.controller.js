@@ -7,11 +7,12 @@
     var self = this;
 
     self.activeStep = 'information-step';
-    self.createRestaurant = createRestaurant;
     self.errorMessages = [];
+    self.newRestaurant = {};
+
+    self.createRestaurant = createRestaurant;
     self.goToConfirmationStep = goToConfirmationStep;
     self.goToInformationStep = goToInformationStep;
-    self.newRestaurant = {};
     self.restaurantInformationStepComplete = restaurantInformationStepComplete;
 
     ////////////

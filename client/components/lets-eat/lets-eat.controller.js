@@ -6,7 +6,6 @@
   function LetsEatCtrl($scope, $rootScope, $timeout, restaurants, maps) {
     var self = this;
 
-    self.buttonText = 'Find Food';
     self.distanceToRestaurant = null;
     self.distance = 25; // Miles
     self.maxDistance = 50; // Miles
@@ -62,7 +61,6 @@
     }
 
     function resetFlow(selectRestaurant) {
-      self.buttonText = 'Find Food';
       self.restaurantChosen = false;
       self.randomRestaurant = undefined;
 
@@ -72,8 +70,6 @@
     }
 
     function selectRandomRestaurant() {
-      self.buttonText = 'Spin Again';
-
       var newRandomIndex = _getRandomIndex(self.restaurants.length);
 
       while (newRandomIndex === self.randomRestaurantIndex) {
