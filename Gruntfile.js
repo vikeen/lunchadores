@@ -589,13 +589,35 @@ module.exports = function (grunt) {
     }
   });
 
-  grunt.registerTask('cleandb', 'Clean db and re-apply all migrations', function () {
+  grunt.registerTask('clean_db', 'Clean db and re-apply all migrations', function () {
     var fs = require('fs');
     var files = fs.readdirSync('./migrations');
     for (var i = 0; i < files.length; i++) {
       grunt.task.run('migrate:down');
     }
-    grunt.task.run('migrate:up');
+
+    return grunt.task.run([
+      'migrate:up',
+      'seed_db'
+    ]);
+  });
+
+  grunt.registerTask('seed_db', 'Bootstrap database data', function () {
+    var done = this.async(),
+      async = require('async');
+
+    if (!config.seedDB) {
+      console.error('Error: database seeding is not allowed on', process.env.NODE_ENV);
+      return process.exit(0);
+    }
+
+    require('./server/database').connect(function (db) {
+      require('./server/models')(db, function (models) {
+        require('./server/config/seed')(function () {
+          done();
+        });
+      });
+    });
   });
 
   // Used for delaying livereload until after server has restarted
