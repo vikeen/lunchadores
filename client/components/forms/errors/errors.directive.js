@@ -9,7 +9,7 @@
         errors: '='
       },
       restrict: 'E',
-      templateUrl: 'components/forms/form-errors.html',
+      templateUrl: 'components/forms/errors/errors.html',
       link: link
     };
 
