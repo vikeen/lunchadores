@@ -5,7 +5,14 @@ var _ = require('lodash');
 module.exports = function (db) {
   return db.define('restaurant', {
     name: String,
-    address: String,
+    street: String,
+    city: String,
+    state: String,
+    state_abbreviation: String,
+    country: String,
+    country_abbreviation: String,
+    zipcode: String,
+    formatted_address: String,
     lat: Number,
     lng: Number,
     active: Boolean,

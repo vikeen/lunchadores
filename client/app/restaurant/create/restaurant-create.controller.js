@@ -3,21 +3,35 @@
 
   angular.module('lunchadoresApp').controller('RestaurantCreateCtrl', RestaurantCreateCtrl);
 
-  function RestaurantCreateCtrl($timeout, restaurants, maps, notifications) {
+  function RestaurantCreateCtrl($timeout, maps, notifications, restaurants, states, countries) {
     var self = this;
 
-    self.activeStep = 'information-step';
+    self.activeStep = '';
+    self.countries = {};
     self.errors = [];
     self.newRestaurant = {};
+    self.states = {};
 
     self.createRestaurant = createRestaurant;
     self.goToConfirmationStep = goToConfirmationStep;
     self.goToInformationStep = goToInformationStep;
+    self.resetFlow = resetFlow;
     self.restaurantInformationStepComplete = restaurantInformationStepComplete;
+
+    activate();
 
     ////////////
 
+    function activate() {
+      self.states = states.getAllStates();
+      self.countries = countries.getAllCountries();
+      self.resetFlow();
+    }
+
     function createRestaurant() {
+      self.newRestaurant.state = self.states[self.newRestaurant.state_abbreviation].name;
+      self.newRestaurant.country = self.countries[self.newRestaurant.country_abbreviation].name;
+
       restaurants.save(self.newRestaurant).$promise
         .then(function () {
           notifications.showSuccess({
@@ -33,7 +47,7 @@
           });
         });
 
-      self.goToInformationStep();
+      self.resetFlow();
     }
 
     function goToConfirmationStep() {
@@ -44,15 +58,26 @@
       self.activeStep = 'information-step';
     }
 
+    function resetFlow() {
+      self.goToInformationStep();
+    }
+
     function restaurantInformationStepComplete() {
       self.verifyingAddress = true;
       self.errors = [];
 
-      maps.getGeoLocation(self.newRestaurant.address)
+      var address = [
+        self.newRestaurant.street,
+        self.newRestaurant.city,
+        self.newRestaurant.state_abbreviation + ' ' + self.newRestaurant.zipcode,
+        self.newRestaurant.country_abbreviation
+      ].join(',');
+
+      maps.getGeoLocation(address)
         .then(function (response) {
           self.goToConfirmationStep();
 
-          self.newRestaurant.officialAddress = response.address;
+          self.newRestaurant.formatted_address = response.formatted_address;
           self.newRestaurant.lat = response.lat;
           self.newRestaurant.lng = response.lng;
 

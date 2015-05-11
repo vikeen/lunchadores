@@ -4,7 +4,9 @@
   section.users(layout='row' layout-wrap layout-align='start center')
     h2.md-title(flex='100' flex-gt-sm='50') {{adminCtrl.filteredUsers.length}} Users
     md-input-container(flex='100' flex-gt-sm='50')
-      label Search
+      label
+        .fa.fa-search
+          = ' Search'
       input(type='search' ng-model='adminCtrl.userFilter')
     table.pure-table.pure-table-striped(ng-show='adminCtrl.filteredUsers.length')
       thead
@@ -30,7 +32,9 @@
   section.restaurants(layout='row' layout-wrap layout-align='start center')
     h2.md-title(flex='100' flex-gt-sm='50') {{adminCtrl.filteredRestaurants.length}} Restaurants
     md-input-container(flex='100' flex-gt-sm='50')
-      label Search
+      label
+        .fa.fa-search
+          = ' Search'
       input(type='search' ng-model='adminCtrl.restaurantFilter')
     table.pure-table.pure-table-striped(ng-show='adminCtrl.filteredRestaurants.length')
       thead
@@ -43,7 +47,7 @@
         tr(ng-repeat='restaurant in adminCtrl.filteredRestaurants = (adminCtrl.restaurants | filter:adminCtrl.restaurantFilter:strict)')
           td
             a(ui-sref="restaurant.show({id: restaurant.id})") {{restaurant.name}}
-          td {{restaurant.address}}
+          td {{restaurant.formatted_address}}
           td.text-center
             i.fa.fa-check.success(ng-if='restaurant.active')
             i.fa.fa-close.error(ng-if='!restaurant.active')

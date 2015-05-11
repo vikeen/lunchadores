@@ -9,7 +9,14 @@ var mockRestaurants = [
   {
     id: 1,
     name: 'Q39 Kansas City BBQ',
-    address: '1000 West 39th Street, Kansas City, MO 64111, USA',
+    street: 'new street',
+    city: 'new city',
+    state: 'new state',
+    state_abbreviation: 'KS',
+    country: 'United States of America',
+    country_abbreviation: 'USA',
+    zipcode: '64105',
+    formatted_address: '1000 West 39th Street, Kansas City, MO 64111, USA',
     lat: 39.0574043,
     lng: -94.5981116,
     active: true,
@@ -19,7 +26,14 @@ var mockRestaurants = [
   {
     id: 2,
     name: 'Pizza Shoppe',
-    address: '1000 West 39th Street, Kansas City, MO 64111, USA',
+    street: 'new street',
+    city: 'new city',
+    state: 'new state',
+    state_abbreviation: 'KS',
+    country: 'United States of America',
+    country_abbreviation: 'USA',
+    zipcode: '64105',
+    formatted_address: '1000 West 39th Street, Kansas City, MO 64111, USA',
     lat: 2.2654,
     lng: 47.39329,
     active: false,
@@ -41,7 +55,12 @@ describe('Restaurant Model', function () {
 
   beforeEach(function (done) {
     models.restaurant.find({}).remove(function () {
-      models.restaurant.create(mockRestaurants, function () {
+      models.restaurant.create(mockRestaurants, function (err, restaurants) {
+        if (err) {
+          console.error(err);
+          throw err;
+        }
+
         done();
       });
     });

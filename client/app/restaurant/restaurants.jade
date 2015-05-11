@@ -2,8 +2,10 @@ div(layout='row' layout-wrap layout-align='center center')
   h2.md-title.m-0(flex='100' flex-gt-sm='50') {{restaurantsCtrl.filteredRestaurants.length}} Restaurants
   div(flex='100' flex-gt-sm='50')
     md-input-container
-      label Search
-      input(type='search' placeholder='Search...' ng-model='restaurantsCtrl.restaurantFilter.name')
+      label
+        .fa.fa-search
+          = ' Search'
+      input(type='search' ng-model='restaurantsCtrl.restaurantFilter.name')
 table.pure-table(ng-show='restaurantsCtrl.filteredRestaurants.length')
   thead
     th.sortable(ng-click='restaurantsCtrl.setColumnSorting("name")') Name
@@ -18,7 +20,7 @@ table.pure-table(ng-show='restaurantsCtrl.filteredRestaurants.length')
         a(ui-sref="restaurant.show({id: restaurant.id})") {{restaurant.name}}
       td
         lunchadores-rating(rating-value='restaurant.rating')
-      td {{restaurant.address}}
+      td {{restaurant.formatted_address}}
       td.text-center
         i.fa.fa-check.success(ng-if='restaurant.outside_seating')
         i.fa.fa-close.error(ng-if='!restaurant.outside_seating')

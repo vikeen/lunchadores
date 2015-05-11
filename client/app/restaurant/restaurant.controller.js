@@ -5,13 +5,15 @@
 
   angular.module('lunchadoresApp').controller('RestaurantCtrl', RestaurantCtrl);
 
-  function RestaurantCtrl($rootScope, $stateParams, $q, restaurants, notifications) {
+  function RestaurantCtrl($rootScope, $stateParams, $q, restaurants, notifications, states, countries) {
     var self = this;
 
+    self.countries = {};
     self.editingName = false;
     self.errors = [];
     self.updateRestaurantFormSubmit = false;
     self.restaurant = {};
+    self.states = {};
 
     self.canUpdate = canUpdate;
     self.editName = editName;
@@ -23,6 +25,9 @@
     ////////////
 
     function activate() {
+      self.states = states.getAllStates();
+      self.countries = countries.getAllCountries();
+
       restaurants.get({id: $stateParams.id}).$promise.then(function (response) {
         self.restaurant = response;
       });
@@ -39,13 +44,20 @@
     function getGeoCoordinates() {
       var deferred = $q.defer();
 
-      new google.maps.Geocoder().geocode({address: self.restaurant.address}, function (results, status) {
+      var address = [
+        self.restaurant.street,
+        self.restaurant.city,
+        self.restaurant.state_abbreviation + ' ' + self.restaurant.zipcode,
+        self.restaurant.country_abbreviation
+      ].join(',');
+
+      new google.maps.Geocoder().geocode({address: address}, function (results, status) {
         if (status === google.maps.GeocoderStatus.OK) {
           if (results.length === 0) {
             self.errors.push({message: 'No Results Found.'});
             deferred.reject();
           } else if (results.length === 1) {
-            self.restaurant.address = results[0].formatted_address;
+            self.restaurant.formatted_address = results[0].formatted_address;
             self.restaurant.lat = results[0].geometry.location.lat();
             self.restaurant.lng = results[0].geometry.location.lng();
 

@@ -36,7 +36,7 @@
 
       var request = {
         origin: new google.maps.LatLng($rootScope.position.coords.latitude, $rootScope.position.coords.longitude),
-        destination: self.randomRestaurant.address,
+        destination: self.randomRestaurant.formatted_address,
         travelMode: google.maps.TravelMode.DRIVING
       };
 

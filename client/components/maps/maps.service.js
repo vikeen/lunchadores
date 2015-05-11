@@ -64,7 +64,7 @@
             deferred.reject({ message: 'No Results Found.'});
           } else if (results.length === 1) {
             deferred.resolve({
-              address: results[0].formatted_address,
+              formatted_address: results[0].formatted_address,
               lat: results[0].geometry.location.lat(),
               lng: results[0].geometry.location.lng()
             });

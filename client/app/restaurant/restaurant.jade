@@ -3,14 +3,25 @@ form(layout='row' layout-align='start center' layout-wrap ng-submit='::Restauran
     label Name
     input(type='text' required='required' ng-readonly='::!RestaurantCtrl.canUpdate()' ng-model='RestaurantCtrl.restaurant.name')
   md-input-container(flex='100')
-    label Address
-    input(type='text' required='required' ng-readonly='::!RestaurantCtrl.canUpdate()' ng-model='RestaurantCtrl.restaurant.address')
-  md-input-container(flex='100' flex-gt-sm='50')
-    label Latitude
-    input(type='text' required='required' readonly='readonly' ng-model='RestaurantCtrl.restaurant.lat')
-  md-input-container(flex='100' flex-gt-sm='50')
-    label Longitude
-    input(type='text' required='required' readonly='readonly' ng-model='RestaurantCtrl.restaurant.lng')
+    label Street
+    input(type='text' required='required' ng-model='RestaurantCtrl.restaurant.street')
+  md-input-container(flex='50' flex-gt-sm='50')
+    label City
+    input(type='text' required='required' ng-model='RestaurantCtrl.restaurant.city')
+  md-input-container(flex='50')
+    md-select(placeholder='State' ng-model='RestaurantCtrl.restaurant.state_abbreviation')
+      md-option(ng-repeat='state in RestaurantCtrl.states' value='{{state.abbreviation}}') {{state.name}}
+  md-input-container(flex='50')
+    md-select(placeholder='Country' ng-model='RestaurantCtrl.restaurant.country_abbreviation')
+      md-option(ng-repeat='country in RestaurantCtrl.countries' value='{{::country.abbreviation}}') {{::country.name}}
+  md-input-container(flex='50')
+    label ZipCode
+    input(type='text' required='required' ng-model='RestaurantCtrl.restaurant.zipcode')
+
+  //md-chips.md-primary(flex='100' ng-readonly='!RestaurantCtrl.canUpdate()')
+  //  md-chip(ng-if='RestaurantCtrl.restaurant.outside_seating') Outside Seating
+  //  md-chip(ng-if='RestaurantCtrl.restaurant.vegan') Vegan
+  //  md-chip(ng-if='RestaurantCtrl.restaurant.vegetarian') Vegetarian
 
   md-checkbox.md-primary(flex ng-readonly='::!RestaurantCtrl.canUpdate()' ng-model='RestaurantCtrl.restaurant.active') Active
   md-checkbox.md-primary(flex ng-readonly='::!RestaurantCtrl.canUpdate()' ng-model='RestaurantCtrl.restaurant.outside_seating') Outside Seating
@@ -18,6 +29,5 @@ form(layout='row' layout-align='start center' layout-wrap ng-submit='::Restauran
   md-checkbox.md-primary(flex ng-readonly='::!RestaurantCtrl.canUpdate()' ng-model='RestaurantCtrl.restaurant.vegetarian') Vegetarian
 
   lunchadores-form-errors(errors='RestaurantCtrl.errors')
-
   div(ng-if='::RestaurantCtrl.canUpdate()')
     lunchadores-submit-button(is-submit='' button-text='Update')
