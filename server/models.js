@@ -4,20 +4,23 @@
 
 'use strict';
 
-var config = require('./config/environment'),
-    models = null;
+var _ = require('lodash'),
+  config = require('./config/environment'),
+  models = null;
 
-function setup(db) {
+function setup(db, callback) {
   require('./api/password-reset/password-reset.model')(db);
   require('./api/restaurant/restaurant.model')(db);
   require('./api/user/user.model')(db);
 
   models = db.models;
-  return db.models;
+  callback(null, db.models);
 }
 
-module.exports = function(db) {
-  if (models) return models;
+module.exports = function (db, callback) {
+  if (models) {
+    return (_.isFunction(callback)) ? callback(null, models) : models;
+  }
 
-  return setup(db);
+  setup(db, callback);
 };

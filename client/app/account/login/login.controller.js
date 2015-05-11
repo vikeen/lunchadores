@@ -9,14 +9,14 @@
 
     self.errors = [];
     self.login = login;
-    self.loginWaiting = false;
+    self.loginFormSubmit = false;
     self.user = {};
 
     ////////////
 
     function login(form) {
       self.errors = [];
-      self.loginWaiting = true;
+      self.loginFormSubmit = true;
 
       if (form.$valid) {
         Auth.login({
@@ -27,7 +27,7 @@
         }).catch(function (err) {
           self.errors.push(err);
         }).finally(function () {
-          self.loginWaiting = false;
+          self.loginFormSubmit = false;
         });
       }
     }

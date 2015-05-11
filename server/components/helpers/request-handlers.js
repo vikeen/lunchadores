@@ -5,7 +5,7 @@ module.exports = requestHandler;
 function requestHandler(req, res) {
   return function (error, data) {
     if (error) {
-      _errorHandler(error);
+      _errorHandler(error, req, res);
     } else {
       _successHandler(data, req, res)
     }
@@ -14,9 +14,9 @@ function requestHandler(req, res) {
 
 // Private
 
-function _errorHandler(error) {
+function _errorHandler(error, req, res) {
   console.error(error);
-  throw error;
+  res.send(500);
 }
 
 function _successHandler(data, req, res) {

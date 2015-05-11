@@ -10,9 +10,6 @@ form(name='form', ng-submit='loginCtrl.login(form)')
 
 
   lunchadores-form-errors(errors='loginCtrl.errors')
-
-  md-button.md-raised.md-primary(type='submit' ng-disabled='loginCtrl.loginWaiting')
-    span(ng-hide='loginCtrl.loginWaiting') Login
-    lunchadores-loading-icon(is-loading='loginCtrl.loginWaiting' ng-show='loginCtrl.loginWaiting')
+  lunchadores-submit-button(is-submit='loginCtrl.loginFormSubmit' button-text='Login')
   = ' '
   a.default.underline(ui-sref="password-reset") Forgot Password?

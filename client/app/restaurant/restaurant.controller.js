@@ -1,4 +1,4 @@
-(function() {
+(function () {
   /* jshint camelcase:false */
 
   'use strict';
@@ -8,12 +8,14 @@
   function RestaurantCtrl($rootScope, $stateParams, $q, restaurants, notifications) {
     var self = this;
 
+    self.editingName = false;
+    self.errors = [];
+    self.updateRestaurantFormSubmit = false;
+    self.restaurant = {};
+
     self.canUpdate = canUpdate;
     self.editName = editName;
-    self.editingName = false;
-    self.errorMessages = [];
     self.getGeoCoordinates = getGeoCoordinates;
-    self.restaurant = undefined;
     self.updateRestaurant = updateRestaurant;
 
     activate();
@@ -40,9 +42,7 @@
       new google.maps.Geocoder().geocode({address: self.restaurant.address}, function (results, status) {
         if (status === google.maps.GeocoderStatus.OK) {
           if (results.length === 0) {
-            self.errorMessages.push({
-              message: 'No Results Found.'
-            });
+            self.errors.push({message: 'No Results Found.'});
             deferred.reject();
           } else if (results.length === 1) {
             self.restaurant.address = results[0].formatted_address;
@@ -51,15 +51,11 @@
 
             deferred.resolve();
           } else {
-            self.errorMessages.push({
-              message: 'Too many results found. Please refine your search parameters.'
-            });
+            self.errors.push({message: 'Too many results found. Please refine your search parameters.'});
             deferred.reject();
           }
         } else {
-          self.errorMessages.push({
-            message: 'Unkown Error Encountered.'
-          });
+          self.errors.push({message: 'Unknown Error Encountered.'});
           deferred.reject();
         }
       });
@@ -68,14 +64,25 @@
     }
 
     function updateRestaurant() {
+      self.errors = [];
+      self.updateRestaurantFormSubmit = true;
+
       self.getGeoCoordinates().then(function () {
-        restaurants.update({id: self.restaurant.id}, self.restaurant).$promise.then(function () {
-          self.errorMessages = [];
-          notifications.showSuccess({
-            message: 'Updated "' + self.restaurant.name + '".',
-            hide: true
+        restaurants.update({id: self.restaurant.id}, self.restaurant).$promise
+          .then(function () {
+            notifications.showSuccess({
+              message: 'Updated "' + self.restaurant.name + '".',
+              hide: true
+            });
+          }).catch(function () {
+            notifications.showError({
+              message: 'Failed to update: "' + self.restaurant.name + '".',
+              hide: true
+            });
+          })
+          .finally(function () {
+            self.updateRestaurantFormSubmit = false;
           });
-        });
       });
     }
   }

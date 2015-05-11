@@ -32,8 +32,10 @@ describe('Restaurant Model', function () {
   before(function (done) {
     require('../../database').connect(function (database) {
       db = database;
-      models = require('../../models')(database);
-      done();
+      require('../../models')(database, function() {
+        models = db.models;
+        done();
+      });
     });
   });
 

@@ -43,9 +43,11 @@ describe('Restaurant Controller', function () {
   before(function (done) {
     require('../../database').connect(function (database) {
       db = database;
-      models = require('../../models')(database);
-      restaurantController = require('./restaurant.controller');
-      done();
+      require('../../models')(database, function() {
+        models = db.models;
+        restaurantController = require('./restaurant.controller');
+        done();
+      });
     });
   });
 

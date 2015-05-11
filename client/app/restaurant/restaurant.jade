@@ -17,7 +17,7 @@ form(layout='row' layout-align='start center' layout-wrap ng-submit='::Restauran
   md-checkbox.md-primary(flex ng-readonly='::!RestaurantCtrl.canUpdate()' ng-model='RestaurantCtrl.restaurant.vegan') Vegan
   md-checkbox.md-primary(flex ng-readonly='::!RestaurantCtrl.canUpdate()' ng-model='RestaurantCtrl.restaurant.vegetarian') Vegetarian
 
-  lunchadores-form-errors(errors='RestaurantCtrl.errorMessages')
+  lunchadores-form-errors(errors='RestaurantCtrl.errors')
 
-  div(flex='100' ng-if='::RestaurantCtrl.canUpdate()')
-    md-button.md-primary.md-raised(type='submit') Update
+  div(ng-if='::RestaurantCtrl.canUpdate()')
+    lunchadores-submit-button(is-submit='' button-text='Update')

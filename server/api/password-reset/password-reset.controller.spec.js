@@ -10,9 +10,11 @@ describe('Password Reset Controller', function () {
   before(function (done) {
     require('../../database').connect(function (database) {
       db = database;
-      models = require('../../models')(database);
-      passwordResetController = require('./password-reset.controller');
-      done();
+      require('../../models')(database, function() {
+        models = db.models;
+        passwordResetController = require('./password-reset.controller');
+        done();
+      });
     });
   });
 

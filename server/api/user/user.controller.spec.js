@@ -10,9 +10,11 @@ describe('User Reset Controller', function () {
   before(function (done) {
     require('../../database').connect(function (database) {
       db = database;
-      models = require('../../models')(database);
-      userController = require('./user.controller');
-      done();
+      require('../../models')(database, function() {
+        models = db.models;
+        userController = require('./user.controller');
+        done();
+      });
     });
   });
 

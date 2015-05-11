@@ -7,8 +7,9 @@
     var self = this;
 
     self.email_address = null;
-    self.new_password = null;
     self.errors = [];
+    self.passwordResetVerificationFormSubmit = false;
+    self.new_password = null;
 
     self.verify = verify;
 
@@ -16,6 +17,7 @@
 
     function verify(form) {
       self.errors = [];
+      self.passwordResetVerificationFormSubmit = true;
 
       if (form.$valid) {
         User.passwordResetVerification({verificationId: $stateParams.verificationId}, {
@@ -39,6 +41,9 @@
               message: 'Error resetting password.',
               hide: true
             });
+          })
+          .finally(function() {
+            self.passwordResetVerificationFormSubmit = false;
           });
       }
     }

@@ -9,6 +9,7 @@
 
     self.email_address = null;
     self.errors = [];
+    self.passwordResetFormSubmit = false;
 
     self.sendEmail = sendEmail;
 
@@ -16,6 +17,7 @@
 
     function sendEmail(form) {
       self.errors = [];
+      self.passwordResetFormSubmit = true;
 
       if (form.$valid) {
         User.passwordReset({ email_address: self.email_address}).$promise
@@ -30,6 +32,9 @@
               message: 'Error completing your password reset request.',
               hide: true
             });
+          })
+          .finally(function() {
+            self.passwordResetFormSubmit = false;
           });
       }
     }

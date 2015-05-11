@@ -1,4 +1,4 @@
-(function() {
+(function () {
   'use strict';
 
   angular.module('lunchadoresApp').controller('RestaurantCreateCtrl', RestaurantCreateCtrl);
@@ -7,7 +7,7 @@
     var self = this;
 
     self.activeStep = 'information-step';
-    self.errorMessages = [];
+    self.errors = [];
     self.newRestaurant = {};
 
     self.createRestaurant = createRestaurant;
@@ -18,14 +18,20 @@
     ////////////
 
     function createRestaurant() {
-      restaurants.save(self.newRestaurant).$promise.then(function() {
-        notifications.showSuccess({
-          message: 'Successfully added "' + self.newRestaurant.name + '".',
-          hide: true
+      restaurants.save(self.newRestaurant).$promise
+        .then(function () {
+          notifications.showSuccess({
+            message: 'Successfully added "' + self.newRestaurant.name + '".',
+            hide: true
+          });
+          self.newRestaurant = {};
+        })
+        .catch(function () {
+          notifications.showError({
+            message: 'Failed to create restaurant',
+            hide: true
+          });
         });
-
-        self.newRestaurant = {};
-      });
 
       self.goToInformationStep();
     }
@@ -40,10 +46,10 @@
 
     function restaurantInformationStepComplete() {
       self.verifyingAddress = true;
-      self.errorMessages = [];
+      self.errors = [];
 
       maps.getGeoLocation(self.newRestaurant.address)
-        .then(function(response) {
+        .then(function (response) {
           self.goToConfirmationStep();
 
           self.newRestaurant.officialAddress = response.address;
@@ -52,7 +58,7 @@
 
           // Hacky mechanic to give time for the dom to render
           // before issuing google maps
-          $timeout(function() {
+          $timeout(function () {
             self.map = maps.createMap('map', {
               lat: self.newRestaurant.lat,
               lng: self.newRestaurant.lng
@@ -68,10 +74,10 @@
             google.maps.event.trigger(self.map, 'resize');
           }, 250);
         })
-        .catch(function(error) {
-          self.errorMessages.push(error);
+        .catch(function (error) {
+          self.errors.push(error);
         })
-        .finally(function() {
+        .finally(function () {
           self.verifyingAddress = false;
         });
     }

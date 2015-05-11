@@ -10,9 +10,8 @@ form.m-b-40(layout='row' layout-wrap name='updateUserForm' ng-submit='settingsCt
     label Email
     input(type='text' ng-model='settingsCtrl.user.email_address' required='required')
 
-  lunchadores-form-errors(errors='settingsCtrl.errorMessages')
-
-  md-button.md-raised.md-primary(type='submit') Update Profile
+  lunchadores-form-errors(errors='settingsCtrl.userProfileErrors')
+  lunchadores-submit-button(is-submit='settingsCtrl.userProfileFormSubmit' button-text='Update Profile')
 
 form(layout='row' layout-wrap name='changePasswordForm' ng-submit='settingsCtrl.changePassword(changePasswordForm)')
   legend Change Password
@@ -23,6 +22,5 @@ form(layout='row' layout-wrap name='changePasswordForm' ng-submit='settingsCtrl.
     label New Password
     input.form-control(type='password' ng-model='settingsCtrl.user.newPassword' ng-minlength='3' required='required')
 
-  lunchadores-form-errors(errors='settingsCtrl.errorMessages')
-
-  md-button.md-raised.md-primary(type='submit') Change Password
+  lunchadores-form-errors(errors='settingsCtrl.changePasswordErrors')
+  lunchadores-submit-button(is-submit='settingsCtrl.changePasswordFormSubmit' button-text='Change Password')

@@ -13,12 +13,8 @@ section.new-restaurant-wizard
       md-checkbox.md-primary(flex ng-model='restaurantCreateCtrl.newRestaurant.vegan') Vegan
       md-checkbox.md-primary(flex ng-model='restaurantCreateCtrl.newRestaurant.vegetarian') Vegetarian
 
-      lunchadores-form-errors(flex='100' errors='restaurantCreateCtrl.errorMessages')
-
-      div(flex='100')
-        md-button.md-raised.md-primary(type='submit', ng-disabled='restaurantCreateCtrl.verifyingAddress')
-          span(ng-hide='restaurantCreateCtrl.verifyingAddress') Verify Address
-          lunchadores-loading-icon(is-loading='loginCtrl.loginWaiting' ng-show='restaurantCreateCtrl.verifyingAddress')
+      lunchadores-form-errors(errors='restaurantCreateCtrl.errors')
+      lunchadores-submit-button(is-submit='restaurantCreateCtrl.verifyingAddress' button-text='Verify Address')
 
   article.confirmation-step(layout='row' layout-wrap layout-align='start center' ng-show="restaurantCreateCtrl.activeStep === 'confirmation-step'")
     #map.m-b-20(flex='100' flex-gt-sm='50')
@@ -33,6 +29,6 @@ section.new-restaurant-wizard
           td {{restaurantCreateCtrl.newRestaurant.officialAddress}}
     span(flex='100' flex-gt-sm='50') Is this information correct?
     div(flex='100' flex-gt-sm='50')
-      md-button.md-raised.md-primary(ng-click='restaurantCreateCtrl.createRestaurant();') Yes
+      md-button.md-raised.md-primary(ng-click='restaurantCreateCtrl.createRestaurant()') Yes
       = ' '
       md-button.md-raised.md-warn(ng-click="restaurantCreateCtrl.activeStep = 'information-step';") No

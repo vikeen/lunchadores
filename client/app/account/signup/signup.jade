@@ -14,5 +14,4 @@ form(layout='row' layout-wrap name='form', ng-submit='signupCtrl.register(form)'
     input(type='password', ng-model='signupCtrl.user.password', ng-minlength='3', required='' )
 
   lunchadores-form-errors(errors='signupCtrl.errors')
-
-  md-button.md-raised.md-primary(type='submit') Sign up
+  lunchadores-submit-button(is-submit='signupCtrl.signupFormSubmit' button-text='Sign Up')
