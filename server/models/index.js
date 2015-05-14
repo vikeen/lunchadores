@@ -2,7 +2,7 @@
 
 var Sequelize = require('sequelize'),
   path = require('path'),
-  config = require('../config/environment/'),
+  config = require('../config/environment')(),
   sequelize = new Sequelize(config.database.uri, {
     logging: false
   }),

@@ -67,18 +67,4 @@ describe('Restaurant Model', function () {
       console.log(err);
     });
   });
-
-  it('should default to 0 rating on create', function (done) {
-    var newRestaurant = _.clone(mockRestaurants[0]);
-    newRestaurant.id = mockRestaurants.length + 1;
-    newRestaurant.formatted_address = 'new address';
-    delete newRestaurant.rating;
-    models.restaurant.create(newRestaurant).then(function (restaurant) {
-      restaurant.should.have.property('name', newRestaurant.name);
-      restaurant.should.have.property('rating', 0);
-      done();
-    }).catch(function(err) {
-      console.log(err);
-    });
-  });
 });

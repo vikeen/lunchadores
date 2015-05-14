@@ -27,7 +27,7 @@ http://lunchadores.com/
   - go to [http://localhost:9000](http://localhost:9000)
 
 ## Production Deployment
-- run test suite. `NODE_ENV=test grunt test:server`.
+- run test suite. `grunt test`.
 - confirm all your changes with `grunt serve:dist`. This will use production versions of everything including a non-seeded database.
 - commit your updates. `git commit`
 - push to github. `git push origin master`

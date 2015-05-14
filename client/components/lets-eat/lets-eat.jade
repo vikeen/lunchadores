@@ -11,13 +11,11 @@
   .lets-eat-result(layout='row' layout-wrap ng-show='letsEatCtrl.randomRestaurant')
       h2.md-headline.m-0(flex='100' flex-gt-sm='50')
         a.default(href="#") {{letsEatCtrl.randomRestaurant.name}}
-      h2.md-headline.m-0(flex='100' flex-gt-sm='50')
-        lunchadores-rating(rating-value='letsEatCtrl.randomRestaurant.rating')
       h4.md-subhead(flex='100')
         a.default(href="#") {{letsEatCtrl.randomRestaurant.formatted_address}}
 
 
-      md-chips.md-primary(readonly='readonly')
-        md-chip(ng-if='letsEatCtrl.randomRestaurant.outside_seating') Outside Seating
-        md-chip(ng-if='letsEatCtrl.randomRestaurant.vegan') Vegan
-        md-chip(ng-if='letsEatCtrl.randomRestaurant.vegetarian') Vegetarian
+      //md-chips.md-primary(readonly='readonly')
+      //  md-chip(ng-if='letsEatCtrl.randomRestaurant.outside_seating') Outside Seating
+      //  md-chip(ng-if='letsEatCtrl.randomRestaurant.vegan') Vegan
+      //  md-chip(ng-if='letsEatCtrl.randomRestaurant.vegetarian') Vegetarian

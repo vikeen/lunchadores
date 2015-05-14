@@ -9,24 +9,9 @@ div(layout='row' layout-wrap layout-align='center center')
 table.pure-table(ng-show='restaurantsCtrl.filteredRestaurants.length')
   thead
     th.sortable(ng-click='restaurantsCtrl.setColumnSorting("name")') Name
-    th.sortable(ng-click='restaurantsCtrl.setColumnSorting("rating")') Rating
     th Address
-    th Outside
-    th Vegan
-    th Vegetarian
   tbody
     tr(ng-repeat='restaurant in restaurantsCtrl.filteredRestaurants = (restaurantsCtrl.restaurants | filter:restaurantsCtrl.restaurantFilter:strict | orderBy:restaurantsCtrl.sortBy:restaurantsCtrl.reverseSort)')
       td
         a(ui-sref="restaurant.show({id: restaurant.id})") {{restaurant.name}}
-      td
-        lunchadores-rating(rating-value='restaurant.rating')
       td {{restaurant.formatted_address}}
-      td.text-center
-        i.fa.fa-check.success(ng-if='restaurant.outside_seating')
-        i.fa.fa-close.error(ng-if='!restaurant.outside_seating')
-      td.text-center
-        i.fa.fa-check.success(ng-if='restaurant.vegan')
-        i.fa.fa-close.error(ng-if='!restaurant.vegan')
-      td.text-center
-        i.fa.fa-check.success(ng-if='restaurant.vegetarian')
-        i.fa.fa-close.error(ng-if='!restaurant.vegetarian')

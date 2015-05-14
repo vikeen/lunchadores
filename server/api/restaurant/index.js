@@ -31,10 +31,6 @@ router.post('/', auth.hasRole('admin'), function (req, res) {
   handlers.request(controller.createRestaurant(req.body), req, res);
 });
 
-router.post('/:id/rate/:rating', validators.hasValidIdParam, validators.hasValidRatingParam, auth.hasRole('user'), function (req, res) {
-  handlers.request(controller.rateRestaurant(req.user.id, req.params.id, req.params.rating), req, res);
-});
-
 router.put('/:id', validators.hasValidIdParam, auth.hasRole('admin'), function (req, res) {
   handlers.request(controller.updateRestaurant(req.body), req, res);
 });

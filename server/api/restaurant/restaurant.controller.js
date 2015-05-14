@@ -11,7 +11,6 @@ module.exports = {
   getActiveRestaurantsByLocation: getActiveRestaurantsByLocation,
   getAllRestaurants: getAllRestaurants,
   getRestaurantById: getRestaurantById,
-  rateRestaurant: rateRestaurant,
   updateRestaurant: updateRestaurant
 };
 
@@ -56,10 +55,6 @@ function updateRestaurant(payload) {
 // Deletes a restaurant from the DB.
 function deleteRestaurant(restaurantId, callback) {
   return models.restaurant.destroy({ where: {id: restaurantId} });
-}
-
-// Rate the restaurant
-function rateRestaurant(userId, restaurantId, rating, callback) {
 }
 
 /************************/

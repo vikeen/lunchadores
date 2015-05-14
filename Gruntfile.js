@@ -2,15 +2,7 @@
 'use strict';
 
 module.exports = function (grunt) {
-  var localConfig;
-  try {
-    localConfig = require('./server/config/local.env');
-  } catch (e) {
-    localConfig = {};
-  }
-
-  // TODO: figure out the purpose of the local config versus a development config
-  var config = require('./server/config/environment');
+  var config = require('./server/config/environment')();
 
   // Load grunt tasks automatically, when needed
   require('jit-grunt')(grunt, {
@@ -483,7 +475,7 @@ module.exports = function (grunt) {
       prod: {
         NODE_ENV: 'production'
       },
-      all: localConfig
+      all: {}
     },
 
     // Compiles Jade to html
@@ -660,45 +652,10 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('test', function (target) {
-    if (target === 'server') {
-      return grunt.task.run([
-        'env:all',
-        'env:test',
-        'mochaTest'
-      ]);
-    }
-
-    //else if (target === 'client') {
-    //  return grunt.task.run([
-    //    'clean:server',
-    //    'env:all',
-    //    'injector:stylus',
-    //    'concurrent:test',
-    //    'injector',
-    //    'autoprefixer',
-    //    'karma'
-    //  ]);
-    //}
-
-    //else if (target === 'e2e') {
-    //  return grunt.task.run([
-    //    'clean:server',
-    //    'env:all',
-    //    'env:test',
-    //    'injector:stylus',
-    //    'concurrent:test',
-    //    'injector',
-    //    'wiredep',
-    //    'autoprefixer',
-    //    'express:dev',
-    //    'protractor'
-    //  ]);
-    //}
-
-    else grunt.task.run([
-        'test:server',
-        //'test:client'
-      ]);
+    return grunt.task.run([
+      'env:test',
+      'mochaTest'
+    ]);
   });
 
   grunt.registerTask('build', [

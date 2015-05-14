@@ -38,7 +38,9 @@ function getDatabaseConfig() {
 
 // Export the config object based on the NODE_ENV
 // ==============================================
-module.exports = _.merge(
-  all,
-  require('./' + process.env.NODE_ENV + '.js') || {},
-  getDatabaseConfig() || {});
+module.exports = function() {
+  return _.merge(
+    all,
+    require('./' + process.env.NODE_ENV + '.js') || {},
+    getDatabaseConfig() || {});
+};

@@ -18,7 +18,9 @@ module.exports = function (callback) {
         return _seedDatabaseTable(models.tag, 'tags').then(function () {
           return _seedDatabaseTable(models.restaurant_tag, 'restaurants-tags').then(function () {
             console.log('finished seeding database');
-            callback();
+            if (_.isFunction(callback)) {
+              callback();
+            }
           });
         });
       });
