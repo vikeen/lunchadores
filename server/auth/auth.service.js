@@ -1,6 +1,6 @@
 'use strict';
 
-var config = require('../config/environment');
+var config = require('../config/environment')();
 var jwt = require('jsonwebtoken');
 var expressJwt = require('express-jwt');
 var compose = require('composable-middleware');

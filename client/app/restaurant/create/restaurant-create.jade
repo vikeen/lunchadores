@@ -22,9 +22,13 @@ section.new-restaurant-wizard
         label ZipCode
         input(type='text' required='required' ng-model='restaurantCreateCtrl.newRestaurant.zipcode')
 
-      md-checkbox.md-primary(flex ng-model='restaurantCreateCtrl.newRestaurant.outside_seating') Outside Seating
-      md-checkbox.md-primary(flex ng-model='restaurantCreateCtrl.newRestaurant.vegan') Vegan
-      md-checkbox.md-primary(flex ng-model='restaurantCreateCtrl.newRestaurant.vegetarian') Vegetarian
+      //md-chips.md-primary(readonly='readonly')
+      //  md-chip(ng-if='letsEatCtrl.randomRestaurant.outside_seating') Outside Seating
+      //  md-chip(ng-if='letsEatCtrl.randomRestaurant.vegan') Vegan
+      //  md-chip(ng-if='letsEatCtrl.randomRestaurant.vegetarian') Vegetarian
+      //md-checkbox.md-primary(flex ng-model='restaurantCreateCtrl.newRestaurant.outside_seating') Outside Seating
+      //md-checkbox.md-primary(flex ng-model='restaurantCreateCtrl.newRestaurant.vegan') Vegan
+      //md-checkbox.md-primary(flex ng-model='restaurantCreateCtrl.newRestaurant.vegetarian') Vegetarian
 
       lunchadores-form-errors(errors='restaurantCreateCtrl.errors')
       lunchadores-submit-button(is-submit='restaurantCreateCtrl.verifyingAddress' button-text='Verify Address')

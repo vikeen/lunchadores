@@ -2,7 +2,7 @@
 
 var _ = require('lodash'),
   models = require('../../models'),
-  config = require('../../config/environment'),
+  config = require('../../config/environment')(),
   jwt = require('jsonwebtoken');
 
 module.exports = {

@@ -2,7 +2,7 @@
 
 var express = require('express'),
   controller = require('./user.controller'),
-  config = require('../../config/environment'),
+  config = require('../../config/environment')(),
   auth = require('../../auth/auth.service'),
   handlers = require('../../components/helpers').handlers;
 

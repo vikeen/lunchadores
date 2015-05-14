@@ -2,7 +2,7 @@
 
 var postmark = require('postmark'),
   _ = require('lodash'),
-  config = require('../../config/environment');
+  config = require('../../config/environment')();
 
 module.exports = {
   sendEmail: sendEmail

@@ -1,7 +1,7 @@
 'use strict';
 
 var express = require('express'),
-    config = require('../config/environment'),
+    config = require('../config/environment')(),
     models = require('../models');
 
 // Passport Configuration

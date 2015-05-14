@@ -8,7 +8,7 @@ var express = require('express'),
     methodOverride = require('method-override'),
     cookieParser = require('cookie-parser'),
     path = require('path'),
-    config = require('./environment'),
+    config = require('./environment')(),
     passport = require('passport');
 
 module.exports = function(app) {
