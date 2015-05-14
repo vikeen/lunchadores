@@ -1,27 +1,31 @@
-var dbm = global.dbm || require('db-migrate');
-var type = dbm.dataType;
-var async = require('async');
+'use strict';
 
-exports.up = function (db, callback) {
-  async.series([
-    db.createTable('password_reset', {
-      id: {type: 'int', primaryKey: true, autoIncrement: true},
-      user_id: {type: 'int', notNull: true},
-      verification_id: {type: 'string', notNull: true},
-      created_at: {type: 'datetime', notNull: true},
-      updated_at: {type: 'datetime', notNull: true}
-    }),
-    db.addForeignKey('password_reset', 'user', 'password_reset_user_id_fk',
-      {
-        'user_id': 'id'
+var Promise = require("bluebird");
+
+module.exports = {
+  up: function (migration, DataTypes, done) {
+    migration.createTable('password_reset', {
+      id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+      user_id: {
+        type: DataTypes.INTEGER,
+        references: 'user',
+        referencesKey: 'id',
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
       },
-      {
-        onDelete: 'CASCADE',
-        onUpdate: 'RESTRICT'
-      })
-  ], callback());
-};
-
-exports.down = function (db, callback) {
-  db.dropTable('password_reset', callback());
+      verification_id: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      created_at: {type: DataTypes.DATE, allowNull: false},
+      updated_at: {type: DataTypes.DATE, allowNull: true}
+    }).then(function () {
+      done();
+    })
+  },
+  done: function (migration, DataTypes, done) {
+    migration.dropTable('password_reset').then(function () {
+      done();
+    })
+  }
 };

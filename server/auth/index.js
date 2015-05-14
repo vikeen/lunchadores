@@ -2,7 +2,7 @@
 
 var express = require('express'),
     config = require('../config/environment'),
-    models = require('../models')();
+    models = require('../models');
 
 // Passport Configuration
 require('./local/passport').setup(models.user, config);

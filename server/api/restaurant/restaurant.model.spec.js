@@ -2,8 +2,7 @@
 
 var should = require('should'),
   _ = require('lodash'),
-  db,
-  models;
+  models = require('../../models');
 
 var mockRestaurants = [
   {
@@ -16,11 +15,10 @@ var mockRestaurants = [
     country: 'United States of America',
     country_abbreviation: 'USA',
     zipcode: '64105',
-    formatted_address: '1000 West 39th Street, Kansas City, MO 64111, USA',
+    formatted_address: '1000 West 39th Street, Kansas City, MO 64112, USA',
     lat: 39.0574043,
     lng: -94.5981116,
     active: true,
-    outside_seating: true,
     rating: 1.2
   },
   {
@@ -37,31 +35,21 @@ var mockRestaurants = [
     lat: 2.2654,
     lng: 47.39329,
     active: false,
-    outside_seating: true,
     rating: 4.8
   }
 ];
 
 describe('Restaurant Model', function () {
   before(function (done) {
-    require('../../database').connect(function (database) {
-      db = database;
-      require('../../models')(database, function() {
-        models = db.models;
-        done();
-      });
-    });
+    done();
   });
 
   beforeEach(function (done) {
-    models.restaurant.find({}).remove(function () {
-      models.restaurant.create(mockRestaurants, function (err, restaurants) {
-        if (err) {
-          console.error(err);
-          throw err;
-        }
-
+    models.restaurant.destroy({ where: {}}).then(function () {
+      models.restaurant.bulkCreate(mockRestaurants, {individualHooks: true}).then(function () {
         done();
+      }).catch(function(err) {
+        console.log(err);
       });
     });
   });
@@ -69,44 +57,28 @@ describe('Restaurant Model', function () {
   it('should default to active on create', function (done) {
     var newRestaurant = _.clone(mockRestaurants[0]);
     newRestaurant.id = mockRestaurants.length + 1;
+    newRestaurant.formatted_address = 'new address';
     delete newRestaurant.active;
-    models.restaurant.create(newRestaurant, function (err, restaurant) {
+    models.restaurant.create(newRestaurant).then(function (restaurant) {
       restaurant.should.have.property('name', newRestaurant.name);
       restaurant.should.have.property('active', true);
       done();
+    }).catch(function(err) {
+      console.log(err);
     });
   });
 
   it('should default to 0 rating on create', function (done) {
     var newRestaurant = _.clone(mockRestaurants[0]);
     newRestaurant.id = mockRestaurants.length + 1;
+    newRestaurant.formatted_address = 'new address';
     delete newRestaurant.rating;
-    models.restaurant.create(newRestaurant, function (err, restaurant) {
+    models.restaurant.create(newRestaurant).then(function (restaurant) {
       restaurant.should.have.property('name', newRestaurant.name);
       restaurant.should.have.property('rating', 0);
       done();
-    });
-  });
-
-  it('should default to not vegan on create', function (done) {
-    var newRestaurant = _.clone(mockRestaurants[0]);
-    newRestaurant.id = mockRestaurants.length + 1;
-    delete newRestaurant.vegan;
-    models.restaurant.create(newRestaurant, function (err, restaurant) {
-      restaurant.should.have.property('name', newRestaurant.name);
-      restaurant.should.have.property('vegan', false);
-      done();
-    });
-  });
-
-  it('should default to not vegetarian on create', function (done) {
-    var newRestaurant = _.clone(mockRestaurants[0]);
-    newRestaurant.id = mockRestaurants.length + 1;
-    delete newRestaurant.vegetarian;
-    models.restaurant.create(newRestaurant, function (err, restaurant) {
-      restaurant.should.have.property('name', newRestaurant.name);
-      restaurant.should.have.property('vegetarian', false);
-      done();
+    }).catch(function(err) {
+      console.log(err);
     });
   });
 });

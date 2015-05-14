@@ -6,22 +6,20 @@ exports.setup = function (userModel, config) {
       usernameField: 'email_address',
       passwordField: 'password'
     },
-    function(email, password, done) {
+    function (email, password, done) {
       userModel.find({
-        email_address: email.toLowerCase()
-      }, function(err, user) {
-        if (err) {
-          return done(err);
+        where: {email_address: email.toLowerCase()}
+      }).then(function (user) {
+        if (!user) {
+          return done(null, false, {message: 'This email is not registered.'});
         }
 
-        if (!user.length) {
-          return done(null, false, { message: 'This email is not registered.' });
-        }
-
-        if (!user[0].authenticate(password)) {
-          return done(null, false, { message: 'This password is not correct.' });
+        if (!user.authenticate(password)) {
+          return done(null, false, {message: 'This password is not correct.'});
         }
         return done(null, user);
+      }).catch(function (err) {
+        return done(err);
       });
     }
   ));

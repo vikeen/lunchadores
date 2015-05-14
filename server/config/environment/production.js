@@ -15,22 +15,11 @@ module.exports = {
         process.env.PORT ||
         8080,
 
-  // MongoDB connection options
-  //mongo: {
-  //  uri: process.env.MONGOLAB_URI ||
-  //       process.env.MONGOHQ_URL ||
-  //       process.env.OPENSHIFT_MONGODB_DB_URL+process.env.OPENSHIFT_APP_NAME ||
-  //       'mongodb://localhost/lunchadores_dev'
-  //},
-
   postmark: {
     clientId: process.env.POSTMARK_API_KEY
   },
 
-  postgres: {
-    uri: process.env.DATABASE_URL ||
-    'postgres://lunchadores_user:foodie@localhost:5432/lunchadores_dev'
+  database: {
+    uri: process.env.DATABASE_URL
   }
-
-  //redis: process.env.REDISTOGO_URL
 };

@@ -16,7 +16,7 @@ module.exports = {
   },
 
   // Postgres connection options
-  postgres: {
+  database: {
     uri: 'postgres://lunchadores_user:foodie@localhost:5432/lunchadores_dev'
   },
 

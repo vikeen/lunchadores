@@ -2,38 +2,39 @@
 
 var _ = require('lodash');
 
-module.exports = function (db) {
-  return db.define('restaurant', {
-    name: String,
-    street: String,
-    city: String,
-    state: String,
-    state_abbreviation: String,
-    country: String,
-    country_abbreviation: String,
-    zipcode: String,
-    formatted_address: String,
-    lat: Number,
-    lng: Number,
-    active: Boolean,
-    rating: Number,
-    vegan: Boolean,
-    vegetarian: Boolean,
-    outside_seating: Boolean,
-    created_at: {type: 'date', time: true},
-    updated_at: {type: 'date', time: true}
+module.exports = function (sequelize, DataTypes) {
+  var Restaurant = sequelize.define('restaurant', {
+    name: DataTypes.STRING,
+    street: DataTypes.STRING,
+    city: DataTypes.STRING,
+    state: DataTypes.STRING,
+    state_abbreviation: DataTypes.STRING,
+    country: DataTypes.STRING,
+    country_abbreviation: DataTypes.STRING,
+    zipcode: DataTypes.STRING,
+    formatted_address: {
+      type: DataTypes.STRING,
+      unique: true
+    },
+    lat: DataTypes.DECIMAL,
+    lng: DataTypes.DECIMAL,
+    active: DataTypes.BOOLEAN,
+    rating: DataTypes.DECIMAL,
+    created_at: DataTypes.DATE,
+    updated_at: DataTypes.DATE
   }, {
+    timestamps: false,
+    freezeTableName: true,
+
     hooks: {
-      beforeCreate: function () {
-        this.created_at = new Date();
-        this.active = _.isBoolean(this.active) ? this.active : true;
-        this.vegan = _.isBoolean(this.vegan) ? this.vegan : false;
-        this.vegetarian = _.isBoolean(this.vegetarian) ? this.vegetarian : false;
-        this.rating = _.isNumber(this.rating) ? this.rating : 0;
+      beforeCreate: function (restaurant) {
+        restaurant.created_at = new Date();
       },
-      beforeSave: function () {
-        this.updated_at = new Date();
+      beforeUpdate: function (restaurant) {
+        restaurant.updated_at = new Date();
       }
     }
   });
+
+  return Restaurant;
 };

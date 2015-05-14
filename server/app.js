@@ -15,16 +15,13 @@ var app = express();
 var server = require('http').createServer(app);
 
 // Bootstrap Database
-require('./database').connect(function (db) {
-  require('./models')(db, function() {
-    require('./config/express')(app);
-    require('./routes')(app);
+var db = require('./models');
+require('./config/express')(app);
+require('./routes')(app);
 
-    if (config.seedDB) {
-      require('./config/seed')();
-    }
-  });
-});
+if (config.seedDB) {
+  require('./config/seed')();
+}
 
 // Start server
 server.listen(config.port, config.ip, function () {

@@ -2,9 +2,8 @@
 
 var should = require('should'),
   _ = require('lodash'),
-  db,
-  models,
-  restaurantController;
+  models = require('../../models'),
+  restaurantController = require('./restaurant.controller');
 
 var mockRestaurants = [
   {
@@ -51,7 +50,7 @@ var mockRestaurants = [
     country: 'United States of America',
     country_abbreviation: 'USA',
     zipcode: '64105',
-    formatted_address: '1000 West 39th Street, Kansas City, MO 64111, USA',
+    formatted_address: '1000 West 39th Street, Kansas City, MO 64112, USA',
     lat: 2.2654,
     lng: 47.39329,
     active: false,
@@ -62,47 +61,33 @@ var mockRestaurants = [
 
 describe('Restaurant Controller', function () {
   before(function (done) {
-    require('../../database').connect(function (database) {
-      db = database;
-      require('../../models')(database, function() {
-        models = db.models;
-        restaurantController = require('./restaurant.controller');
-        done();
-      });
-    });
+    done();
   });
 
   beforeEach(function (done) {
-    models.restaurant.find({}).remove(function () {
-      models.restaurant.create(mockRestaurants, function (err, data) {
-        if (err) {
-          console.error(err);
-          throw err;
-        }
-
-        done();
+    models.restaurant.findAll().then(function () {
+      models.restaurant.destroy({where: {}}).then(function () {
+        models.restaurant.bulkCreate(mockRestaurants, {individualHooks: true})
+          .then(function () {
+            done();
+          }).catch(function (err) {
+            console.error(err);
+            throw(err);
+          });
       });
     });
   });
 
   it('should get all active restaurants', function (done) {
-    restaurantController.getActiveRestaurants(function (err, restaurants) {
-      should(err).be.null;
+    restaurantController.getActiveRestaurants().then(function (restaurants) {
       restaurants.should.have.lengthOf(2);
-      restaurants[0].should.have.property('name', mockRestaurants[0].name);
-      restaurants[0].should.have.property('active', mockRestaurants[0].active);
       done();
     });
   });
 
   it('should get all restaurants', function (done) {
-    restaurantController.getAllRestaurants(function (err, restaurants) {
-      should(err).be.null;
+    restaurantController.getAllRestaurants().then(function (restaurants) {
       restaurants.should.have.lengthOf(3);
-      restaurants[0].should.have.property('name', mockRestaurants[0].name);
-      restaurants[0].should.have.property('active', mockRestaurants[0].active);
-      restaurants[1].should.have.property('name', mockRestaurants[1].name);
-      restaurants[1].should.have.property('active', mockRestaurants[1].active);
       done();
     });
   });
@@ -110,20 +95,14 @@ describe('Restaurant Controller', function () {
   it('should get all active restaurants in the location distance', function (done) {
     var location = {lat: 39, lng: -94};
     var maxDistance = 25;
-    restaurantController.getActiveRestaurantsByLocation(location, maxDistance, function (err, restaurants) {
-      should(err).be.null;
+    restaurantController.getActiveRestaurantsByLocation(location, maxDistance).then(function (restaurants) {
       restaurants.should.have.lengthOf(2);
-      restaurants[0].should.have.property('name', mockRestaurants[0].name);
-      restaurants[0].should.have.property('active', true);
-      restaurants[1].should.have.property('name', mockRestaurants[1].name);
-      restaurants[1].should.have.property('active', true);
       done();
     });
   });
 
   it('should get a restaurant by id', function (done) {
-    restaurantController.getRestaurantById(mockRestaurants[0].id, function (err, restaurant) {
-      should(err).be.null;
+    restaurantController.getRestaurantById(mockRestaurants[0].id).then(function (restaurant) {
       restaurant.should.have.property('name', mockRestaurants[0].name);
       restaurant.should.have.property('active', mockRestaurants[0].active);
       done();
@@ -144,31 +123,29 @@ describe('Restaurant Controller', function () {
       lat: 2.2654,
       lng: 47.39329,
       active: false,
-      outside_seating: true,
       rating: 5
     };
-    restaurantController.createRestaurant(newRestaurant, function (err, restaurant) {
-      should(err).be.null;
+    restaurantController.createRestaurant(newRestaurant).then(function (restaurant) {
       restaurant.should.have.property('name', newRestaurant.name);
       restaurant.should.have.property('active', newRestaurant.active);
 
-      models.restaurant.count(function (err, count) {
-        should(err).be.null;
+      models.restaurant.count().then(function (count) {
         count.should.equal(mockRestaurants.length + 1);
         done();
-      });
+      })
+    }).catch(function (err) {
+      console.log(err);
     });
   });
 
   it('should delete a restaurant', function (done) {
-    restaurantController.deleteRestaurant(mockRestaurants[0].id, function (err) {
-      should(err).be.null;
-
-      models.restaurant.count(function (err, count) {
-        should(err).be.null;
+    restaurantController.deleteRestaurant(mockRestaurants[0].id).then(function () {
+      models.restaurant.count().then(function (count) {
         count.should.equal(mockRestaurants.length - 1);
         done();
-      });
+      }).catch(function (err) {
+        console.log(err);
+      })
     });
   });
 
@@ -180,8 +157,7 @@ describe('Restaurant Controller', function () {
       active: false
     };
 
-    restaurantController.updateRestaurant(updatePayload, function (err, restaurant) {
-      should(err).be.null;
+    restaurantController.updateRestaurant(updatePayload).then(function (restaurant) {
       restaurant.should.have.property('name', 'new restaurant name');
       restaurant.should.have.property('address', 'new restaurant address');
       restaurant.should.have.property('active', false);

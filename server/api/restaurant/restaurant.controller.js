@@ -1,7 +1,8 @@
 'use strict';
 
 var _ = require('lodash'),
-  models = require('../../models')();
+  Promise = require('bluebird'),
+  models = require('../../models');
 
 module.exports = {
   createRestaurant: createRestaurant,
@@ -19,47 +20,42 @@ module.exports = {
 /************************/
 
 // Get list of active restaurants
-function getActiveRestaurants(callback) {
-  models.restaurant.find({active: true}, callback);
+function getActiveRestaurants() {
+  return models.restaurant.findAll({ where: {active: true} });
 }
 
 // Get list of active restaurants by location
-function getActiveRestaurantsByLocation(location, maxDistance, callback) {
-  models.restaurant.find({active: true}, function(err, restaurants) {
-    if (err) {
-      callback(err, null);
-    } else {
-      callback(null, _filterRestaurantsByDistance(location, restaurants, maxDistance));
-    }
+function getActiveRestaurantsByLocation(location, maxDistance) {
+  return models.restaurant.findAll({ where: {active: true}}).then(function(restaurants) {
+    return _filterRestaurantsByDistance(location, restaurants, maxDistance);
   });
 }
 
 // Get list of restaurants
-function getAllRestaurants(callback) {
-  models.restaurant.find({}, callback);
+function getAllRestaurants() {
+  return models.restaurant.findAll({});
 }
 
 // Get a single restaurant
-function getRestaurantById(id, callback) {
-  models.restaurant.get(id, callback);
+function getRestaurantById(id) {
+  return models.restaurant.findOne(id);
 }
 
 // Creates a new restaurant in the DB.
-function createRestaurant(payload, callback) {
-  models.restaurant.create(payload, callback);
+function createRestaurant(payload) {
+  return models.restaurant.create(payload);
 }
 
 // Updates an existing restaurant in the DB.
-function updateRestaurant(payload, callback) {
-  models.restaurant.get(payload.id, function (err, restaurant) {
-    var updated = _.merge(restaurant, payload);
-    updated.save(callback);
+function updateRestaurant(payload) {
+  return models.restaurant.findOne(payload.id).then(function(restaurant) {
+    return _.merge(restaurant, payload).save();
   });
 }
 
 // Deletes a restaurant from the DB.
 function deleteRestaurant(restaurantId, callback) {
-  models.restaurant.find({id: restaurantId}).remove(callback);
+  return models.restaurant.destroy({ where: {id: restaurantId} });
 }
 
 // Rate the restaurant

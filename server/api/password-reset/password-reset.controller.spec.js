@@ -2,20 +2,12 @@
 
 var should = require('should'),
   _ = require('lodash'),
-  db,
-  models,
-  passwordResetController;
+  models = require('../../models'),
+  passwordResetController = require('./password-reset.controller');
 
 describe('Password Reset Controller', function () {
   before(function (done) {
-    require('../../database').connect(function (database) {
-      db = database;
-      require('../../models')(database, function() {
-        models = db.models;
-        passwordResetController = require('./password-reset.controller');
-        done();
-      });
-    });
+    done();
   });
 
   beforeEach(function (done) {
@@ -23,6 +15,6 @@ describe('Password Reset Controller', function () {
   });
 
   it('should serve as a dummy test', function (done) {
-      done();
+    done();
   });
 });

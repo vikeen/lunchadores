@@ -1,7 +1,7 @@
 'use strict';
 
 var _ = require('lodash'),
-  models = require('../../models')(),
+  models = require('../../models'),
   config = require('../../config/environment'),
   helpers = require('../../components/helpers');
 
@@ -10,80 +10,34 @@ module.exports = {
   passwordResetVerification: passwordResetVerification
 };
 
-function passwordReset(req, res, next) {
-  models.user.find({'email_address': req.body.email_address}, function (err, user) {
-    if (err) {
-      console.error(err);
-      return res.send(500);
-    }
-    if (!user.length) {
-      console.error('could not find account information');
-      return res.send(500);
+function passwordReset(email) {
+  return models.user.findOne({where: {email_address: email}}).then(function (user) {
+    if (!user) {
+      throw 'Could not find account information';
     }
 
-    user = user[0];
-
-    models.password_reset.find({user_id: user.id}, function(err, activePasswordReset) {
-      if (err) {
-        console.error(err);
-        return res.send(500);
-      }
-
-      if (activePasswordReset.length) {
-        activePasswordReset = activePasswordReset[0];
-        activePasswordReset.save(function(err, passwordResetRecord) {
-          sendPasswordResetEmail(passwordResetRecord.verification_id);
-        });
-      } else {
-        models.password_reset.create({user_id: user.id}, function(err, newPasswordResetRecord) {
-          if (err) {
-            console.error(err);
-            return res.send(500);
-          }
-
-          sendPasswordResetEmail(newPasswordResetRecord.verification_id);
-        });
-      }
-    });
-
-    function sendPasswordResetEmail(verificationId) {
-      helpers.email.sendEmail(req.body.email_address, 'Account Recovery', 'password-reset', {
-        verificationId: verificationId
+    return models.password_reset.findOrCreate({ where: {user_id: user.id}}).then(function (passwordResetRecord) {
+      helpers.email.sendEmail(email, 'Account Recovery', 'password-reset', {
+        verificationId: passwordResetRecord.verification_id
       });
-
-      return res.send(200);
-    }
+    });
   });
 }
 
-function passwordResetVerification(req, res, next) {
-  models.password_reset.find({verification_id: req.params.verificationId}, function(err, passwordVerification) {
-    if (err || !passwordVerification.length) {
-      console.error(err || 'No password verification record exists');
-      return res.send(500);
+function passwordResetVerification(verificationId, payload) {
+  return models.password_reset.findOne({ where: {verification_id: verificationId}}).then(function(passwordVerification) {
+    if (!passwordVerification) {
+      throw 'No password verification record exists';
     }
 
-    passwordVerification = passwordVerification[0];
-
-    models.user.get(passwordVerification.user_id, function(err, user) {
-      if (err) {
-        console.error(err);
-        return res.send(500);
+    return models.user.findOne(passwordVerification.user_id).then(function(user) {
+      if (user.email_address !== payload.email) {
+        throw 'Invalid user attempting to reset password';
       }
 
-      if (user.email_address !== req.body.email_address) {
-        console.error('Invalid user attempting to reset password');
-        return res.send(500);
-      }
+      user.changePassword(payload.newPassword);
 
-      user.changePassword(req.body.new_password);
-      passwordVerification.remove(function(err) {
-        if (err) {
-          console.error(err);
-          return res.sent(500);
-        }
-        return res.send(200);
-      });
+      passwordVerification.destroy();
     });
   });
 }

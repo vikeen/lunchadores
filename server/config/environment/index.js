@@ -1,14 +1,8 @@
 'use strict';
 
 var path = require('path');
+var fs = require('fs');
 var _ = require('lodash');
-
-function requiredProcessEnv(name) {
-  if(!process.env[name]) {
-    throw new Error('You must set the ' + name + ' environment variable');
-  }
-  return process.env[name];
-}
 
 // All configurations will extend these options
 // ============================================
@@ -30,32 +24,21 @@ var all = {
   },
 
   // List of user roles
-  userRoles: ['guest', 'user', 'admin'],
+  userRoles: ['user', 'admin'],
 
-  robotEmail: "robot@lunchadores.com",
-
-  // MongoDB connection options
-  mongo: {
-    options: {
-      db: {
-        safe: true
-      }
-    }
-  },
-
-  // Postgres connection options
-  postgres: {
-    options: {
-      db: {
-        safe: true
-      }
-    }
-  }
-
+  robotEmail: "robot@lunchadores.com"
 };
+
+function getDatabaseConfig() {
+  var jsonData = fs.readFileSync(path.join(__dirname,'../database.json'), 'utf8');
+  var databaseConfig = JSON.parse(jsonData);
+
+  return {database: databaseConfig[process.env.NODE_ENV]};
+}
 
 // Export the config object based on the NODE_ENV
 // ==============================================
 module.exports = _.merge(
   all,
-  require('./' + process.env.NODE_ENV + '.js') || {});
+  require('./' + process.env.NODE_ENV + '.js') || {},
+  getDatabaseConfig() || {});

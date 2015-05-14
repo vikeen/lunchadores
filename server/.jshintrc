@@ -12,5 +12,6 @@
   "smarttabs": true,
   "asi": true,
   "debug": true,
-  "expr": true
+  "expr": true,
+  "predef": [ "-Promise" ]
 }

@@ -1,66 +1,86 @@
 'use strict';
 
 var _ = require('lodash'),
-  orm = require('orm'),
-  uuid = require('uuid'),
   crypto = require('crypto');
 
-function makeSalt() {
-  return crypto.randomBytes(16).toString('base64');
-}
-
-function encryptPassword(password, salt) {
-  salt = new Buffer(salt, 'base64');
-  return crypto.pbkdf2Sync(password, salt, 10000, 64).toString('base64');
-}
-
-module.exports = function (db) {
-  db.define('user', {
-    first_name: String,
-    last_name: String,
-    email_address: String,
-    provider: String,
-    role: String,
-    salt: String,
-    password: String,
-    active: Boolean,
-    created_at: {type: 'date', time: true},
-    updated_at: {type: 'date', time: true}
-  }, {
-    hooks: {
-      beforeCreate: function () {
-        this.created_at = new Date();
-        this.active = _.isBoolean(this.active) ? this.active : true;
-        this.email_address = this.email_address.toLowerCase();
-        this.salt = makeSalt();
-        this.password = encryptPassword(this.password, this.salt);
-      },
-      beforeSave: function () {
-        this.updated_at = new Date();
-        this.email_address = this.email_address.toLowerCase();
+module.exports = function (sequelize, DataTypes) {
+  var User = sequelize.define('user', {
+    first_name: DataTypes.STRING,
+    last_name: DataTypes.STRING,
+    email_address: {
+      type: DataTypes.STRING,
+      unique: true,
+      validate: {
+        isEmail: true
       }
     },
-    validations: {
-      email_address: orm.enforce.unique('email already taken')
+    provider: DataTypes.STRING,
+    role: DataTypes.STRING,
+    salt: DataTypes.STRING,
+    password: DataTypes.STRING,
+    active: DataTypes.BOOLEAN,
+    created_at: DataTypes.DATE,
+    updated_at: DataTypes.DATE
+  }, {
+    timestamps: false,
+    freezeTableName: true,
+
+    hooks: {
+      beforeCreate: function (user) {
+        user.created_at = new Date();
+        user.updated_at = new Date();
+        user.email_address = user.email_address.toLowerCase();
+        user.salt = _makeSalt();
+        user.password = _encryptPassword(user.password, user.salt);
+      },
+      beforeSave: function (user) {
+        user.updated_at = new Date();
+        user.email_address = user.email_address.toLowerCase();
+      }
     },
-    methods: {
-      changePassword: function (newPassword) {
-        this.salt = makeSalt();
-        this.password = encryptPassword(newPassword, this.salt);
-      },
+    getterMethods: {
+      full_name: function () {
+        return this.getDataValue('first_name') + ' ' + this.getDataValue('last_name');
+      }
+    },
+    setterMethods: {},
+    instanceMethods: {
       authenticate: function (plainTextPassword) {
-        return encryptPassword(plainTextPassword, this.salt) === this.password;
+        return _encryptPassword(plainTextPassword, this.getDataValue('salt')) === this.getDataValue('password');
       },
-      fullName: function () {
-        return this.first_name + ' ' + this.last_name;
+      changePassword: function (newPassword) {
+        this.setDataValue('salt', _makeSalt());
+        this.setDataValue('password', _encryptPassword(newPassword, this.getDataValue('salt')));
       },
       profile: function (isOwnUser) {
-        var user = _.cloneDeep(this);
-        delete user.password;
-        delete user.salt;
-        user.full_name = this.fullName();
-        return user;
+        return {
+          active: this.active,
+          id: this.id,
+          created_at: this.created_at,
+          email_address: this.email_address,
+          first_name: this.first_name,
+          full_name: this.full_name,
+          last_name: this.last_name,
+          provider: this.provider,
+          role: this.role,
+          updated_at: this.updated_at
+        };
       }
     }
   });
+
+  return User;
 };
+
+/*
+ * Private API
+ */
+
+function _makeSalt() {
+  return crypto.randomBytes(16).toString('base64');
+}
+
+function _encryptPassword(password, salt) {
+  salt = new Buffer(salt, 'base64');
+  return crypto.pbkdf2Sync(password, salt, 10000, 64).toString('base64');
+}

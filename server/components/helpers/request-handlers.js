@@ -1,25 +1,29 @@
-module.exports = requestHandler;
+module.exports = {
+  request: _requestHandler,
+  success: _successHandler,
+  error: _errorHandler
+};
 
 // Public
 
-function requestHandler(req, res) {
-  return function (error, data) {
-    if (error) {
-      _errorHandler(error, req, res);
-    } else {
-      _successHandler(data, req, res)
-    }
-  }
+function _requestHandler(promise, req, res) {
+  promise.then(function (data) {
+    _successHandler(data, req, res);
+  }).catch(function (error) {
+    _errorHandler(error, req, res);
+  });
 }
 
 // Private
 
 function _errorHandler(error, req, res) {
   console.error(error);
-  res.send(500);
+  if (res) {
+    res.status(500).end();
+  }
 }
 
 function _successHandler(data, req, res) {
-  res.send(data);
+  res.status(200).json(data);
 }
 

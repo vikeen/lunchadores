@@ -1,13 +1,20 @@
 'use strict';
 
-var express = require('express');
-var controller = require('./password-reset.controller.js');
-//var config = require('../../config/environment');
-//var auth = require('../../auth/auth.service');
+var express = require('express'),
+  controller = require('./password-reset.controller.js'),
+  handlers = require('../../components/helpers').handlers;
 
 var router = express.Router();
 
-router.post('/', controller.passwordReset);
-router.post('/:verificationId', controller.passwordResetVerification);
+router.post('/', function(req, res) {
+  handlers.request(controller.passwordReset(req.body.email_address), req, res);
+});
+
+router.post('/:verificationId', function(req, res) {
+  handlers.request(controller.passwordResetVerification(req.params.verificationId, {
+    email: req.body.email_address,
+    newPassword: req.body.new_password
+  }), req, res);
+});
 
 module.exports = router;

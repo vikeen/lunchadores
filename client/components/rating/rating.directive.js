@@ -5,13 +5,11 @@
 
   function RatingDirective() {
     return {
-      restrict: 'EA',
+      restrict: 'E',
       scope: {
         ratingValue: '='
       },
       templateUrl: 'components/rating/rating.html',
-      controllerAs: 'RatingCtrl',
-      controller: function () {},
       link: function () {}
     };
   }

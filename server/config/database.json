@@ -1,0 +1,19 @@
+{
+  "development": {
+    "username": "lunchadores_user",
+    "password": "foodie",
+    "database": "lunchadores_dev",
+    "host": "localhost",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "lunchadores_user",
+    "password": "foodie",
+    "database": "lunchadores_test",
+    "host": "localhost",
+    "dialect": "postgres"
+  },
+  "production": {
+    "use_env_variable": "DATABASE_URL"
+  }
+}

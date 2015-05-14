@@ -384,6 +384,11 @@ module.exports = function (grunt) {
           expand: true,
           dest: '<%= yeoman.dist %>',
           src: ['migrations/*']
+        }, {
+          expand: true,
+          dot: true,
+          dest: '<%= yeoman.dist %>',
+          src: '.sequelizerc'
         }]
       },
       styles: {
@@ -578,45 +583,18 @@ module.exports = function (grunt) {
         }
       }
     },
-
-    migrate: {
-      options: {
-        env: {
-          DATABASE_URL: config.postgres.uri
-        },
-        verbose: true
-      }
-    }
-  });
-
-  grunt.registerTask('clean_db', 'Clean db and re-apply all migrations', function () {
-    var fs = require('fs');
-    var files = fs.readdirSync('./migrations');
-    for (var i = 0; i < files.length; i++) {
-      grunt.task.run('migrate:down');
-    }
-
-    return grunt.task.run([
-      'migrate:up',
-      'seed_db'
-    ]);
   });
 
   grunt.registerTask('seed_db', 'Bootstrap database data', function () {
-    var done = this.async(),
-      async = require('async');
+    var done = this.async();
 
     if (!config.seedDB) {
       console.error('Error: database seeding is not allowed on', process.env.NODE_ENV);
       return process.exit(0);
     }
 
-    require('./server/database').connect(function (db) {
-      require('./server/models')(db, function (models) {
-        require('./server/config/seed')(function () {
-          done();
-        });
-      });
+    require('./server/config/seed')(function () {
+      done();
     });
   });
 
@@ -690,36 +668,36 @@ module.exports = function (grunt) {
       ]);
     }
 
-    else if (target === 'client') {
-      return grunt.task.run([
-        'clean:server',
-        'env:all',
-        'injector:stylus',
-        'concurrent:test',
-        'injector',
-        'autoprefixer',
-        'karma'
-      ]);
-    }
+    //else if (target === 'client') {
+    //  return grunt.task.run([
+    //    'clean:server',
+    //    'env:all',
+    //    'injector:stylus',
+    //    'concurrent:test',
+    //    'injector',
+    //    'autoprefixer',
+    //    'karma'
+    //  ]);
+    //}
 
-    else if (target === 'e2e') {
-      return grunt.task.run([
-        'clean:server',
-        'env:all',
-        'env:test',
-        'injector:stylus',
-        'concurrent:test',
-        'injector',
-        'wiredep',
-        'autoprefixer',
-        'express:dev',
-        'protractor'
-      ]);
-    }
+    //else if (target === 'e2e') {
+    //  return grunt.task.run([
+    //    'clean:server',
+    //    'env:all',
+    //    'env:test',
+    //    'injector:stylus',
+    //    'concurrent:test',
+    //    'injector',
+    //    'wiredep',
+    //    'autoprefixer',
+    //    'express:dev',
+    //    'protractor'
+    //  ]);
+    //}
 
     else grunt.task.run([
         'test:server',
-        'test:client'
+        //'test:client'
       ]);
   });
 

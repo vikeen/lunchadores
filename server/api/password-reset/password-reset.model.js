@@ -2,22 +2,33 @@
 
 var uuid = require('uuid');
 
-module.exports = function (db) {
-  db.define('password_reset', {
-    user_id: String,
-    verification_id: String,
-    created_at: {type: 'date', time: true},
-    updated_at: {type: 'date', time: true}
+module.exports = function (sequelize, DataTypes) {
+  var PasswordReset = sequelize.define('password_reset', {
+    user_id: {
+      type: DataTypes.INTEGER,
+      unique: true
+    },
+    verification_id: {
+      type: DataTypes.STRING,
+      unique: true
+    },
+    created_at: DataTypes.DATE,
+    updated_at: DataTypes.DATE
   }, {
+    timestamps: false,
+    freezeTableName: true,
+
     hooks: {
-      beforeCreate: function () {
-        this.created_at = new Date();
-        this.verification_id = this.verification_id || uuid.v4();
+      beforeCreate: function (password_reset) {
+        password_reset.created_at = new Date();
+        password_reset.verification_id = password_reset.verification_id || uuid.v4();
       },
-      beforeSave: function () {
-        this.verification_id = this.verification_id || uuid.v4();
-        this.updated_at = new Date();
+      beforeSave: function (password_reset) {
+        password_reset.verification_id = password_reset.verification_id || uuid.v4();
+        password_reset.updated_at = new Date();
       }
     }
   });
+
+  return PasswordReset;
 };

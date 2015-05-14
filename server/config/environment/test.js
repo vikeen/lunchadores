@@ -3,13 +3,7 @@
 // Test specific configuration
 // ===========================
 module.exports = {
-  // MongoDB connection options
-  mongo: {
-    uri: 'mongodb://localhost/lunchadores_test'
-  },
-
-  // Postgres connection options
-  postgres: {
+  database: {
     uri: 'postgres://lunchadores_user:foodie@localhost:5432/lunchadores_test'
   }
 };
