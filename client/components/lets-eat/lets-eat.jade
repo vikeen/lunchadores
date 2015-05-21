@@ -13,3 +13,7 @@
         a.default(href="#") {{letsEatCtrl.randomRestaurant.name}}
       h4.md-subhead(flex='100')
         a.default(href="#") {{letsEatCtrl.randomRestaurant.formatted_address}}
+
+      md-chips(ng-if='letsEatCtrl.randomRestaurant.tags' readonly='readonly')
+        md-chip(ng-repeat='tag in letsEatCtrl.randomRestaurant.tags') {{tag.readable_name}}
+

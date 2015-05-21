@@ -30,14 +30,14 @@ function passwordResetVerification(verificationId, payload) {
       throw 'No password verification record exists';
     }
 
-    return models.user.findOne(passwordVerification.user_id).then(function(user) {
+    return models.user.findById(passwordVerification.user_id).then(function(user) {
       if (user.email_address !== payload.email) {
         throw 'Invalid user attempting to reset password';
       }
 
       user.changePassword(payload.newPassword);
 
-      passwordVerification.destroy();
+      return passwordVerification.destroy();
     });
   });
 }

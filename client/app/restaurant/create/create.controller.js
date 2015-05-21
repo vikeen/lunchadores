@@ -3,20 +3,30 @@
 
   angular.module('lunchadoresApp').controller('RestaurantCreateCtrl', RestaurantCreateCtrl);
 
-  function RestaurantCreateCtrl($timeout, maps, notifications, restaurants, states, countries) {
+  function RestaurantCreateCtrl($timeout, maps, notifications, restaurants, tags, states, countries) {
     var self = this;
 
     self.activeStep = '';
     self.countries = {};
     self.errors = [];
-    self.newRestaurant = {};
+    self.newRestaurant = {
+      name: 'The new place',
+      street: '101 main street',
+      city: 'kansas city',
+      zipcode: '64151',
+      state_abbreviation: 'MO',
+      country_abbreviation: 'USA',
+      tags: []
+    };
     self.states = {};
+    self.tagSearchText = '';
 
     self.createRestaurant = createRestaurant;
     self.goToConfirmationStep = goToConfirmationStep;
     self.goToInformationStep = goToInformationStep;
     self.resetFlow = resetFlow;
     self.restaurantInformationStepComplete = restaurantInformationStepComplete;
+    self.tagQuerySearch = tagQuerySearch;
 
     activate();
 
@@ -25,8 +35,13 @@
     function activate() {
       self.states = states.getAllStates();
       self.countries = countries.getAllCountries();
+      self.tags = tags.getAllTags();
       self.resetFlow();
     }
+
+    /*
+     * Public API
+     */
 
     function createRestaurant() {
       self.newRestaurant.state = self.states[self.newRestaurant.state_abbreviation].name;
@@ -105,6 +120,22 @@
         .finally(function () {
           self.verifyingAddress = false;
         });
+    }
+
+    function tagQuerySearch(query) {
+      var filteredTags = self.tags.filter(_createFilterFor(query));
+      return filteredTags.length ? filteredTags : self.tags;
+    }
+
+    /*
+     * Private API
+     */
+
+    function _createFilterFor(query) {
+      var lowercaseQuery = angular.lowercase(query);
+      return function filterFn(tag) {
+        return (tag.readable_name.toLowerCase().indexOf(lowercaseQuery) === 0);
+      };
     }
   }
 })();

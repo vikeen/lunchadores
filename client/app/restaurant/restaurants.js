@@ -22,7 +22,7 @@
       })
       .state('restaurant.create', {
         url: '/create-restaurant',
-        templateUrl: 'app/restaurant/create/restaurant-create.html',
+        templateUrl: 'app/restaurant/create/create.html',
         controller: 'RestaurantCreateCtrl',
         controllerAs: 'restaurantCreateCtrl'
       });

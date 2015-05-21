@@ -5,19 +5,21 @@
 
   angular.module('lunchadoresApp').controller('RestaurantCtrl', RestaurantCtrl);
 
-  function RestaurantCtrl($rootScope, $stateParams, $q, restaurants, notifications, states, countries) {
+  function RestaurantCtrl($rootScope, $stateParams, $q, restaurants, notifications, tags, states, countries) {
     var self = this;
 
     self.countries = {};
-    self.editingName = false;
+    self.countrySearch = {};
     self.errors = [];
     self.updateRestaurantFormSubmit = false;
     self.restaurant = {};
     self.states = {};
+    self.stateSearchText = '';
+    self.tagSearchText = '';
 
     self.canUpdate = canUpdate;
-    self.editName = editName;
     self.getGeoCoordinates = getGeoCoordinates;
+    self.tagQuerySearch = tagQuerySearch;
     self.updateRestaurant = updateRestaurant;
 
     activate();
@@ -25,20 +27,17 @@
     ////////////
 
     function activate() {
-      self.states = states.getAllStates();
-      self.countries = countries.getAllCountries();
-
       restaurants.get({id: $stateParams.id}).$promise.then(function (response) {
         self.restaurant = response;
       });
+
+      self.states = states.getAllStates();
+      self.countries = countries.getAllCountries();
+      self.tags = self.tags = tags.getAllTags();
     }
 
     function canUpdate() {
       return $rootScope.isAdmin();
-    }
-
-    function editName() {
-      self.editingName = true;
     }
 
     function getGeoCoordinates() {
@@ -75,6 +74,11 @@
       return deferred.promise;
     }
 
+    function tagQuerySearch(query) {
+      var filteredTags = self.tags.filter(_createFilterFor(query));
+      return filteredTags.length ? filteredTags : self.tags;
+    }
+
     function updateRestaurant() {
       self.errors = [];
       self.updateRestaurantFormSubmit = true;
@@ -96,6 +100,17 @@
             self.updateRestaurantFormSubmit = false;
           });
       });
+    }
+
+    /*
+     * Private API
+     */
+
+    function _createFilterFor(query) {
+      var lowercaseQuery = angular.lowercase(query);
+      return function filterFn(tag) {
+        return (tag.readable_name.toLowerCase().indexOf(lowercaseQuery) === 0);
+      };
     }
   }
 })();

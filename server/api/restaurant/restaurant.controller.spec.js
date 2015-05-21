@@ -2,9 +2,15 @@
 
 var should = require('should'),
   _ = require('lodash'),
+  Promise = require('bluebird'),
   models = require('../../models'),
   restaurantController = require('./restaurant.controller');
 
+var mockTags = [{
+  id: 1,
+  name: 'vegan',
+  readable_name: 'Vegan'
+}];
 var mockRestaurants = [
   {
     id: 1,
@@ -65,31 +71,31 @@ describe('Restaurant Controller', function () {
   });
 
   beforeEach(function (done) {
-    models.restaurant.findAll().then(function () {
+    return Promise.all([
       models.restaurant.destroy({where: {}}).then(function () {
-        models.restaurant.bulkCreate(mockRestaurants, {individualHooks: true})
-          .then(function () {
-            done();
-          }).catch(function (err) {
-            console.error(err);
-            throw(err);
-          });
-      });
-    });
+        return models.restaurant.bulkCreate(mockRestaurants, {individualHooks: true});
+      }),
+      models.tag.destroy({where: {}}).then(function () {
+        return models.tag.bulkCreate(mockTags, {individualHooks: true});
+      }),
+      models.restaurant_tag.destroy({where: {}})
+    ]).then(function () {
+      done();
+    }).catch(console.error)
   });
 
   it('should get all active restaurants', function (done) {
     restaurantController.getActiveRestaurants().then(function (restaurants) {
       restaurants.should.have.lengthOf(2);
       done();
-    });
+    }).catch(console.error)
   });
 
   it('should get all restaurants', function (done) {
     restaurantController.getAllRestaurants().then(function (restaurants) {
       restaurants.should.have.lengthOf(3);
       done();
-    });
+    }).catch(console.error)
   });
 
   it('should get all active restaurants in the location distance', function (done) {
@@ -98,7 +104,7 @@ describe('Restaurant Controller', function () {
     restaurantController.getActiveRestaurantsByLocation(location, maxDistance).then(function (restaurants) {
       restaurants.should.have.lengthOf(2);
       done();
-    });
+    }).catch(console.error)
   });
 
   it('should get a restaurant by id', function (done) {
@@ -106,7 +112,7 @@ describe('Restaurant Controller', function () {
       restaurant.should.have.property('name', mockRestaurants[0].name);
       restaurant.should.have.property('active', mockRestaurants[0].active);
       done();
-    });
+    }).catch(console.error)
   });
 
   it('should create a restaurant', function (done) {
@@ -132,10 +138,8 @@ describe('Restaurant Controller', function () {
       models.restaurant.count().then(function (count) {
         count.should.equal(mockRestaurants.length + 1);
         done();
-      })
-    }).catch(function (err) {
-      console.log(err);
-    });
+      }).catch(console.error)
+    }).catch(console.error)
   });
 
   it('should delete a restaurant', function (done) {
@@ -143,10 +147,8 @@ describe('Restaurant Controller', function () {
       models.restaurant.count().then(function (count) {
         count.should.equal(mockRestaurants.length - 1);
         done();
-      }).catch(function (err) {
-        console.log(err);
-      })
-    });
+      }).catch(console.error)
+    }).catch(console.error)
   });
 
   it('should update a restaurant', function (done) {
@@ -162,6 +164,64 @@ describe('Restaurant Controller', function () {
       restaurant.should.have.property('address', 'new restaurant address');
       restaurant.should.have.property('active', false);
       done();
+    }).catch(console.error);
+  });
+
+  describe('Tags', function () {
+    it('should add a tag', function (done) {
+      var id = mockRestaurants[0].id,
+        tagIds = [mockTags[0].id];
+
+      restaurantController.addTagsToRestaurant(id, tagIds).then(function () {
+        models.restaurant_tag.findAll().then(function (restaurantTags) {
+          restaurantTags.should.have.lengthOf(1);
+          restaurantTags[0].should.have.property('tag_id', tagIds[0]);
+          restaurantTags[0].should.have.property('restaurant_id', id);
+          done();
+        });
+      });
+    });
+
+    it('should ignore tags do not exist on add', function (done) {
+      var id = mockRestaurants[0].id,
+        tagIds = [mockTags[0].id, 2, 3, 4];
+
+      restaurantController.addTagsToRestaurant(id, tagIds).then(function () {
+        models.restaurant_tag.findAll().then(function (restaurantTags) {
+          restaurantTags.should.have.lengthOf(1);
+          restaurantTags[0].should.have.property('tag_id', tagIds[0]);
+          restaurantTags[0].should.have.property('restaurant_id', id);
+          done();
+        });
+      });
+    });
+
+    it('should delete a tag', function (done) {
+      var id = mockRestaurants[0].id,
+        tagIds = [mockTags[0].id];
+
+      restaurantController.addTagsToRestaurant(id, tagIds).then(function () {
+        restaurantController.deleteTagsFromRestaurant(id, tagIds).then(function () {
+          models.restaurant_tag.findAll().then(function (restaurantTags) {
+            restaurantTags.should.have.lengthOf(0);
+            done();
+          });
+        });
+      });
+    });
+
+    it('should ignore tags do not exist on delete', function (done) {
+      var id = mockRestaurants[0].id,
+        tagIds = [mockTags[0].id, 2, 3, 4];
+
+      restaurantController.addTagsToRestaurant(id, tagIds).then(function () {
+        restaurantController.deleteTagsFromRestaurant(id, [mockTags[0].id]).then(function () {
+          models.restaurant_tag.findAll().then(function (restaurantTags) {
+            restaurantTags.should.have.lengthOf(0);
+            done();
+          });
+        });
+      });
     });
   });
 });

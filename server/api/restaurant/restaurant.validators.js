@@ -1,12 +1,19 @@
 'use strict';
 
+var _ = require('lodash');
+
+module.exports = {
+  hasValidIdParam: hasValidIdParam,
+  hasValidTagsPayload: hasValidTagsPayload
+};
+
 var REQUIRED_RESTAURANT_ID = 'Missing required restaurant id',
-  INVALID_RESTAURANT_ID = 'Invalid restaurant id',
-  REQUIRED_RESTAURANT_RATING = 'Missing required restaurant rating',
-  INVALID_RESTAURANT_RATING = 'Invalid restaurant rating'
+  REQUIRED_RESTAURANT_TAGS = 'Missed required restaurant tags',
+  INVALID_RESTAURANT_TAGS = 'Invalid restaurant tags'
   ;
 
 function handleError(res, status, message) {
+  console.error(message);
   res.send(status, {
     status: status,
     message: message
@@ -14,30 +21,21 @@ function handleError(res, status, message) {
 }
 
 function hasValidIdParam(req, res, next) {
-  if (req.params.id) {
-    if (parseInt(req.params.id, 10)) {
-      next();
-    } else {
-      handleError(res, 500, INVALID_RESTAURANT_ID);
-    }
+  if (req.params.id && parseInt(req.params.id, 10)) {
+    next();
   } else {
     handleError(res, 500, REQUIRED_RESTAURANT_ID);
   }
 }
 
-function hasValidRatingParam(req, res,next) {
-  if (req.params.rating) {
-    if (parseInt(req.params.rating, 10)) {
+function hasValidTagsPayload(req, res, next) {
+  if (req.body.tags) {
+    if (_.isArray(req.body.tags)) {
       next();
     } else {
-      handleError(res, 500, INVALID_RESTAURANT_RATING);
+      return handleError(res, 500, INVALID_RESTAURANT_TAGS);
     }
   } else {
-    handleError(res, 500, REQUIRED_RESTAURANT_RATING);
+    return handleError(res, 500, REQUIRED_RESTAURANT_TAGS);
   }
 }
-
-module.exports = {
-  hasValidIdParam: hasValidIdParam,
-  hasValidRatingParam: hasValidRatingParam
-};

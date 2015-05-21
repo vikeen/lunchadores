@@ -26,18 +26,27 @@ router.get('/:id', validators.hasValidIdParam, function (req, res) {
   handlers.request(controller.getRestaurantById(req.params.id), req, res);
 });
 
-router.post('/', auth.hasRole('admin'), function (req, res) {
-  console.log(req.body);
-  handlers.request(controller.createRestaurant(req.body), req, res);
-});
+router.post('/',
+  validators.hasValidTagsPayload,
+  auth.hasRole('admin'), function (req, res) {
+    handlers.request(controller.createRestaurant(req.body), req, res);
+  });
 
-router.put('/:id', validators.hasValidIdParam, auth.hasRole('admin'), function (req, res) {
-  handlers.request(controller.updateRestaurant(req.body), req, res);
-});
+router.put('/:id',
+  validators.hasValidIdParam,
+  validators.hasValidTagsPayload,
+  auth.hasRole('admin'),
+  function (req, res) {
+    handlers.request(controller.updateRestaurant(req.body), req, res);
+  });
 
-router.patch('/:id', validators.hasValidIdParam, auth.hasRole('admin'), function (req, res) {
-  handlers.request(controller.updateRestaurant(req.body), req, res);
-});
+router.patch('/:id',
+  validators.hasValidIdParam,
+  validators.hasValidTagsPayload,
+  auth.hasRole('admin'),
+  function (req, res) {
+    handlers.request(controller.updateRestaurant(req.body), req, res);
+  });
 
 router.delete('/:id', validators.hasValidIdParam, auth.hasRole('admin'), function (req, res) {
   handlers.request(controller.deleteRestaurant(req.params.id), req, res);

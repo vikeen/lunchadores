@@ -1,7 +1,6 @@
 "use strict";
 
 var path = require('path'),
-  fs = require('fs'),
   Promise = require("bluebird");
 
 module.exports = {
@@ -29,18 +28,19 @@ module.exports = {
           onUpdate: 'CASCADE',
           onDelete: 'CASCADE'
         },
-        created_at: {type: DataTypes.DATE, allowNull: false},
-        updated_at: {type: DataTypes.DATE, allowNull: true}
+        created_at: {type: DataTypes.DATE},
+        updated_at: {type: DataTypes.DATE}
       }).then(function () {
-        migration.sequelize.query(_insertDefaultTags());
-        done();
+        migration.sequelize.query(_insertDefaultTags()).then(function () {
+          done();
+        });
       })
     });
   },
 
   down: function (migration, DataTypes, done) {
     migration.dropTable('restaurants_tags').then(function () {
-      migration.dropTable('tag')
+      migration.dropTable('tag');
     }).then(function () {
       done();
     })

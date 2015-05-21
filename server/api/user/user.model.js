@@ -19,22 +19,25 @@ module.exports = function (sequelize, DataTypes) {
     salt: DataTypes.STRING,
     password: DataTypes.STRING,
     active: DataTypes.BOOLEAN,
-    created_at: DataTypes.DATE,
-    updated_at: DataTypes.DATE
+    createdAt: {
+      type: DataTypes.DATE,
+      field: 'created_at'
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      field: 'updated_at'
+    }
   }, {
-    timestamps: false,
+    timestamps: true,
     freezeTableName: true,
 
     hooks: {
       beforeCreate: function (user) {
-        user.created_at = new Date();
-        user.updated_at = new Date();
         user.email_address = user.email_address.toLowerCase();
         user.salt = _makeSalt();
         user.password = _encryptPassword(user.password, user.salt);
       },
       beforeSave: function (user) {
-        user.updated_at = new Date();
         user.email_address = user.email_address.toLowerCase();
       }
     },

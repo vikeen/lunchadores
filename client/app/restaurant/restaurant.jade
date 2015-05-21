@@ -18,15 +18,18 @@ form(layout='row' layout-align='start center' layout-wrap ng-submit='::Restauran
     label ZipCode
     input(type='text' required='required' ng-model='RestaurantCtrl.restaurant.zipcode')
 
-  //md-chips.md-primary(flex='100' ng-readonly='!RestaurantCtrl.canUpdate()')
-  //  md-chip(ng-if='RestaurantCtrl.restaurant.outside_seating') Outside Seating
-  //  md-chip(ng-if='RestaurantCtrl.restaurant.vegan') Vegan
-  //  md-chip(ng-if='RestaurantCtrl.restaurant.vegetarian') Vegetarian
+  md-chips(flex='100' ng-model="RestaurantCtrl.restaurant.tags" readonly="readonly")
+    md-autocomplete(
+    md-selected-item="RestaurantCtrl.selectedTag"
+    md-search-text="RestaurantCtrl.tagSearchText"
+    md-items="tag in RestaurantCtrl.tagQuerySearch(RestaurantCtrl.tagSearchText)"
+    md-item-text="tag.readable_name"
+    placeholder="Add Tag")
+      span(md-highlight-text="RestaurantCtrl.tagSearchText") {{tag.readable_name}}
+    md-chip-template
+      span {{$chip.readable_name}}
 
-  md-checkbox.md-primary(flex ng-readonly='::!RestaurantCtrl.canUpdate()' ng-model='RestaurantCtrl.restaurant.active') Active
-  md-checkbox.md-primary(flex ng-readonly='::!RestaurantCtrl.canUpdate()' ng-model='RestaurantCtrl.restaurant.outside_seating') Outside Seating
-  md-checkbox.md-primary(flex ng-readonly='::!RestaurantCtrl.canUpdate()' ng-model='RestaurantCtrl.restaurant.vegan') Vegan
-  md-checkbox.md-primary(flex ng-readonly='::!RestaurantCtrl.canUpdate()' ng-model='RestaurantCtrl.restaurant.vegetarian') Vegetarian
+  md-checkbox.md-primary(flex ng-if='::RestaurantCtrl.canUpdate()' ng-model='RestaurantCtrl.restaurant.active') Active
 
   lunchadores-form-errors(errors='RestaurantCtrl.errors')
   div(ng-if='::RestaurantCtrl.canUpdate()')

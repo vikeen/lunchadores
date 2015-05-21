@@ -32,7 +32,7 @@ function isAuthenticated() {
     })
     // Attach user to request
     .use(function (req, res, next) {
-      models.user.findOne({where: {id: req.user.id}}).then(function (user) {
+      models.user.findById(req.user.id).then(function (user) {
         if (!user) return res.send(401);
 
         req.user = user;

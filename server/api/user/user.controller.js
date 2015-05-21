@@ -37,7 +37,7 @@ function createUser(payload) {
 }
 
 function updateUser(payload) {
-  return models.user.findOne(payload.id).then(function (user) {
+  return models.user.findById(payload.id).then(function (user) {
     _.merge(user, payload).save().then(function (user) {
       return user.profile(false);
     });
@@ -45,7 +45,7 @@ function updateUser(payload) {
 }
 
 function getUserById(id) {
-  return models.user.findOne(id).then(function (user) {
+  return models.user.findById(id).then(function (user) {
     return user.profile(false);
   });
 }
@@ -55,7 +55,7 @@ function deleteUserById(id) {
 }
 
 function changePassword(payload) {
-  return models.user.findOne(payload.id).then(function (user) {
+  return models.user.findById(payload.id).then(function (user) {
     if (user.authenticate(payload.oldPassword)) {
       user.changePassword(payload.newPassword);
       return user.save();
@@ -66,7 +66,7 @@ function changePassword(payload) {
 }
 
 function me(id) {
-  return models.user.findOne(id).then(function(user) {
+  return models.user.findById(id).then(function(user) {
     return user.profile(true);
   });
 }

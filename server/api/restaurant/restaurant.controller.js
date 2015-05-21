@@ -5,8 +5,10 @@ var _ = require('lodash'),
   models = require('../../models');
 
 module.exports = {
+  addTagsToRestaurant: addTagsToRestaurant,
   createRestaurant: createRestaurant,
   deleteRestaurant: deleteRestaurant,
+  deleteTagsFromRestaurant: deleteTagsFromRestaurant,
   getActiveRestaurants: getActiveRestaurants,
   getActiveRestaurantsByLocation: getActiveRestaurantsByLocation,
   getAllRestaurants: getAllRestaurants,
@@ -20,41 +22,71 @@ module.exports = {
 
 // Get list of active restaurants
 function getActiveRestaurants() {
-  return models.restaurant.findAll({ where: {active: true} });
+  return models.restaurant.findAll({
+    where: {active: true},
+    include: [{all: true}]
+  });
 }
 
 // Get list of active restaurants by location
 function getActiveRestaurantsByLocation(location, maxDistance) {
-  return models.restaurant.findAll({ where: {active: true}}).then(function(restaurants) {
+  return models.restaurant.findAll({
+    where: {active: true},
+    include: [{all: true}]
+  }).then(function (restaurants) {
     return _filterRestaurantsByDistance(location, restaurants, maxDistance);
   });
 }
 
 // Get list of restaurants
 function getAllRestaurants() {
-  return models.restaurant.findAll({});
+  return models.restaurant.findAll({include: [{all: true}]});
+}
+
+function addTagsToRestaurant(id, tags) {
+  return Promise.all([
+    models.tag.find({where: {id: tags}}),
+    models.restaurant.findById(id)
+  ]).spread(function (tags, restaurant) {
+    return restaurant.addTags(tags);
+  });
+}
+
+function deleteTagsFromRestaurant(id, tags) {
+  return Promise.all([
+    models.tag.find({where: {id: tags}}),
+    models.restaurant.findById(id)
+  ]).spread(function (tags, restaurant) {
+    return restaurant.removeTags(tags);
+  });
 }
 
 // Get a single restaurant
 function getRestaurantById(id) {
-  return models.restaurant.findOne(id);
+  return models.restaurant.findById(id, {include: [{all: true}]});
 }
 
 // Creates a new restaurant in the DB.
 function createRestaurant(payload) {
-  return models.restaurant.create(payload);
+  return models.restaurant.create(payload).then(function(restaurant) {
+    return restaurant.addTags(models.tag.build(payload.tags)).then(function() {
+      return restaurant;
+    });
+  });
 }
 
 // Updates an existing restaurant in the DB.
 function updateRestaurant(payload) {
-  return models.restaurant.findOne(payload.id).then(function(restaurant) {
-    return _.merge(restaurant, payload).save();
+  return models.restaurant.findById(payload.id).then(function (restaurant) {
+    return restaurant.setTags(models.tag.build(payload.tags)).then(function () {
+      return _.merge(restaurant, payload).save();
+    });
   });
 }
 
 // Deletes a restaurant from the DB.
 function deleteRestaurant(restaurantId, callback) {
-  return models.restaurant.destroy({ where: {id: restaurantId} });
+  return models.restaurant.destroy({where: {id: restaurantId}});
 }
 
 /************************/
@@ -67,7 +99,7 @@ function deleteRestaurant(restaurantId, callback) {
 function _filterRestaurantsByDistance(startingPoint, restaurants, maxDistance) {
   var result = [];
 
-  restaurants.forEach(function(restaurant) {
+  restaurants.forEach(function (restaurant) {
     if (_distance(startingPoint.lat, startingPoint.lng, restaurant.lat, restaurant.lng, 'M') <= maxDistance) {
       result.push(restaurant);
     }

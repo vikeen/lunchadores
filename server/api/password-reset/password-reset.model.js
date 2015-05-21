@@ -12,10 +12,16 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.STRING,
       unique: true
     },
-    created_at: DataTypes.DATE,
-    updated_at: DataTypes.DATE
+    createdAt: {
+      type: DataTypes.DATE,
+      field: 'created_at'
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      field: 'updated_at'
+    }
   }, {
-    timestamps: false,
+    timestamps: true,
     freezeTableName: true,
 
     hooks: {

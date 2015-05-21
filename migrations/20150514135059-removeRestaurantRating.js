@@ -7,8 +7,8 @@ module.exports = {
     });
   },
 
-  down: function (queryInterface, Sequelize) {
-    queryInterface.addColumn('restaurant', 'rating', {type: DataTypes.DECIMAL, defaultValue: 0}).then(function () {
+  down: function (queryInterface, Sequelize, done) {
+    queryInterface.addColumn('restaurant', 'rating', {type: Sequelize.DECIMAL, defaultValue: 0}).then(function () {
       done();
     });
   }
