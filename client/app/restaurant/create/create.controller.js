@@ -10,12 +10,12 @@
     self.countries = {};
     self.errors = [];
     self.newRestaurant = {
-      name: 'The new place',
-      street: '101 main street',
-      city: 'kansas city',
-      zipcode: '64151',
-      state_abbreviation: 'MO',
-      country_abbreviation: 'USA',
+      //name: 'The new place',
+      //street: '101 main street',
+      //city: 'kansas city',
+      //zipcode: '64151',
+      //state_abbreviation: 'MO',
+      //country_abbreviation: 'USA',
       tags: []
     };
     self.states = {};

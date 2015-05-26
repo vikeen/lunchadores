@@ -15,6 +15,7 @@
 @import 'gravatar/gravatar.styl';
 @import 'lets-eat/lets-eat.styl';
 @import 'maps/maps.styl';
+@import 'navbar/navbar.styl';
 @import 'notifications/notifications.styl';
 @import 'overrides/pure.styl';
 @import 'rating/rating.styl';
@@ -30,83 +31,98 @@
 //
 
 @font-face
-  font-family: 'FontAwesome'
-  src: url('../bower_components/font-awesome/fonts/fontawesome-webfont.eot?v=4.1.0')
-  src: url('../bower_components/font-awesome/fonts/fontawesome-webfont.eot?#iefix&v=4.1.0') format('embedded-opentype'),
+  font-family 'FontAwesome'
+  src url('../bower_components/font-awesome/fonts/fontawesome-webfont.eot?v=4.1.0')
+  src url('../bower_components/font-awesome/fonts/fontawesome-webfont.eot?#iefix&v=4.1.0') format('embedded-opentype'),
   url('../bower_components/font-awesome/fonts/fontawesome-webfont.woff?v=4.1.0') format('woff'),
   url('../bower_components/font-awesome/fonts/fontawesome-webfont.ttf?v=4.1.0') format('truetype'),
   url('../bower_components/font-awesome/fonts/fontawesome-webfont.svg?v=4.1.0#fontawesomeregular') format('svg');
-  font-weight: normal
-  font-style: normal
-
-//
-// App-wide Styles
-//
-
+  font-weight normal
+  font-style normal
+  //
+  // App-wide Styles
+  //
 html
-  font-family: 'Ubuntu', sans-serif !important;
-
-.browsehappy
-  background #ccc
-  color #000
-  margin 0.2em 0
-  padding 0.2em 0
-
-.wrapper
-  max-width: 1024px
-  padding: 0 1em
-  margin: 0 auto
+  font-family 'Ubuntu', sans-serif !important;
 
 .content
-  padding-top: 75px
-  padding-bottom: 100px
+  max-width 1024px
+  padding 1em 1em 0
+  margin 75px auto 0
 
-#siteHeader,
-footer
-  position: fixed
-  padding-top: 10px;
-  background: white
-  width: 100%
-  z-index: 999
+.brand
+  text-transform: uppercase
+  text-decoration: none
+  zoom: 1
+  vertical-align middle
 
-#siteHeader
-  border-bottom: 1px solid #e5e5e5
-  top: 0
+  &.a
+    color $white;
+    text-decoration none
 
   a
-    &:hover, &:focus
-      background: none
+    color $white;
+    text-decoration none
 
-  #logout
-    min-width: 50px
+#mainNavigation
+  padding 0
+  z-index 100
 
-footer
-  padding: 0
-  margin: 0
-  border-top: 1px solid #e5e5e5
-  bottom: 0
+  nav
+    list-style none
 
-  ul
-    padding: 10px 0
-    margin: 0
+    .gravatar
+      padding-bottom: 5px
+
+
+    a
+      display block
+      text-decoration none
+      padding 15px
+
+      i
+        margin-right 10px
+
+#mobileNavigation
+  border-bottom: 1px solid #e5e5e5;
+  padding: 10px 1em 8px
+  position: fixed
+  background: $white
+  right 0
+  top 0
+  left 0
+  z-index 50
+
+  .brand
+    color #565d64
+    font-size: 130%
+    padding-top: 5px
+    display: inline-block
+    text-decoration: none
+
+  nav
+    list-style none
 
     li
-      list-style: none
+      float: left
+      margin-left: 1em
 
-      a, button
-        margin: 0 !important
-
-.jumbotron
-  width: 100%
-  font-size: 130%
-  text-align: center
+    a
+      color #565d64
 
 table
   th.sortable
-    cursor: pointer;
-    text-decoration: underline
+    cursor pointer;
+    text-decoration underline
 
 // Responsive: Portrait tablets and up
 @media screen and (min-width: $md)
-  .wrapper
-    max-width 730px
+  #mainNavigation
+    position: fixed
+    left: 0
+    top: 0
+    bottom: 0
+
+  .content
+    margin-left 304px // sidebar width
+    margin-top 45px

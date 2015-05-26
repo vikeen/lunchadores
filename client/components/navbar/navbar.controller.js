@@ -1,9 +1,9 @@
-(function() {
+(function () {
   'use strict';
 
   angular.module('lunchadoresApp').controller('NavbarCtrl', NavBarCtrl);
 
-  function NavBarCtrl($scope, $location, Auth) {
+  function NavBarCtrl($location, $mdSidenav, Auth) {
     var self = this;
 
     self.getCurrentUser = Auth.getCurrentUser;
@@ -12,6 +12,10 @@
 
     ////////////
 
+    /*
+     * Public API
+     */
+
     function isActive(route) {
       return route === $location.path();
     }
@@ -19,6 +23,13 @@
     function logout() {
       Auth.logout();
       $location.path('/login');
+    }
+
+    /*
+     * Private API
+     */
+
+    function activate() {
     }
   }
 })();
