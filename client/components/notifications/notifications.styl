@@ -1,9 +1,11 @@
 $notificationPadding = 10px
 
 .notifications
-  position: absolute;
-  left: 0;
-  right: 0;
+  position: fixed
+  left: 1em
+  right: 1em
+  top: 50px
+  z-index: 1
 
   .notification
     position: relative
@@ -29,3 +31,8 @@ $notificationPadding = 10px
     top: $notificationPadding
     right: $notificationPadding
     cursor: pointer
+
+@media screen and (min-width: $md)
+  .notifications
+    top: 0
+    margin-left: 304px
