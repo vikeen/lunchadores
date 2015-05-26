@@ -28,8 +28,5 @@
     /*
      * Private API
      */
-
-    function activate() {
-    }
   }
 })();

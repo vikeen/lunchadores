@@ -6,6 +6,7 @@
   function MainCtrl($mdSidenav, $mdUtil) {
     var vm = this;
 
+    vm.closeMenu = closeMenu;
     vm.mainNavigationComponentID = 'mainNavigation';
 
     vm.toggleNavigation = _buildToggler(vm.mainNavigationComponentID);
@@ -13,6 +14,10 @@
     /*
      * Public API
      */
+
+    function closeMenu() {
+      $mdSidenav(vm.mainNavigationComponentID).close();
+    }
 
     /*
      * Private API

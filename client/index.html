@@ -36,9 +36,12 @@
   <md-toolbar class="md-theme-indigo">
     <h1 class="md-toolbar-tools brand">
       <a ng-href="/">Lunchadores</a>
+      <a href="#" class="close" hide-gt-md>
+        <i class="fa fa-close" ng-click="mainCtrl.closeMenu()"></i>
+      </a>
     </h1>
   </md-toolbar>
-  <md-content layout-padding ng-controller="NavbarCtrl as navbarCtrl" class="p-0">
+  <md-content layout-padding ng-controller="NavbarCtrl as navbarCtrl" class="p-0" ng-click="mainCtrl.closeMenu()">
     <!-- Unauthenticated Navigation -->
     <nav ng-hide="isLoggedIn()">
       <li><a ui-sref="login"><i class="fa fa-sign-in"></i>Login</a></li>
