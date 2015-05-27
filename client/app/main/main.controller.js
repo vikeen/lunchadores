@@ -3,11 +3,12 @@
 
   angular.module('lunchadoresApp').controller('MainCtrl', MainCtrl);
 
-  function MainCtrl($mdSidenav, $mdUtil) {
+  function MainCtrl($mdSidenav, $mdUtil, Auth) {
     var vm = this;
 
     vm.closeMenu = closeMenu;
     vm.mainNavigationComponentID = 'mainNavigation';
+    vm.user = Auth.getCurrentUser();
 
     vm.toggleNavigation = _buildToggler(vm.mainNavigationComponentID);
 

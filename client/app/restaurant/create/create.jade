@@ -22,19 +22,21 @@ section.new-restaurant-wizard
         label ZipCode
         input(type='text' required='required' ng-model='restaurantCreateCtrl.newRestaurant.zipcode')
 
-      md-chips(flex='100' ng-model="restaurantCreateCtrl.newRestaurant.tags" md-autocomplete-snap)
+      md-chips(flex='100' ng-model="restaurantCreateCtrl.newRestaurant.tags")
         md-autocomplete(
           md-selected-item="restaurantCreateCtrl.selectedTag"
           md-search-text="restaurantCreateCtrl.tagSearchText"
           md-items="tag in restaurantCreateCtrl.tagQuerySearch(restaurantCreateCtrl.tagSearchText)"
           md-item-text="tag.readable_name"
+          md-autoselect="true"
           placeholder="Add Tag")
           span(md-highlight-text="restaurantCreateCtrl.tagSearchText") {{tag.readable_name}}
         md-chip-template
           span {{$chip.readable_name}}
 
-      lunchadores-form-errors(errors='restaurantCreateCtrl.errors')
-      lunchadores-submit-button(is-submit='restaurantCreateCtrl.verifyingAddress' button-text='Verify Address')
+      .controls
+        lunchadores-form-errors(errors='restaurantCreateCtrl.errors')
+        lunchadores-submit-button(is-submit='restaurantCreateCtrl.verifyingAddress' button-text='Verify Address')
 
   article.confirmation-step(layout='row' layout-wrap layout-align='start center' ng-show="restaurantCreateCtrl.activeStep === 'confirmation-step'")
     #map.m-b-20(flex='100' flex-gt-sm='50')

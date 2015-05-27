@@ -18,7 +18,7 @@
         url: '/restaurant/:id',
         templateUrl: 'app/restaurant/restaurant.html',
         controller: 'RestaurantCtrl',
-        controllerAs: 'RestaurantCtrl'
+        controllerAs: 'restaurantCtrl'
       })
       .state('restaurant.create', {
         url: '/create-restaurant',
