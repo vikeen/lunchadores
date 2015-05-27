@@ -1,4 +1,4 @@
-lunchadores v1.0.1
+lunchadores v1.0.2
 ==================
 
 Randomized Lunch Selector. Application code structure is based off of yeoman's [generator-angular-fullstack](https://github.com/DaftMonk/generator-angular-fullstack). Utilize these tools and additional generators to make your development life easier.
