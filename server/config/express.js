@@ -23,6 +23,13 @@ module.exports = function(app) {
   app.use(cookieParser());
   app.use(passport.initialize());
 
+  // CORS Support
+  app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+    next();
+  });
+
   if (env === 'production') {
     app.use(favicon(path.join(config.root, 'public', 'favicon.ico')));
     app.use(express.static(path.join(config.root, 'public')));
