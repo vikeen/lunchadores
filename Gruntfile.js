@@ -85,11 +85,10 @@ module.exports = function (grunt) {
                     '<%= yeoman.client %>/{app,components}/**/*.styl'],
                 tasks: ['stylus']
             },
-            jade: {
+            html: {
                 files: [
-                    '<%= yeoman.client %>/{app,components}/*',
-                    '<%= yeoman.client %>/{app,components}/**/*.jade'],
-                tasks: ['jade']
+                    '<%= yeoman.client %>/{app,components}/**/*.html'],
+                tasks: ['copy:html']
             },
             gruntfile: {
                 files: ['Gruntfile.js']
@@ -377,6 +376,12 @@ module.exports = function (grunt) {
                 cwd: '<%= yeoman.client %>',
                 dest: '.tmp/',
                 src: ['{app,components}/**/*.css']
+            },
+            html: {
+                expand: true,
+                cwd: '<%= yeoman.client %>',
+                dest: '.tmp/',
+                src: ['{app,components}/**/*.html']
             }
         },
 
@@ -399,11 +404,9 @@ module.exports = function (grunt) {
         // Run some tasks in parallel to speed up the build process
         concurrent: {
             server: [
-                'jade',
                 'stylus'
             ],
             test: [
-                'jade',
                 'stylus'
             ],
             debug: {
@@ -416,7 +419,6 @@ module.exports = function (grunt) {
                 }
             },
             dist: [
-                'jade',
                 'stylus',
                 'imagemin',
                 'svgmin'
@@ -459,26 +461,6 @@ module.exports = function (grunt) {
                 NODE_ENV: 'production'
             },
             all: {}
-        },
-
-        // Compiles Jade to html
-        jade: {
-            compile: {
-                options: {
-                    data: {
-                        debug: false
-                    }
-                },
-                files: [{
-                    expand: true,
-                    cwd: '<%= yeoman.client %>',
-                    src: [
-                        '{app,components}/**/*.jade'
-                    ],
-                    dest: '.tmp',
-                    ext: '.html'
-                }]
-            }
         },
 
         // Compiles Stylus to CSS
