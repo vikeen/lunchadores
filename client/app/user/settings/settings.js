@@ -6,8 +6,8 @@
     function SettingsConfig($stateProvider) {
         $stateProvider
             .state('settings', {
-                url: '/settings',
-                templateUrl: 'app/account/settings/settings.html',
+                url: '/user/:id/settings',
+                templateUrl: 'app/user/settings/settings.html',
                 controller: 'SettingsCtrl',
                 controllerAs: 'settingsCtrl',
                 authenticate: true

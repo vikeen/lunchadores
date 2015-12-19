@@ -1,0 +1,13 @@
+<!--.tags(ng-if='isReadOnly')-->
+<!--  md-chips(readonly='readonly')md-chip(ng-repeat='tag in tags') {{tag.readable_name}}
+-->
+<md-autocomplete>
+    <md-selected-item>ctrl.selectedItem</md-selected-item>
+    <md-search-text>Search Text</md-search-text>
+    <md-items>item in tags</md-items>
+    <md-item-text>item.readable_name</md-item-text>
+    <placeholder>Search for a Tag</placeholder>
+    <span md-highlight-text="High Light Search Text">{{item.readable_name}}</span>
+</md-autocomplete>
+<!--md-chips-->
+<!--  md-chip {{tag.readable_name}}-->

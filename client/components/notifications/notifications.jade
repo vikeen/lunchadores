@@ -1,4 +1,0 @@
-.notifications-container(ng-if='notificationsCtrl.notifications.length')
-  div(class='notification {{note.type}}' ng-repeat='note in notificationsCtrl.notifications')
-      span.message {{note.message}}
-      span.fa.fa-remove.close-click(ng-click='notificationsCtrl.remove($index)')

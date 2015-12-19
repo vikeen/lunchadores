@@ -1,51 +1,51 @@
-(function() {
-  'use strict';
+(function () {
+    'use strict';
 
-  angular.module('lunchadoresApp').provider('notificationsConfig', NotificationsConfig);
+    angular.module('lunchadoresApp').provider('notificationsConfig', NotificationsConfig);
 
-  function NotificationsConfig() {
-    var config = {
-      hideDelay: 3000,
-      autoHide: false,
-      saveReponse: false
-    };
-
-    return {
-      'setHideDelay': setHideDelay,
-      'setAutoHide': setAutoHide,
-      'setSaveResponse': setSaveResponse,
-
-      $get: function() {
-        return {
-          'getHideDelay': getHideDelay,
-          'getAutoHide': getAutoHide,
-          'getSaveResponse': getSaveResponse
+    function NotificationsConfig() {
+        var config = {
+            hideDelay: 3000,
+            autoHide: false,
+            saveReponse: false
         };
-      }
-    };
 
-    function setHideDelay(value) {
-      config.hideDelay = value;
-    }
+        return {
+            'setHideDelay': setHideDelay,
+            'setAutoHide': setAutoHide,
+            'setSaveResponse': setSaveResponse,
 
-    function getHideDelay() {
-      return config.hideDelay;
-    }
+            $get: function () {
+                return {
+                    'getHideDelay': getHideDelay,
+                    'getAutoHide': getAutoHide,
+                    'getSaveResponse': getSaveResponse
+                };
+            }
+        };
 
-    function setAutoHide(value) {
-      config.autoHide = value;
-    }
+        function setHideDelay(value) {
+            config.hideDelay = value;
+        }
 
-    function getAutoHide() {
-      return config.autoHide;
-    }
+        function getHideDelay() {
+            return config.hideDelay;
+        }
 
-    function setSaveResponse(value) {
-      config.saveResponse = value;
-    }
+        function setAutoHide(value) {
+            config.autoHide = value;
+        }
 
-    function getSaveResponse() {
-      return config.saveResponse;
+        function getAutoHide() {
+            return config.autoHide;
+        }
+
+        function setSaveResponse(value) {
+            config.saveResponse = value;
+        }
+
+        function getSaveResponse() {
+            return config.saveResponse;
+        }
     }
-  }
 })();

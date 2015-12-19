@@ -1,0 +1,6 @@
+<div ng-if="notificationsCtrl.notifications.length" class="notifications-container">
+    <div ng-repeat="note in notificationsCtrl.notifications" class="notification {{note.type}}">
+        <span class="message">{{note.message}}</span>
+        <span ng-click="notificationsCtrl.remove($index)" class="fa fa-remove close-click"></span>
+    </div>
+</div>

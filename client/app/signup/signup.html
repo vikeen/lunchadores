@@ -1,0 +1,23 @@
+<form layout="row" layout-wrap="layout-wrap" name="signUpForm" ng-submit="signupCtrl.register(signUpForm)">
+    <fieldset>
+        <legend>Sign up</legend>
+        <md-input-container flex="100" flex-gt-sm="50">
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" ng-model="signupCtrl.user.first_name" required/>
+        </md-input-container>
+        <md-input-container flex="100" flex-gt-sm="50">
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" ng-model="signupCtrl.user.last_name" required/>
+        </md-input-container>
+        <md-input-container flex="100" flex-gt-sm="50">
+            <label for="email">Email</label>
+            <input type="email" id="email" ng-model="signupCtrl.user.email_address" required/>
+        </md-input-container>
+        <md-input-container flex="100" flex-gt-sm="50">
+            <label for="password">Password</label>
+            <input type="password" id="password" ng-model="signupCtrl.user.password" ng-minlength="3"/>
+        </md-input-container>
+        <lunchadores-form-errors errors="signupCtrl.errors"></lunchadores-form-errors>
+        <lunchadores-submit-button is-submit="signupCtrl.signupFormSubmit" button-text="Sign Up"></lunchadores-submit-button>
+    </fieldset>
+</form>

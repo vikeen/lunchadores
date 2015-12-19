@@ -1,18 +1,19 @@
-(function() {
-  'use strict';
+(function () {
+    'use strict';
 
-  angular.module('lunchadoresApp').directive('lunchadoresNotificationsBar', NotificationsDirective);
+    angular.module('lunchadoresApp').directive('lunchadoresNotificationsBar', NotificationsDirective);
 
-  function NotificationsDirective() {
-    return {
-      restrict: 'E',
-      templateUrl: 'components/notifications/notifications.html',
-      bindToController: true,
-      controller: 'NotificationsCtrl',
-      controllerAs: 'notificationsCtrl',
-      link: link
-    };
-  }
+    function NotificationsDirective() {
+        return {
+            restrict: 'E',
+            templateUrl: 'components/notifications/notifications.html',
+            bindToController: true,
+            controller: 'NotificationsCtrl',
+            controllerAs: 'notificationsCtrl',
+            link: link
+        };
+    }
 
-  function link() {}
+    function link() {
+    }
 })();

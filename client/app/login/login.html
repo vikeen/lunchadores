@@ -1,0 +1,16 @@
+<form name="form" ng-submit="loginCtrl.login(form)">
+    <legend>Login</legend>
+    <div layout="row" layout-wrap="layout-wrap" layout-align="start center">
+        <md-input-container flex="100" flex-gt-sm="50">
+            <label for="email_address">Email</label>
+            <input type="email" id="email_address" ng-model="loginCtrl.user.email_address" required="required"/>
+        </md-input-container>
+        <md-input-container flex="100" flex-gt-sm="50">
+            <label for="password">Password</label>
+            <input type="password" id="password" ng-model="loginCtrl.user.password" required="required"/>
+        </md-input-container>
+    </div>
+    <lunchadores-form-errors errors="loginCtrl.errors"></lunchadores-form-errors>
+    <lunchadores-submit-button is-submit="loginCtrl.loginFormSubmit" button-text="Login"></lunchadores-submit-button>
+    <a ui-sref="password-reset" class="default underline">Forgot Password?</a>
+</form>

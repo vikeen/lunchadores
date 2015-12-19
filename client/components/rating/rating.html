@@ -1,0 +1,28 @@
+<div aria-label="{{ratingValue}}" class="rating">
+    <md-tooltip md-direction="left">{{ratingValue}}</md-tooltip>
+
+    <!-- first star -->
+    <i ng-if="ratingValue === 0" class="fa fa-star-o"></i>
+    <i ng-if="ratingValue > 0 && ratingValue < 1" class="fa fa-star-half-o"></i>
+    <i ng-if="ratingValue >= 1" class="fa fa-star"></i>
+
+    <!-- second star -->
+    <i ng-if="ratingValue <= 1" class="fa fa-star-o"></i>
+    <i ng-if="ratingValue > 1 && ratingValue < 2" class="fa fa-star-half-o"></i>
+    <i ng-if="ratingValue >= 2" class="fa fa-star"></i>
+
+    <!-- third star -->
+    <i ng-if="ratingValue <= 2" class="fa fa-star-o"></i>
+    <i ng-if="ratingValue > 2 && ratingValue < 3" class="fa fa-star-half-o"></i>
+    <i ng-if="ratingValue >= 3" class="fa fa-star"></i>
+
+    <!-- fourth star -->
+    <i ng-if="ratingValue <= 3" class="fa fa-star-o"></i>
+    <i ng-if="ratingValue > 3 && ratingValue < 4" class="fa fa-star-half-o"></i>
+    <i ng-if="ratingValue >= 4" class="fa fa-star"></i>
+
+    <!-- fifth star -->
+    <i ng-if="ratingValue <= 4" class="fa fa-star-o"></i>
+    <i ng-if="ratingValue > 4 && ratingValue < 5" class="fa fa-star-half-o"></i>
+    <i ng-if="ratingValue === 5" class="fa fa-star"></i>
+</div>
