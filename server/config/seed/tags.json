@@ -1,17 +1,17 @@
 [
-  {
-    "id": 1,
-    "name": "outside_seating",
-    "readable_name": "Outside Seating"
-  },
-  {
-    "id": 2,
-    "name": "vegan",
-    "readable_name": "Vegan"
-  },
-  {
-    "id": 3,
-    "name": "vegetarian",
-    "readable_name": "Vegetarian"
-  }
+    {
+        "id": 1,
+        "name": "outside_seating",
+        "readable_name": "Outside Seating"
+    },
+    {
+        "id": 2,
+        "name": "vegan",
+        "readable_name": "Vegan"
+    },
+    {
+        "id": 3,
+        "name": "vegetarian",
+        "readable_name": "Vegetarian"
+    }
 ]

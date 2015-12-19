@@ -1,27 +1,31 @@
 'use strict';
 
 module.exports = {
-  up: function (migration, DataTypes, done) {
-    migration.createTable('user', {
-      id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-      first_name: {type: DataTypes.STRING, allowNull: false},
-      last_name: {type: DataTypes.STRING, allowNull: false},
-      email_address: {type: DataTypes.STRING, allowNull: false, unique: true},
-      provider: {type: DataTypes.STRING, allowNull: false},
-      role: {type: DataTypes.STRING, allowNull: false},
-      salt: {type: DataTypes.STRING, allowNull: false},
-      password: {type: DataTypes.STRING, allowNull: false},
-      active: {type: DataTypes.BOOLEAN, defaultValue: true},
-      created_at: {type: DataTypes.DATE, allowNull: false},
-      updated_at: {type: DataTypes.DATE, allowNull: true}
-    }).then(function () {
-      done();
-    });
-  },
-  done: function (migration, DataTypes, done) {
-    migration.dropTable('user').then(function () {
-      done();
-    });
-  }
+    up: function (migration, Sequelize) {
+        return migration.createTable('users', {
+            id: {
+                type: Sequelize.INTEGER,
+                primaryKey: true,
+                autoIncrement: true
+            },
+            first_name: {type: Sequelize.STRING, allowNull: false},
+            last_name: {type: Sequelize.STRING, allowNull: false},
+            email_address: {
+                type: Sequelize.STRING,
+                allowNull: false,
+                unique: true
+            },
+            provider: {type: Sequelize.STRING, allowNull: false},
+            role: {type: Sequelize.STRING, allowNull: false},
+            salt: {type: Sequelize.STRING, allowNull: false},
+            password: {type: Sequelize.STRING, allowNull: false},
+            active: {type: Sequelize.BOOLEAN, defaultValue: true},
+            created_at: {type: Sequelize.DATE, allowNull: false},
+            updated_at: {type: Sequelize.DATE, allowNull: true}
+        });
+    },
+    down: function (migration, Sequelize) {
+        return migration.dropTable('users');
+    }
 };
 

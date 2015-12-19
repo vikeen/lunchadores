@@ -4,24 +4,24 @@
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
 var express = require('express'),
-  config = require('./config/environment')();
+    config = require('./config/environment')();
 
 // Setup server
 var app = express();
 var server = require('http').createServer(app);
 
 // Bootstrap Database
-var db = require('./models');
+var db = require('./app/models');
 require('./config/express')(app);
-require('./routes')(app);
+require('./app/routes')(app);
 
 if (config.seedDB) {
-  require('./config/seed')();
+    require('./config/seed')();
 }
 
 // Start server
 server.listen(config.port, config.ip, function () {
-  console.log('Express server listening on %d, in %s mode', config.port, app.get('env'));
+    console.log('Express server listening on %d, in %s mode', config.port, app.get('env'));
 });
 
 // Expose app

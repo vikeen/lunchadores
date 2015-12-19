@@ -1,15 +1,15 @@
-(function() {
-  'use strict';
+(function () {
+    'use strict';
 
-  angular.module('lunchadoresApp').config(SettingsConfig);
+    angular.module('lunchadoresApp').config(SettingsConfig);
 
-  function SettingsConfig($stateProvider) {
-    $stateProvider
-      .state('signup', {
-        url: '/signup',
-        templateUrl: 'app/account/signup/signup.html',
-        controller: 'SignupCtrl',
-        controllerAs: 'signupCtrl'
-      });
-  }
+    function SettingsConfig($stateProvider) {
+        $stateProvider
+            .state('signup', {
+                url: '/signup',
+                templateUrl: 'app/account/signup/signup.html',
+                controller: 'SignupCtrl',
+                controllerAs: 'signupCtrl'
+            });
+    }
 })();

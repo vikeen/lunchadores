@@ -1,32 +1,32 @@
 (function () {
-  'use strict';
+    'use strict';
 
-  angular.module('lunchadoresApp').controller('NavbarCtrl', NavBarCtrl);
+    angular.module('lunchadoresApp').controller('NavbarCtrl', NavBarCtrl);
 
-  function NavBarCtrl($location, $mdSidenav, Auth) {
-    var self = this;
+    function NavBarCtrl($location, $mdSidenav, Auth) {
+        var self = this;
 
-    self.getCurrentUser = Auth.getCurrentUser;
-    self.isActive = isActive;
-    self.logout = logout;
+        self.getCurrentUser = Auth.getCurrentUser;
+        self.isActive = isActive;
+        self.logout = logout;
 
-    ////////////
+        ////////////
 
-    /*
-     * Public API
-     */
+        /*
+         * Public API
+         */
 
-    function isActive(route) {
-      return route === $location.path();
+        function isActive(route) {
+            return route === $location.path();
+        }
+
+        function logout() {
+            Auth.logout();
+            $location.path('/login');
+        }
+
+        /*
+         * Private API
+         */
     }
-
-    function logout() {
-      Auth.logout();
-      $location.path('/login');
-    }
-
-    /*
-     * Private API
-     */
-  }
 })();

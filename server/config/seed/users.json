@@ -1,32 +1,32 @@
 [
-  {
-    "id": 1,
-    "provider": "local",
-    "active": true,
-    "role": "user",
-    "first_name": "Test",
-    "last_name": "User",
-    "email_address": "test@test.com",
-    "password": "test"
-  },
-  {
-    "id": 2,
-    "provider": "local",
-    "active": true,
-    "role": "admin",
-    "first_name": "Admin",
-    "last_name": "Admin",
-    "email_address": "admin@admin.com",
-    "password": "admin"
-  },
-  {
-    "id": 3,
-    "provider": "local",
-    "active": true,
-    "role": "admin",
-    "first_name": "John",
-    "last_name": "Rake",
-    "email_address": "john.rake12@gmail.com",
-    "password": "admin"
-  }
+    {
+        "id": 1,
+        "provider": "local",
+        "active": true,
+        "role": "user",
+        "first_name": "Test",
+        "last_name": "User",
+        "email_address": "test@test.com",
+        "password": "test"
+    },
+    {
+        "id": 2,
+        "provider": "local",
+        "active": true,
+        "role": "admin",
+        "first_name": "Admin",
+        "last_name": "Admin",
+        "email_address": "admin@admin.com",
+        "password": "admin"
+    },
+    {
+        "id": 3,
+        "provider": "local",
+        "active": true,
+        "role": "admin",
+        "first_name": "John",
+        "last_name": "Rake",
+        "email_address": "john.rake12@gmail.com",
+        "password": "admin"
+    }
 ]

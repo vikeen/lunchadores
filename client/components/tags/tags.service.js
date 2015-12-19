@@ -1,15 +1,15 @@
 (function () {
-  'use strict';
+    'use strict';
 
-  angular.module('lunchadoresApp').service('tags', TagService);
+    angular.module('lunchadoresApp').service('tags', TagsService);
 
-  TagService.$inject = ['$resource'];
-  function TagService($resource) {
-    return $resource('/api/tag', {}, {
-      getAllTags: {
-        method: 'GET',
-        isArray: true
-      }
-    });
-  }
+    TagsService.$inject = ['$resource'];
+    function TagsService($resource) {
+        return $resource('/api/tags', {}, {
+            getAllTags: {
+                method: 'GET',
+                isArray: true
+            }
+        });
+    }
 })();

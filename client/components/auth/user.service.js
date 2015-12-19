@@ -5,7 +5,7 @@
 
   function UserFactory($resource) {
     function buildURL(url) {
-      return '/api/user' + url;
+      return '/api/users' + url;
     }
 
     return $resource(buildURL('/:id/:controller'), {
@@ -14,11 +14,11 @@
       {
         passwordReset: {
           method: 'POST',
-          url: '/api/password-reset'
+          url: '/api/password-resets'
         },
         passwordResetVerification: {
           method: 'POST',
-          url: '/api/password-reset/:verificationId'
+          url: '/api/password-resets/:verificationId'
         },
         changePassword: {
           method: 'PUT',

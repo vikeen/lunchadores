@@ -1,29 +1,29 @@
-(function() {
-  /* jshint camelcase:false */
+(function () {
+    /* jshint camelcase:false */
 
-  'use strict';
+    'use strict';
 
-  angular.module('lunchadoresApp').directive('lunchadoresGravatar', GravatarDirective);
+    angular.module('lunchadoresApp').directive('lunchadoresGravatar', GravatarDirective);
 
-  function GravatarDirective() {
-    return {
-      restrict: 'EA',
-      scope: {
-        gravatarSize: '@',
-        gravatarDefault: '@'
-      },
-      bindToController: true,
-      controller: 'GravatarCtrl',
-      controllerAs: 'gravatarCtrl',
-      link: link
-    };
-  }
+    function GravatarDirective() {
+        return {
+            restrict: 'EA',
+            scope: {
+                gravatarSize: '@',
+                gravatarDefault: '@'
+            },
+            bindToController: true,
+            controller: 'GravatarCtrl',
+            controllerAs: 'gravatarCtrl',
+            link: link
+        };
+    }
 
-  function link(scope, element) {
-    scope.$watch('gravatarCtrl.imageSrc', function(newValue) {
-      if (newValue) {
-        $(element).attr('src', scope.gravatarCtrl.imageSrc);
-      }
-    });
-  }
+    function link(scope, element) {
+        scope.$watch('gravatarCtrl.imageSrc', function (newValue) {
+            if (newValue) {
+                $(element).attr('src', scope.gravatarCtrl.imageSrc);
+            }
+        });
+    }
 })();

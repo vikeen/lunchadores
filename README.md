@@ -1,7 +1,7 @@
-lunchadores v1.0.2
+lunchadores
 ==================
 
-Randomized Lunch Selector. Application code structure is based off of yeoman's [generator-angular-fullstack](https://github.com/DaftMonk/generator-angular-fullstack). Utilize these tools and additional generators to make your development life easier.
+Randomized Lunch Selector. Application code structure is based off of yeoman's [generator-angular-fullstack](https://github.com/DaftMonk/generator-angular-fullstack).
 
 **Demo**  
 http://lunchadores.herokuapp.com/
@@ -10,7 +10,6 @@ http://lunchadores.herokuapp.com/
 
 ##### Install Dependencies
   - Install node modules. `npm install`
-  - Install bower modules. `bower install`
   - Install postgres. `brew install postgres`
   - Install sequelize-cli. 'npm install -g sequelize-cli'
 

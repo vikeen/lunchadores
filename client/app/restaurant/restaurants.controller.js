@@ -1,34 +1,34 @@
-(function() {
-  'use strict';
+(function () {
+    'use strict';
 
-  angular.module('lunchadoresApp').controller('RestaurantsCtrl', RestaurantsCtrl);
+    angular.module('lunchadoresApp').controller('RestaurantsCtrl', RestaurantsCtrl);
 
-  function RestaurantsCtrl(restaurants) {
-    var self = this;
+    function RestaurantsCtrl(restaurants) {
+        var self = this;
 
-    self.reverseSort = false;
-    self.setColumnSorting = setColumnSorting;
-    self.sortBy = null;
+        self.reverseSort = false;
+        self.setColumnSorting = setColumnSorting;
+        self.sortBy = null;
 
-    activate();
+        activate();
 
-    ////////////
+        ////////////
 
-    function activate() {
-      getActiveRestaurants();
+        function activate() {
+            getActiveRestaurants();
+        }
+
+        function getActiveRestaurants() {
+            restaurants.getActive().$promise.then(function (response) {
+                self.restaurants = response;
+            });
+        }
+
+        function setColumnSorting(newSortBy) {
+            self.reverseSort = (newSortBy === self.sortBy) ? !self.reverseSort : false;
+            self.sortBy = newSortBy;
+        }
+
+
     }
-
-    function getActiveRestaurants() {
-      restaurants.getActive().$promise.then(function (response) {
-        self.restaurants = response;
-      });
-    }
-
-    function setColumnSorting(newSortBy) {
-      self.reverseSort = (newSortBy === self.sortBy) ? !self.reverseSort : false;
-      self.sortBy = newSortBy;
-    }
-
-
-  }
 })();

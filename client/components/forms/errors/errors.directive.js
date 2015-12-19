@@ -1,20 +1,20 @@
-(function() {
-  'use strict';
+(function () {
+    'use strict';
 
-  angular.module('lunchadoresApp').directive('lunchadoresFormErrors', LunchadoresFormErrors);
+    angular.module('lunchadoresApp').directive('lunchadoresFormErrors', LunchadoresFormErrors);
 
-  function LunchadoresFormErrors() {
-    return {
-      scope: {
-        errors: '='
-      },
-      restrict: 'E',
-      templateUrl: 'components/forms/errors/errors.html',
-      link: link
-    };
+    function LunchadoresFormErrors() {
+        return {
+            scope: {
+                errors: '='
+            },
+            restrict: 'E',
+            templateUrl: 'components/forms/errors/errors.html',
+            link: link
+        };
 
-    function link($scope, $element, $attrs) {
-      $element.addClass('form-error-messages');
+        function link($scope, $element, $attrs) {
+            $element.addClass('form-error-messages');
+        }
     }
-  }
 })();

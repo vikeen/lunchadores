@@ -5,52 +5,51 @@
 
 'use strict';
 
-var _ = require('lodash'),
-  fs = require('fs'),
-  Promise = require('bluebird'),
-  path = require('path'),
-  models = require('../../models/index');
+var fs = require('fs'),
+    path = require('path'),
+    Promise = require('bluebird'),
+    models = require('../../app/models');
 
 module.exports = function (callback) {
-  return _seedDatabaseTable(models.user, 'users').then(function () {
-    return _seedDatabaseTable(models.password_reset, 'password-resets').then(function () {
-      return _seedDatabaseTable(models.restaurant, 'restaurants').then(function () {
-        return _seedDatabaseTable(models.tag, 'tags').then(function () {
-          return _seedDatabaseTable(models.restaurant_tag, 'restaurants-tags').then(function () {
-            console.log('finished seeding database');
-            if (_.isFunction(callback)) {
-              callback();
-            }
-          });
+    return _seedDatabaseTable(models.users, 'users').then(function () {
+        return _seedDatabaseTable(models.password_resets, 'password-resets').then(function () {
+            return _seedDatabaseTable(models.restaurants, 'restaurants').then(function () {
+                return _seedDatabaseTable(models.tags, 'tags').then(function () {
+                    return _seedDatabaseTable(models.restaurants_tags, 'restaurants-tags').then(function () {
+                        console.log('finished seeding database');
+                        if (callback) {
+                            callback();
+                        }
+                    });
+                });
+            });
         });
-      });
     });
-  });
 };
 
 function _errorHandler(err) {
-  console.log('');
-  console.log('==============================');
-  console.error(err);
-  console.log('==============================');
-  console.log('');
+    console.log('');
+    console.log('==============================');
+    console.error(err);
+    console.log('==============================');
+    console.log('');
 
-  throw err;
+    throw err;
 }
 
 function _getJSONFileData(fileName) {
-  var jsonData = fs.readFileSync(path.join(__dirname, fileName + '.json'), 'utf8');
-  return JSON.parse(jsonData);
+    var jsonData = fs.readFileSync(path.join(__dirname, fileName + '.json'), 'utf8');
+    return JSON.parse(jsonData);
 }
 
 function _seedDatabaseTable(model, seedFileName) {
-  return model.findAll().then(function () {
-    return model.destroy({where: {}}).then(function () {
-      return model.bulkCreate(_getJSONFileData(seedFileName), {individualHooks: true})
-        .then(function (password_resets) {
-          console.log('finished populating', seedFileName);
-          return Promise.resolve();
-        }).catch(_errorHandler);
+    return model.findAll().then(function () {
+        return model.destroy({where: {}}).then(function () {
+            return model.bulkCreate(_getJSONFileData(seedFileName), {individualHooks: true})
+                .then(function (password_resets) {
+                    console.log('finished populating', seedFileName);
+                    return Promise.resolve();
+                }).catch(_errorHandler);
+        });
     });
-  });
 }
