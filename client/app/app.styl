@@ -28,12 +28,7 @@
 // App-wide Styles
 //
 html
-    font-family 'Ubuntu', sans-serif !important;
-
-.content
-    max-width 1024px
-    padding 75px 1em 0
-    margin 0 auto
+    font-family 'Ubuntu', Arial, sans-serif !important;
 
 .brand
     text-transform: uppercase
@@ -51,8 +46,11 @@ html
 
     .close
         position: absolute
-        top: 20px
+        top: 10px
         right: 15px
+
+.content
+    padding-top: 75px;
 
 #mainNavigation
     padding 0
@@ -68,7 +66,8 @@ html
         a
             display block
             text-decoration none
-            padding 7px 15px
+            padding-top 10px
+            padding-bottom 10px
 
             i
                 margin-right 10px
@@ -91,7 +90,7 @@ html
         text-decoration: none
 
     nav
-        list-style none
+        list-style none;
 
         li
             float: left
@@ -108,14 +107,14 @@ table
 .breadcrumbs
     margin-bottom: 20px
 
-// Responsive: Portrait tablets and up
-@media screen and (min-width: $md)
-    #mainNavigation
-        position: fixed
-        left: 0
-        top: 0
-        bottom: 0
+fieldset {
+    border: none;
+}
 
-    .content
-        margin-left 304px // sidebar width
-        padding-top 45px
+ul
+    padding-left: 0;
+    margin: 0;
+    list-style: none;
+
+// Responsive: Portrait tablets and up
+//@media screen and (min-width: $md)

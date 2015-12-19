@@ -21,79 +21,89 @@
     <!-- endinjector -->
     <!-- endbuild -->
 </head>
-<body ng-app="lunchadoresApp" ng-controller="MainCtrl as mainCtrl">
-<md-sidenav class="md-sidenav-left md-whiteframe-z2" id="mainNavigation" md-component-id="mainNavigation"
-            md-is-locked-open="$mdMedia('gt-md')">
-    <md-toolbar class="md-theme-indigo">
-        <h1 class="md-toolbar-tools brand">
-            <a ng-href="/">Lunchadores</a>
-            <a href="#" class="close" hide-gt-md>
-                <i class="fa fa-close" ng-click="mainCtrl.closeMenu()"></i>
-            </a>
-        </h1>
-    </md-toolbar>
-    <md-content layout-padding ng-controller="NavbarCtrl as navbarCtrl" class="p-0" ng-click="mainCtrl.closeMenu()">
-        <!-- Unauthenticated Navigation -->
-        <nav ng-hide="isLoggedIn()">
-            <li><a ui-sref="login"><i class="fa fa-sign-in"></i>Login</a></li>
-            <li><a ui-sref="restaurant.index"><i class="fa fa-cutlery"></i>Restaurants</a>
-            </li>
-            <md-divider></md-divider>
-            <li><a ui-sref="signup">Sign up</a></li>
-        </nav>
+<body ng-app="lunchadoresApp" layout="column" ng-controller="MainCtrl as mainCtrl">
+<section layout="row" flex>
+    <md-sidenav class="md-sidenav-left md-whiteframe-z2" id="mainNavigation" md-component-id="mainNavigation"
+                md-is-locked-open="$mdMedia('gt-md')">
+        <md-toolbar class="md-theme-indigo">
+            <h1 class="md-toolbar-tools brand">
+                <a ng-href="/">Lunchadores</a>
+                <a href="#" class="close" hide-gt-md>
+                    <i class="fa fa-close" ng-click="mainCtrl.closeMenu()"></i>
+                </a>
+            </h1>
+        </md-toolbar>
+        <md-content layout-padding ng-controller="NavbarCtrl as navbarCtrl" ng-click="mainCtrl.closeMenu()">
+            <!-- Unauthenticated Navigation -->
+            <nav ng-hide="isLoggedIn()">
+                <ul>
+                    <li>
+                        <a ui-sref="login"><i class="fa fa-sign-in"></i>Login</a>
+                    </li>
+                    <li>
+                        <a ui-sref="restaurant.index"><i class="fa fa-cutlery"></i>Restaurants</a>
+                    </li>
+                    <md-divider></md-divider>
+                    <li><a ui-sref="signup">Sign up</a></li>
+                </ul>
+            </nav>
 
-        <!-- Authenticated Navigation -->
-        <nav ng-show="isLoggedIn()">
-            <li>
-                <a href="/settings" class="gravatar">
-                    <img lunchadores-gravatar gravatar-size="35" gravatar-default="mm"/>
-                    <span class="user-name">{{mainCtrl.user.full_name}}</span>
-                </a>
-            </li>
-            <md-divider></md-divider>
-            <li>
-                <a ui-sref="restaurant.index">
-                    <i class="fa fa-cutlery"></i>Restaurants
-                </a>
-            </li>
-            <li ng-show="isAdmin()">
-                <a ui-sref="admin">
-                    <i class="fa fa-lock"></i>Admin
-                </a>
-
-            </li>
-            <md-divider></md-divider>
-            <li>
-                <a href="#" ng-click="navbarCtrl.logout()">
-                    <i class="fa fa-sign-out"></i> Sign Out
-                </a>
-            </li>
-        </nav>
-    </md-content>
-</md-sidenav>
-<header id="mobileNavigation" hide-gt-md>
-    <a href="/" class="brand">Lunchadores</a>
-    <nav class="pull-right">
-        <li>
-            <a href="/settings" class="gravatar">
-                <img lunchadores-gravatar gravatar-size="30" gravatar-default="mm"/>
-            </a>
-        </li>
-        <li>
-            <a href="#" ng-click="mainCtrl.toggleNavigation()">
-                <i class="fa fa-bars fa-2x"></i>
-            </a>
-        </li>
-    </nav>
-</header>
-<div layout="row" role="main">
-    <div flex="100">
-        <md-content class="content">
-            <lunchadores-notifications-bar class="notifications wrapper"></lunchadores-notifications-bar>
-            <div ui-view=""></div>
+            <!-- Authenticated Navigation -->
+            <nav ng-show="isLoggedIn()">
+                <ul>
+                    <li>
+                        <a href="/settings" class="gravatar">
+                            <img lunchadores-gravatar gravatar-size="35" gravatar-default="mm"/>
+                            <span class="user-name">{{mainCtrl.user.full_name}}</span>
+                        </a>
+                    </li>
+                    <md-divider></md-divider>
+                    <li>
+                        <a ui-sref="restaurant.index">
+                            <i class="fa fa-cutlery"></i>Restaurants
+                        </a>
+                    </li>
+                    <li ng-show="isAdmin()">
+                        <a ui-sref="admin">
+                            <i class="fa fa-lock"></i>Admin
+                        </a>
+                        <!---->
+                    </li>
+                    <md-divider></md-divider>
+                    <li>
+                        <a href="#" ng-click="navbarCtrl.logout()">
+                            <i class="fa fa-sign-out"></i> Sign Out
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </md-content>
-    </div>
-</div>
+    </md-sidenav>
+    <header id="mobileNavigation" hide-gt-md>
+        <a href="/" class="brand">Lunchadores</a>
+        <nav class="pull-right">
+            <ul>
+                <li>
+                    <a href="/settings" class="gravatar">
+                        <img lunchadores-gravatar gravatar-size="30" gravatar-default="mm"/>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" ng-click="mainCtrl.toggleNavigation()">
+                        <i class="fa fa-bars fa-2x"></i>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <md-content flex layout-padding class="content">
+        <div layout="column" layout-fill>
+            <lunchadores-notifications-bar class="notifications wrapper"></lunchadores-notifications-bar>
+            <div ui-view="" flex="100"></div>
+        </div>
+    </md-content>
+</section>
+
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCkaeP_O1LNuxOXN-7GjdZBld0nWyI8WoM"></script>
 
