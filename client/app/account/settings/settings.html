@@ -1,0 +1,47 @@
+<md-card>
+    <md-card-title>
+        <md-card-title-text>
+            <span class="md-headline">Profile</span>
+        </md-card-title-text>
+    </md-card-title>
+    <md-card-content>
+        <form name="updateUserForm" layout="row" layout-wrap="layout-wrap" ng-submit="settingsCtrl.updateUserProfile(updateUserForm)">
+            <md-input-container flex="100" flex-gt-sm="50">
+                <label>First Name</label>
+                <input type="text" ng-model="settingsCtrl.user.first_name" required="required"/>
+            </md-input-container>
+            <md-input-container flex="100" flex-gt-sm="50">
+                <label>Last Name</label>
+                <input type="text" ng-model="settingsCtrl.user.last_name" required="required"/>
+            </md-input-container>
+            <md-input-container flex="100" flex-gt-sm="50">
+                <label>Email</label>
+                <input type="text" ng-model="settingsCtrl.user.email_address" required="required"/>
+            </md-input-container>
+            <lunchadores-form-errors errors="settingsCtrl.userProfileErrors"></lunchadores-form-errors>
+            <lunchadores-submit-button is-submit="settingsCtrl.userProfileFormSubmit" button-text="Update Profile"></lunchadores-submit-button>
+        </form>
+    </md-card-content>
+</md-card>
+<md-card>
+    <md-card-title>
+        <md-card-title-text>
+            <span class="md-headline">Change Password</span>
+        </md-card-title-text>
+    </md-card-title>
+    <md-card-content>
+        <form layout="row" layout-wrap="layout-wrap" name="changePasswordForm" ng-submit="settingsCtrl.changePassword(changePasswordForm)">
+            <md-input-container flex="100" flex-gt-sm="50">
+                <label>Current Password</label>
+                <input type="password" ng-model="settingsCtrl.user.oldPassword" required="required"/>
+            </md-input-container>
+            <md-input-container flex="100" flex-gt-sm="50">
+                <label>New Password</label>
+                <input type="password" ng-model="settingsCtrl.user.newPassword" ng-minlength="3" required="required" class="form-control"/>
+            </md-input-container>
+            <lunchadores-form-errors errors="settingsCtrl.changePasswordErrors"></lunchadores-form-errors>
+            <lunchadores-submit-button is-submit="settingsCtrl.changePasswordFormSubmit" button-text="Change Password"></lunchadores-submit-button>
+        </form>
+    </md-card-content>
+</md-card>
+

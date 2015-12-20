@@ -1,74 +1,87 @@
 <div id="admin">
     <section flex="100" class="quick-links">
-        <a ui-sref="restaurant.create">Create Restaurant</a></section>
-    <section layout="row" layout-wrap="layout-wrap" layout-align="start center" class="users">
-        <h2 flex="100" flex-gt-sm="50" class="md-title">{{adminCtrl.filteredUsers.length}} Users</h2>
-        <md-input-container flex="100" flex-gt-sm="50">
-            <label>
-                <div class="fa fa-search"> Search
-                </div>
-            </label>
-            <input type="search" ng-model="adminCtrl.userFilter"/>
-        </md-input-container>
-        <table ng-show="adminCtrl.filteredUsers.length" class="pure-table pure-table-striped">
-            <thead>
-            <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Role</th>
-                <th>Provider</th>
-                <th>Active</th>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="user in adminCtrl.filteredUsers = (adminCtrl.users | filter:adminCtrl.userFilter:strict | orderBy: [&quot;last_name&quot;, &quot;first_name&quot;])">
-                <td>{{user.full_name}}</td>
-                <td>{{user.email_address}}</td>
-                <td>{{user.role}}</td>
-                <td>{{user.provider}}</td>
-                <td class="text-center">
-                    <i ng-if="user.active" class="fa fa-check success"></i><i ng-if="!user.active" class="fa fa-close error"></i>
-                </td>
-                <td>
-                    <a ng-click="adminCtrl.deleteUser(user)" class="trash pull-right"><i class="fa fa-trash"></i></a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+        <a ui-sref="restaurant.create">Create Restaurant</a>
     </section>
-    <section layout="row" layout-wrap="layout-wrap" layout-align="start center" class="restaurants">
-        <h2 flex="100" flex-gt-sm="50" class="md-title">{{adminCtrl.filteredRestaurants.length}} Restaurants</h2>
-        <md-input-container flex="100" flex-gt-sm="50">
-            <label>
-                <div class="fa fa-search"> Search
-                </div>
-            </label>
-            <input type="search" ng-model="adminCtrl.restaurantFilter"/>
-        </md-input-container>
-        <table ng-show="adminCtrl.filteredRestaurants.length" class="pure-table pure-table-striped">
-            <thead>
-            <tr>
-                <th>Name</th>
-                <th>Address</th>
-                <th>Active</th>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="restaurant in adminCtrl.filteredRestaurants = (adminCtrl.restaurants | filter:adminCtrl.restaurantFilter:strict)">
-                <td>
-                    <a ui-sref="restaurant.show({id: restaurant.id})">{{restaurant.name}}</a>
-                </td>
-                <td>{{restaurant.formatted_address}}</td>
-                <td class="text-center">
-                    <i ng-if="restaurant.active" class="fa fa-check success"></i><i ng-if="!restaurant.active" class="fa fa-close error"></i>
-                </td>
-                <td>
-                    <a ng-click="adminCtrl.deleteRestaurant(restaurant)" class="trash pull-right"><i class="fa fa-trash"></i></a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </section>
+    <md-card class="users">
+        <md-card-title>
+            <md-card-title-text>
+                <span class="md-headline">{{adminCtrl.filteredUsers.length}} Users</span>
+            </md-card-title-text>
+        </md-card-title>
+        <md-card-content>
+            <md-input-container flex="100" flex-gt-sm="50">
+                <label>
+                    <div class="fa fa-search"> Search
+                    </div>
+                </label>
+                <input type="search" ng-model="adminCtrl.userFilter"/>
+            </md-input-container>
+            <table ng-show="adminCtrl.filteredUsers.length" class="pure-table pure-table-striped">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Provider</th>
+                    <th>Active</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="user in adminCtrl.filteredUsers = (adminCtrl.users | filter:adminCtrl.userFilter:strict | orderBy: ['last_name', 'first_name'])">
+                    <td>{{user.full_name}}</td>
+                    <td>{{user.email_address}}</td>
+                    <td>{{user.role}}</td>
+                    <td>{{user.provider}}</td>
+                    <td class="text-center">
+                        <i ng-if="user.active" class="fa fa-check success"></i><i ng-if="!user.active" class="fa fa-close error"></i>
+                    </td>
+                    <td>
+                        <a ng-click="adminCtrl.deleteUser(user)" class="trash pull-right"><i class="fa fa-trash"></i></a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </md-card-content>
+    </md-card>
+    <md-card class="restaurants">
+        <md-card-title>
+            <md-card-title-text>
+                <span class="md-headline">{{adminCtrl.filteredRestaurants.length}} Restaurants</span>
+            </md-card-title-text>
+        </md-card-title>
+        <md-card-content>
+            <md-input-container flex="100" flex-gt-sm="50">
+                <label>
+                    <div class="fa fa-search"> Search
+                    </div>
+                </label>
+                <input type="search" ng-model="adminCtrl.restaurantFilter"/>
+            </md-input-container>
+            <table ng-show="adminCtrl.filteredRestaurants.length" class="pure-table pure-table-striped">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>Active</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="restaurant in adminCtrl.filteredRestaurants = (adminCtrl.restaurants | filter:adminCtrl.restaurantFilter:strict)">
+                    <td>
+                        <a ui-sref="restaurant.show({id: restaurant.id})">{{restaurant.name}}</a>
+                    </td>
+                    <td>{{restaurant.formatted_address}}</td>
+                    <td class="text-center">
+                        <i ng-if="restaurant.active" class="fa fa-check success"></i><i ng-if="!restaurant.active" class="fa fa-close error"></i>
+                    </td>
+                    <td>
+                        <a ng-click="adminCtrl.deleteRestaurant(restaurant)" class="trash pull-right"><i class="fa fa-trash"></i></a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </md-card-content>
+    </md-card>
 </div>

@@ -9,19 +9,19 @@
                 template: '<div ui-view></div>'
             })
             .state('restaurant.index', {
-                url: '/restaurant',
+                url: '/restaurants',
                 templateUrl: 'app/restaurant/restaurants.html',
                 controller: 'RestaurantsCtrl',
                 controllerAs: 'restaurantsCtrl'
             })
             .state('restaurant.show', {
-                url: '/restaurant/:id',
+                url: '/restaurants/:id',
                 templateUrl: 'app/restaurant/restaurant.html',
                 controller: 'RestaurantCtrl',
                 controllerAs: 'restaurantCtrl'
             })
             .state('restaurant.create', {
-                url: '/create-restaurant',
+                url: '/restaurant/create',
                 templateUrl: 'app/restaurant/create/create.html',
                 controller: 'RestaurantCreateCtrl',
                 controllerAs: 'restaurantCreateCtrl'

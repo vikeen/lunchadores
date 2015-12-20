@@ -25,20 +25,22 @@ function getAllUsers() {
 }
 
 function createUser(payload) {
-    payload = _.merge(payload, {
+    payload = _.extend({
         provider: 'local',
         role: 'user'
-    });
+    }, payload);
 
     return models.users.create(payload).then(function (user) {
-        var token = jwt.sign({id: user.id}, config.secrets.session, {expiresInMinutes: 60 * 5});
+        var fiveMinutes = 60 * 5;
+        var token = jwt.sign({id: user.id}, config.secrets.session, {expiresIn: fiveMinutes});
         return {token: token};
     });
 }
 
 function updateUser(payload) {
     return models.users.findById(payload.id).then(function (user) {
-        _.merge(user, payload).save().then(function (user) {
+        var updatedUser = _.merge(user, payload);
+        return updatedUser.save().then(function (user) {
             return user.profile(false);
         });
     });

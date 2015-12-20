@@ -24,11 +24,11 @@
 <body ng-app="lunchadoresApp" layout="column" ng-controller="MainCtrl as mainCtrl">
 <section layout="row" flex>
     <md-sidenav class="md-sidenav-left md-whiteframe-z2" id="mainNavigation" md-component-id="mainNavigation"
-                md-is-locked-open="$mdMedia('gt-md')">
+                md-is-locked-open="$mdMedia('gt-sm')">
         <md-toolbar class="md-theme-indigo">
             <h1 class="md-toolbar-tools brand">
                 <a ng-href="/">Lunchadores</a>
-                <a href="#" class="close" hide-gt-md>
+                <a href="#" class="close" hide-gt-sm>
                     <i class="fa fa-close" ng-click="mainCtrl.closeMenu()"></i>
                 </a>
             </h1>
@@ -52,7 +52,7 @@
             <nav ng-show="isLoggedIn()">
                 <ul>
                     <li>
-                        <a href="/settings" class="gravatar">
+                        <a ui-sref="account.settings" class="gravatar">
                             <img lunchadores-gravatar gravatar-size="35" gravatar-default="mm"/>
                             <span class="user-name">{{mainCtrl.user.full_name}}</span>
                         </a>
@@ -79,12 +79,12 @@
             </nav>
         </md-content>
     </md-sidenav>
-    <header id="mobileNavigation" hide-gt-md>
+    <header id="mobileNavigation" hide-gt-sm>
         <a href="/" class="brand">Lunchadores</a>
         <nav class="pull-right">
             <ul>
                 <li>
-                    <a href="/settings" class="gravatar">
+                    <a ui-sref="account.settings" class="gravatar">
                         <img lunchadores-gravatar gravatar-size="30" gravatar-default="mm"/>
                     </a>
                 </li>
@@ -126,6 +126,10 @@
 <!-- build:js({.tmp,client}) app/app.js -->
 <script src="app/app.js"></script>
 <!-- injector:js -->
+<script src="app/account/account.js"></script>
+<script src="app/account/password-reset/password-reset-verification.controller.js"></script>
+<script src="app/account/password-reset/password-reset.controller.js"></script>
+<script src="app/account/settings/settings.controller.js"></script>
 <script src="app/admin/admin.controller.js"></script>
 <script src="app/admin/admin.js"></script>
 <script src="app/login/login.controller.js"></script>
@@ -139,11 +143,6 @@
 <script src="app/restaurant/restaurants.service.js"></script>
 <script src="app/signup/signup.controller.js"></script>
 <script src="app/signup/signup.js"></script>
-<script src="app/user/password-reset/password-reset-verification.controller.js"></script>
-<script src="app/user/password-reset/password-reset.controller.js"></script>
-<script src="app/user/password-reset/password-reset.js"></script>
-<script src="app/user/settings/settings.controller.js"></script>
-<script src="app/user/settings/settings.js"></script>
 <script src="components/auth/auth.service.js"></script>
 <script src="components/auth/user.service.js"></script>
 <script src="components/forms/errors/errors.directive.js"></script>

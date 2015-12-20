@@ -1,46 +1,49 @@
-<div hide-gt-md="hide-gt-md" class="breadcrumbs">
+<div hide-gt-sm class="breadcrumbs">
     <md-button ui-sref="restaurant.index" class="md-primary md-raised">
         <i class="fa fa-arrow-left"></i><span>Restaurants</span></md-button>
 </div>
-<form layout="row" layout-align="start center" layout-wrap="layout-wrap" ng-submit="restaurantCtrl.user.role === 'admin' &amp;&amp; restaurantCtrl.updateRestaurant();">
-    <fieldset>
-        <md-input-container flex="100">
-            <label>Name</label>
-            <input type="text" required="required" ng-readonly="restaurantCtrl.user.role !== 'admin'" ng-model="restaurantCtrl.restaurant.name"/>
-        </md-input-container>
-        <md-input-container flex="100">
-            <label>Street</label>
-            <input type="text" required="required" ng-readonly="restaurantCtrl.user.role !== 'admin'" ng-model="restaurantCtrl.restaurant.street"/>
-        </md-input-container>
-        <md-input-container flex="50" flex-gt-sm="50">
-            <label>City</label>
-            <input type="text" required="required" ng-readonly="restaurantCtrl.user.role !== 'admin'" ng-model="restaurantCtrl.restaurant.city"/>
-        </md-input-container>
-        <md-input-container flex="50">
-            <md-select placeholder="State" ng-disabled="restaurantCtrl.user.role !== 'admin'" ng-model="restaurantCtrl.restaurant.state_abbreviation">
-                <md-option ng-repeat="state in restaurantCtrl.states" value="{{state.abbreviation}}">{{state.name}}</md-option>
-            </md-select>
-        </md-input-container>
-        <md-input-container flex="50">
-            <md-select placeholder="Country" ng-disabled="restaurantCtrl.user.role !== 'admin'" ng-model="restaurantCtrl.restaurant.country_abbreviation">
-                <md-option ng-repeat="country in restaurantCtrl.countries" value="{{::country.abbreviation}}">{{::country.name}}</md-option>
-            </md-select>
-        </md-input-container>
-        <md-input-container flex="50">
-            <label>ZipCode</label>
-            <input type="text" required="required" ng-readonly="restaurantCtrl.user.role !== 'admin'" ng-model="restaurantCtrl.restaurant.zipcode"/>
-        </md-input-container>
-        <md-chips flex="100" ng-model="restaurantCtrl.restaurant.tags" readonly="restaurantCtrl.user.role !== 'admin'">
-            <md-autocomplete md-selected-item="restaurantCtrl.selectedTag" md-search-text="restaurantCtrl.tagSearchText" md-items="tag in restaurantCtrl.tagQuerySearch(restaurantCtrl.tagSearchText)" md-item-text="tag.readable_name" md-autoselect="true" placeholder="Add Tag">
-                <span md-highlight-text="restaurantCtrl.tagSearchText">{{tag.readable_name}}</span>
-            </md-autocomplete>
-            <md-chip-template><span>{{$chip.readable_name}}</span>
-            </md-chip-template>
-        </md-chips>
-        <md-switch ng-if="restaurantCtrl.user.role === 'admin'" ng-model="restaurantCtrl.restaurant.active" class="md-primary">Active</md-switch>
-        <div flex="100" ng-if="restaurantCtrl.user.role === 'admin'" class="controls">
-            <lunchadores-form-errors errors="restaurantCtrl.errors"></lunchadores-form-errors>
-            <lunchadores-submit-button is-submit="" button-text="Update"></lunchadores-submit-button>
-        </div>
-    </fieldset>
-</form>
+<md-card>
+    <md-card-content>
+        <form layout="row" layout-align="start center" layout-wrap="layout-wrap" ng-submit="restaurantCtrl.user.role === 'admin' && restaurantCtrl.updateRestaurant();">
+            <md-input-container flex="100">
+                <label>Name</label>
+                <input type="text" required="required" ng-readonly="restaurantCtrl.user.role !== 'admin'" ng-model="restaurantCtrl.restaurant.name"/>
+            </md-input-container>
+            <md-input-container flex="100">
+                <label>Street</label>
+                <input type="text" required="required" ng-readonly="restaurantCtrl.user.role !== 'admin'" ng-model="restaurantCtrl.restaurant.street"/>
+            </md-input-container>
+            <md-input-container flex="50" flex-gt-sm="50">
+                <label>City</label>
+                <input type="text" required="required" ng-readonly="restaurantCtrl.user.role !== 'admin'" ng-model="restaurantCtrl.restaurant.city"/>
+            </md-input-container>
+            <md-input-container flex="50">
+                <md-select placeholder="State" ng-disabled="restaurantCtrl.user.role !== 'admin'" ng-model="restaurantCtrl.restaurant.state_abbreviation">
+                    <md-option ng-repeat="state in restaurantCtrl.states" value="{{state.abbreviation}}">{{state.name}}</md-option>
+                </md-select>
+            </md-input-container>
+            <md-input-container flex="50">
+                <md-select placeholder="Country" ng-disabled="restaurantCtrl.user.role !== 'admin'" ng-model="restaurantCtrl.restaurant.country_abbreviation">
+                    <md-option ng-repeat="country in restaurantCtrl.countries" value="{{::country.abbreviation}}">{{::country.name}}</md-option>
+                </md-select>
+            </md-input-container>
+            <md-input-container flex="50">
+                <label>ZipCode</label>
+                <input type="text" required="required" ng-readonly="restaurantCtrl.user.role !== 'admin'" ng-model="restaurantCtrl.restaurant.zipcode"/>
+            </md-input-container>
+            <md-chips flex="100" ng-model="restaurantCtrl.restaurant.tags" readonly="restaurantCtrl.user.role !== 'admin'">
+                <md-autocomplete md-selected-item="restaurantCtrl.selectedTag" md-search-text="restaurantCtrl.tagSearchText" md-items="tag in restaurantCtrl.tagQuerySearch(restaurantCtrl.tagSearchText)" md-item-text="tag.readable_name" md-autoselect="true" placeholder="Add Tag">
+                    <span md-highlight-text="restaurantCtrl.tagSearchText">{{tag.readable_name}}</span>
+                </md-autocomplete>
+                <md-chip-template><span>{{$chip.readable_name}}</span>
+                </md-chip-template>
+            </md-chips>
+            <md-switch ng-if="restaurantCtrl.user.role === 'admin'" ng-model="restaurantCtrl.restaurant.active" class="md-primary">Active</md-switch>
+            <div flex="100" ng-if="restaurantCtrl.user.role === 'admin'" class="controls">
+                <lunchadores-form-errors errors="restaurantCtrl.errors"></lunchadores-form-errors>
+                <lunchadores-submit-button is-submit="" button-text="Update"></lunchadores-submit-button>
+            </div>
+        </form>
+
+    </md-card-content>
+</md-card>
