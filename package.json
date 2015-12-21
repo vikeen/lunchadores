@@ -42,7 +42,8 @@
     "sequelize": "^3.15.0",
     "sequelize-cli": "^2.2.1",
     "serve-favicon": "^2.3.0",
-    "uuid": "^2.0.1"
+    "uuid": "^2.0.1",
+    "winston": "^2.1.1"
   },
   "devDependencies": {
     "connect-livereload": "^0.4.1",

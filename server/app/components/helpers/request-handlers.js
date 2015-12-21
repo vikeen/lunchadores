@@ -1,3 +1,7 @@
+"use strict";
+
+var winston = require("winston");
+
 module.exports = {
     request: requestHandler,
     success: successHandler,
@@ -5,15 +9,16 @@ module.exports = {
 };
 
 function requestHandler(promise, req, res) {
-    promise.then(function (data) {
-        successHandler(data, req, res);
-    }).catch(function (error) {
-        errorHandler(error, req, res);
+    return promise.then(function (data) {
+        return successHandler(data, req, res);
+    }).catch(function (e) {
+        return errorHandler(e, req, res);
     });
 }
 
-function errorHandler(error, req, res) {
-    console.error("ERROR:", error);
+function errorHandler(e, req, res) {
+    winston.error(e);
+
     if (res) {
         return res.status(500);
     }

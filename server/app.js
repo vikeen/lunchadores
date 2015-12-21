@@ -3,7 +3,8 @@
 // Set default node environment to development
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
-var express = require('express'),
+var express = require("express"),
+    winston = require("winston"),
     config = require('./config/environment')();
 
 // Setup server
@@ -18,6 +19,9 @@ require('./app/routes')(app);
 if (config.seedDB) {
     require('./config/seed')();
 }
+
+// Config Logging
+winston.level = config.logging;
 
 // Start server
 server.listen(config.port, config.ip, function () {

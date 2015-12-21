@@ -22,9 +22,11 @@ router.get('/', function (req, res) {
     }
 });
 
-router.get('/:id', validators.hasValidIdParam, function (req, res) {
-    handlers.request(controller.getRestaurantById(req.params.id), req, res);
-});
+router.get('/:id',
+    validators.hasValidIdParam,
+    function (req, res) {
+        handlers.request(controller.getRestaurantById(req.params.id), req, res);
+    });
 
 router.post('/',
     validators.hasValidTagsPayload,
