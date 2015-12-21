@@ -5,7 +5,8 @@
 
     angular.module('lunchadoresApp').controller('RestaurantCtrl', RestaurantCtrl);
 
-    function RestaurantCtrl($rootScope, $stateParams, $q, restaurants, notifications, tags, states, countries, Auth) {
+    RestaurantCtrl.$inject = ["$stateParams", "$q", "restaurants", "notifications", "tags", "states", "countries", "Auth"];
+    function RestaurantCtrl($stateParams, $q, restaurants, notifications, tags, states, countries, Auth) {
         var self = this;
 
         self.countries = {};
@@ -18,7 +19,6 @@
         self.tagSearchText = '';
         self.user = Auth.getCurrentUser();
 
-        self.canUpdate = canUpdate;
         self.getGeoCoordinates = getGeoCoordinates;
         self.tagQuerySearch = tagQuerySearch;
         self.updateRestaurant = updateRestaurant;
@@ -35,10 +35,6 @@
             self.states = states.getAllStates();
             self.countries = countries.getAllCountries();
             self.tags = self.tags = tags.getAllTags();
-        }
-
-        function canUpdate() {
-            return $rootScope.isAdmin();
         }
 
         function getGeoCoordinates() {
