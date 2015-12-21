@@ -115,6 +115,7 @@ describe('Restaurants Controller', function () {
 
     it('should create a restaurant', function (done) {
         var newRestaurant = {
+            id: mockRestaurants.length + 1,
             name: 'new Restaurant',
             street: 'new street',
             city: 'new city',
