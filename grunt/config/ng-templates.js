@@ -6,7 +6,7 @@ module.exports = {
         // This should be the name of your apps angular module
         module: 'lunchadoresApp',
         htmlmin: {
-            collapseBooleanAttributes: true,
+            collapseBooleanAttributes: false,
             collapseWhitespace: true,
             removeAttributeQuotes: true,
             removeEmptyAttributes: true,
