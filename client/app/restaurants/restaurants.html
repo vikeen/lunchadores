@@ -16,7 +16,9 @@
     </md-card>
     <div flex="100" flex-gt-xs="50" flex-gt-sm="33" ng-repeat="restaurant in restaurantsCtrl.filteredRestaurants = (restaurantsCtrl.restaurants | filter:restaurantsCtrl.restaurantFilter:strict | orderBy:restaurantsCtrl.sortBy:restaurantsCtrl.reverseSort)">
         <md-card>
-            <img ng-src="/assets/images/restaurants/restaurant_{{($index % 4) + 1}}.jpg"/>
+            <div class="image-wrapper">
+                <img ng-src="/assets/images/restaurants/restaurant_{{($index % 4) + 1}}.jpg"/>
+            </div>
             <md-card-title>
                 <md-card-title-text>
                     <span class="md-title">{{restaurant.name}}</span>
@@ -25,7 +27,9 @@
             </md-card-title>
             <md-card-content>
                 <md-chips ng-model="restaurant.tags" readonly="true">
-                    <md-chip-template>{{$chip.readable_name}}</md-chip-template>
+                    <md-chip-template>
+                        <span class="md-caption">{{$chip.readable_name}}</span>
+                    </md-chip-template>
                 </md-chips>
             </md-card-content>
             <md-card-actions>
