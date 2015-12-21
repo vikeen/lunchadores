@@ -5,10 +5,6 @@
 
     function RestaurantsConfig($stateProvider) {
         $stateProvider
-        //.state('restaurant', {
-        //    abstract: true,
-        //    template: '<div ui-view></div>'
-        //})
             .state('restaurants', {
                 url: '/',
                 templateUrl: 'app/restaurants/restaurants.html',
@@ -21,11 +17,17 @@
                 controller: 'RestaurantCtrl',
                 controllerAs: 'restaurantCtrl'
             })
-        //.state('restaurant.create', {
-        //    url: '/restaurant/create',
-        //    templateUrl: 'app/restaurants/create/create.html',
-        //    controller: 'RestaurantCreateCtrl',
-        //    controllerAs: 'restaurantCreateCtrl'
-        //});
+
+            // Single Restaurant
+            //.state('restaurant', {
+            //    abstract: true,
+            //    template: '<div ui-view></div>'
+            //})
+            .state('restaurant-create', {
+                url: '/restaurant/create',
+                templateUrl: 'app/restaurants/create/create.html',
+                controller: 'RestaurantCreateCtrl',
+                controllerAs: 'restaurantCreateCtrl'
+            });
     }
 })();
