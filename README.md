@@ -16,10 +16,10 @@ http://lunchadores.herokuapp.com/
 ##### Bootstrap Processes
   - postgres
     1. `CREATE DATABASE lunchadores_dev;`
-    2. `CREATE DATABASE lunchadores_test;`
-    3. `CREATE ROLE lunchadores_user WITH PASSWORD 'foodie' LOGIN;`
-    4. `GRANT ALL ON DATABASE lunchadores_dev TO lunchadores_user;`
-    5. `GRANT ALL ON DATABASE lunchadores_test TO lunchadores_user;`
+    1. `CREATE DATABASE lunchadores_test;`
+    1. `CREATE ROLE lunchadores_user WITH PASSWORD 'foodie' LOGIN;`
+    1. `GRANT ALL ON DATABASE lunchadores_dev TO lunchadores_user;`
+    1. `GRANT ALL ON DATABASE lunchadores_test TO lunchadores_user;`
   - Move to the root of the repo and migrate your database. 'sequelize db:migrate'.
 
   - `grunt serve`
