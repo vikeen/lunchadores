@@ -18,11 +18,6 @@
                 controllerAs: 'restaurantCtrl'
             })
 
-            // Single Restaurant
-            //.state('restaurant', {
-            //    abstract: true,
-            //    template: '<div ui-view></div>'
-            //})
             .state('restaurant-create', {
                 url: '/restaurant/create',
                 templateUrl: 'app/restaurants/create/create.html',
