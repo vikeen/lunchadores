@@ -11,24 +11,23 @@ var mockTags = [{
     name: 'vegan',
     readable_name: 'Vegan'
 }];
-var mockRestaurants = [
-    {
-        id: 1,
-        name: 'Q39 Kansas City BBQ',
-        street: 'new street',
-        city: 'new city',
-        state: 'new state',
-        state_abbreviation: 'KS',
-        country: 'United States of America',
-        country_abbreviation: 'USA',
-        zipcode: '64105',
-        formatted_address: '1000 West 39th Street, Kansas City, MO 64111, USA',
-        lat: 39.0574043,
-        lng: -94.5981116,
-        active: true,
-        outside_seating: true,
-        rating: 1.2
-    },
+var mockRestaurants = [{
+    id: 1,
+    name: 'Q39 Kansas City BBQ',
+    street: 'new street',
+    city: 'new city',
+    state: 'new state',
+    state_abbreviation: 'KS',
+    country: 'United States of America',
+    country_abbreviation: 'USA',
+    zipcode: '64105',
+    formatted_address: '1000 West 39th Street, Kansas City, MO 64111, USA',
+    lat: 39.0574043,
+    lng: -94.5981116,
+    active: true,
+    outside_seating: true,
+    rating: 1.2
+},
     {
         id: 2,
         name: 'Nordyk\'s Place',
@@ -62,8 +61,7 @@ var mockRestaurants = [
         active: false,
         outside_seating: true,
         rating: 4.8
-    }
-];
+    }];
 
 describe('Restaurants Controller', function () {
     before(function (done) {
@@ -169,7 +167,7 @@ describe('Restaurants Controller', function () {
 
     describe('Tags', function () {
         it('should add a tag', function (done) {
-            var id = mockRestaurants[0].id,
+            var id = mockRestaurants.length + 1,
                 tagIds = [mockTags[0].id];
 
             restaurantController.addTagsToRestaurant(id, tagIds).then(function () {
@@ -183,7 +181,7 @@ describe('Restaurants Controller', function () {
         });
 
         it('should ignore tags do not exist on add', function (done) {
-            var id = mockRestaurants[0].id,
+            var id = mockRestaurants.length + 2,
                 tagIds = [mockTags[0].id, 2, 3, 4];
 
             restaurantController.addTagsToRestaurant(id, tagIds).then(function () {
@@ -197,7 +195,7 @@ describe('Restaurants Controller', function () {
         });
 
         it('should delete a tag', function (done) {
-            var id = mockRestaurants[0].id,
+            var id = mockRestaurants.length + 3,
                 tagIds = [mockTags[0].id];
 
             restaurantController.addTagsToRestaurant(id, tagIds).then(function () {
@@ -211,7 +209,7 @@ describe('Restaurants Controller', function () {
         });
 
         it('should ignore tags do not exist on delete', function (done) {
-            var id = mockRestaurants[0].id,
+            var id = mockRestaurants.length + 4,
                 tagIds = [mockTags[0].id, 2, 3, 4];
 
             restaurantController.addTagsToRestaurant(id, tagIds).then(function () {
