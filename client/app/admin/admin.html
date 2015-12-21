@@ -9,13 +9,14 @@
             </md-card-title-text>
         </md-card-title>
         <md-card-content>
-            <md-input-container flex="100" flex-gt-sm="50">
-                <label>
-                    <div class="fa fa-search"> Search
-                    </div>
-                </label>
-                <input type="search" ng-model="adminCtrl.userFilter"/>
-            </md-input-container>
+            <div layout="row" layout-wrap>
+                <md-input-container flex="100" flex-gt-xs="50">
+                    <label for="search">
+                        <i class="fa fa-search"> Search</i>
+                    </label>
+                    <input type="search" id="search" ng-model="adminCtrl.userFilter"/>
+                </md-input-container>
+            </div>
             <table ng-show="adminCtrl.filteredUsers.length" class="pure-table pure-table-striped">
                 <thead>
                 <tr>
@@ -51,13 +52,14 @@
             </md-card-title-text>
         </md-card-title>
         <md-card-content>
-            <md-input-container flex="100" flex-gt-sm="50">
-                <label>
-                    <div class="fa fa-search"> Search
-                    </div>
-                </label>
-                <input type="search" ng-model="adminCtrl.restaurantFilter"/>
-            </md-input-container>
+            <div layout="row" layout-wrap>
+                <md-input-container flex="100" flex-gt-xs="50">
+                    <label for="search">
+                        <i class="fa fa-search"> Search</i>
+                    </label>
+                    <input type="search" id="search" ng-model="adminCtrl.restaurantFilter"/>
+                </md-input-container>
+            </div>
             <table ng-show="adminCtrl.filteredRestaurants.length" class="pure-table pure-table-striped">
                 <thead>
                 <tr>

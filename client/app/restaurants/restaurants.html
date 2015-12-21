@@ -1,20 +1,24 @@
-<div layout="row" layout-wrap>
+<div flex="100" layout="row" layout-align="center center" ng-show="restaurantsCtrl.restaurantsLoading" class="md-headline">
+    <lunchadores-loading-icon is-loading="restaurantsCtrl.restaurantsLoading"></lunchadores-loading-icon>
+</div>
+<div layout="row" layout-wrap ng-hide="restaurantsCtrl.restaurantsLoading">
     <md-card flex="100">
         <md-card-header>
             <span class="md-headline">{{restaurantsCtrl.filteredRestaurants.length}} Restaurants</span>
         </md-card-header>
         <md-card-actions>
             <div layout="row" layout-wrap>
-                <md-input-container flex="50">
+                <md-input-container flex="100" flex-gt-xs="50">
                     <label for="search">
                         <i class="fa fa-search"> Search</i>
                     </label>
-                    <input type="search" id="search" ng-model="restaurantsCtrl.restaurantFilter.name"/>
+                    <input type="search" id="search" ng-model="restaurantsCtrl.restaurantFilter.name" autofocus/>
                 </md-input-container>
             </div>
         </md-card-actions>
     </md-card>
-    <div flex="100" flex-gt-xs="50" flex-gt-sm="33" ng-repeat="restaurant in restaurantsCtrl.filteredRestaurants = (restaurantsCtrl.restaurants | filter:restaurantsCtrl.restaurantFilter:strict | orderBy:restaurantsCtrl.sortBy:restaurantsCtrl.reverseSort)">
+    <div flex="100" flex-gt-xs="50" flex-gt-sm="33"
+         ng-repeat="restaurant in restaurantsCtrl.filteredRestaurants = (restaurantsCtrl.restaurants | filter:restaurantsCtrl.restaurantFilter:strict)">
         <md-card>
             <div class="image-wrapper">
                 <img ng-src="/assets/images/restaurants/restaurant_{{($index % 4) + 1}}.jpg"/>

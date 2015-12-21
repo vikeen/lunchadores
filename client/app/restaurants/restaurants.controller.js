@@ -4,11 +4,10 @@
     angular.module('lunchadoresApp').controller('RestaurantsCtrl', RestaurantsCtrl);
 
     function RestaurantsCtrl(restaurants) {
-        var self = this;
+        var vm = this;
 
-        self.reverseSort = false;
-        self.setColumnSorting = setColumnSorting;
-        self.sortBy = null;
+        vm.restaurants = [];
+        vm.restaurantsLoading = false;
 
         activate();
 
@@ -19,16 +18,14 @@
         }
 
         function getActiveRestaurants() {
-            restaurants.getActive().$promise.then(function (response) {
-                self.restaurants = response;
-            });
+            vm.restaurantsLoading = true;
+            restaurants.getActive().$promise
+                .then(function (response) {
+                    vm.restaurants = response;
+                })
+                .finally(function() {
+                    vm.restaurantsLoading = false;
+                });
         }
-
-        function setColumnSorting(newSortBy) {
-            self.reverseSort = (newSortBy === self.sortBy) ? !self.reverseSort : false;
-            self.sortBy = newSortBy;
-        }
-
-
     }
 })();
