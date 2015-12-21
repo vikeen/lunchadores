@@ -2,10 +2,13 @@
 
 module.exports = {
     test: {
-        NODE_ENV: 'test'
+        NODE_ENV: "test"
+    },
+    travis: {
+        NODE_ENV: "travis"
     },
     prod: {
-        NODE_ENV: 'production'
+        NODE_ENV: "production"
     },
     all: {}
 };
