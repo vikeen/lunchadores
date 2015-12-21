@@ -1,0 +1,35 @@
+<div layout="row" layout-wrap>
+    <md-card flex="100">
+        <md-card-header>
+            <span class="md-headline">{{restaurantsCtrl.filteredRestaurants.length}} Restaurants</span>
+        </md-card-header>
+        <md-card-actions>
+            <div layout="row" layout-wrap>
+                <md-input-container flex="50">
+                    <label for="search">
+                        <i class="fa fa-search"> Search</i>
+                    </label>
+                    <input type="search" id="search" ng-model="restaurantsCtrl.restaurantFilter.name"/>
+                </md-input-container>
+            </div>
+        </md-card-actions>
+    </md-card>
+    <div flex="33" ng-repeat="restaurant in restaurantsCtrl.filteredRestaurants = (restaurantsCtrl.restaurants | filter:restaurantsCtrl.restaurantFilter:strict | orderBy:restaurantsCtrl.sortBy:restaurantsCtrl.reverseSort)">
+        <md-card>
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-headline">{{restaurant.name}}</span>
+                    <span class="md-subhead">{{restaurant.formatted_address}}</span>
+                </md-card-title-text>
+            </md-card-title>
+            <md-card-content>
+                <md-chips ng-show="restaurant.tags">
+                    <md-chip ng-repeat="tag in restaurant.tags">{{tag.readable_name}}</md-chip>
+                </md-chips>
+            </md-card-content>
+            <md-card-actions>
+                <md-button ui-sref="restaurant({id: restaurant.id})" class="md-raised md-primary">Details</md-button>
+            </md-card-actions>
+        </md-card>
+    </div>
+</div>
