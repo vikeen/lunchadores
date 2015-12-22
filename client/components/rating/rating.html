@@ -1,5 +1,5 @@
-<div aria-label="{{ratingValue}}" class="rating">
-    <md-tooltip md-direction="left">{{ratingValue}}</md-tooltip>
+<div class="rating">
+    <i ng-if="ratingValue === undefined">-</i>
 
     <!-- first star -->
     <i ng-if="ratingValue === 0" class="fa fa-star-o"></i>

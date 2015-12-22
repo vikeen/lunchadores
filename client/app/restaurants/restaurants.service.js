@@ -6,27 +6,10 @@
             var baseUrl = 'api/restaurants';
 
             return $resource(baseUrl, {}, {
-                update: {
-                    method: 'PUT',
-                    url: baseUrl + '/:id',
-                    params: {
-                        id: '@id'
-                    }
-                },
-                delete: {
-                    method: 'DELETE',
-                    url: baseUrl + '/:id',
-                    params: {
-                        id: '@id'
-                    }
-                },
-                getActive: {
+                query: {
                     method: 'GET',
                     url: baseUrl,
-                    isArray: true,
-                    params: {
-                        active: true
-                    }
+                    isArray: true
                 },
                 get: {
                     method: 'GET',

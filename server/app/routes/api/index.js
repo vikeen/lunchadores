@@ -3,7 +3,6 @@
 var express = require("express"),
     apiRouter = express.Router();
 
-apiRouter.use('/tags', require('./Tags'));
 apiRouter.use('/users', require('./Users'));
 apiRouter.use('/restaurants', require('./Restaurants'));
 apiRouter.use('/password-resets', require('./PasswordResets'));

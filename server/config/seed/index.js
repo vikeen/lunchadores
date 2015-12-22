@@ -13,16 +13,10 @@ var fs = require('fs'),
 module.exports = function (callback) {
     return _seedDatabaseTable(models.users, 'users').then(function () {
         return _seedDatabaseTable(models.password_resets, 'password-resets').then(function () {
-            return _seedDatabaseTable(models.restaurants, 'restaurants').then(function () {
-                return _seedDatabaseTable(models.tags, 'tags').then(function () {
-                    return _seedDatabaseTable(models.restaurants_tags, 'restaurants-tags').then(function () {
-                        console.log('finished seeding database');
-                        if (callback) {
-                            callback();
-                        }
-                    });
-                });
-            });
+            console.log('finished seeding database');
+            if (callback) {
+                callback();
+            }
         });
     });
 };

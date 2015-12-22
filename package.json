@@ -38,7 +38,7 @@
     "pg": "^4.4.3",
     "pg-hstore": "^2.3.2",
     "postmark": "^1.2.1",
-    "pure": "^2.67.0",
+    "request": "^2.67.0",
     "sequelize": "^3.15.0",
     "sequelize-cli": "^2.2.1",
     "serve-favicon": "^2.3.0",

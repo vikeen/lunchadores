@@ -10,9 +10,6 @@ var Sequelize = require('sequelize'),
 
 var models = [
     './PasswordResets',
-    './RestaurantsTags',
-    './Restaurants',
-    './Tags',
     './Users'
 ];
 
