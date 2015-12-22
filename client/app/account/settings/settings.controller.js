@@ -3,7 +3,8 @@
 
     angular.module('lunchadoresApp').controller('SettingsCtrl', SettingsCtrl);
 
-    function SettingsCtrl(User, Auth, notifications) {
+    SettingsCtrl.$inject = ["User", "Auth", "toastService"];
+    function SettingsCtrl(User, Auth, toastService) {
         var self = this;
 
         self.changePasswordErrors = [];
@@ -31,15 +32,13 @@
             if (form.$valid) {
                 User.updateProfile({id: self.user.id}, self.user).$promise
                     .then(function () {
-                        notifications.showSuccess({
-                            message: 'Profile updated.',
-                            hide: true
+                        toastService.success({
+                            message: 'Profile updated.'
                         });
                     })
                     .catch(function () {
-                        notifications.showError({
-                            message: 'Error updating profile.',
-                            hide: true
+                        toastService.error({
+                            message: 'Error updating profile.'
                         });
                     })
                     .finally(function () {
@@ -55,9 +54,8 @@
             if (form.$valid) {
                 Auth.changePassword(self.user.oldPassword, self.user.newPassword)
                     .then(function () {
-                        notifications.showSuccess({
-                            message: 'Password changed.',
-                            hide: true
+                        toastService.success({
+                            message: 'Password changed.'
                         });
                     })
                     .catch(function () {

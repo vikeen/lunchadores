@@ -4,7 +4,8 @@
 
     angular.module('lunchadoresApp').controller('PasswordResetCtrl', PasswordResetCtrl);
 
-    function PasswordResetCtrl(User, notifications) {
+    PasswordResetCtrl.$inject = ["User", "toastService"];
+    function PasswordResetCtrl(User, toastService) {
         var self = this;
 
         self.email_address = null;
@@ -22,15 +23,13 @@
             if (form.$valid) {
                 User.passwordReset({email_address: self.email_address}).$promise
                     .then(function (response) {
-                        notifications.showSuccess({
+                        toastService.success({
                             message: 'Check your email for further instructions.',
-                            hide: true
                         });
                     })
                     .catch(function (error) {
-                        notifications.showError({
+                        toastService.error({
                             message: 'Error completing your password reset request.',
-                            hide: true
                         });
                     })
                     .finally(function () {

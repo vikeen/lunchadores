@@ -3,7 +3,8 @@
 
     angular.module('lunchadoresApp').controller('AdminCtrl', AdminCtrl);
 
-    function AdminCtrl($http, Auth, User, restaurants, notifications) {
+    AdminCtrl.$inject = ["User"];
+    function AdminCtrl(User) {
         var self = this;
 
         self.users = [];
