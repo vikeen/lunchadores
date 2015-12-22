@@ -3,7 +3,8 @@
 
     angular.module('lunchadoresApp').controller('PasswordResetVerificationCtrl', PasswordResetVerificationCtrl);
 
-    function PasswordResetVerificationCtrl($stateParams, $location, Auth, User, notifications) {
+    PasswordResetVerificationCtrl.$inject = ["$stateParams", "$location", "Auth", "User", "toastService"];
+    function PasswordResetVerificationCtrl($stateParams, $location, Auth, User, toastService) {
         var self = this;
 
         self.email_address = null;
@@ -24,9 +25,9 @@
                     new_password: self.new_password,
                     email_address: self.email_address
                 }).$promise.then(function (response) {
-                        notifications.showSuccess({
-                            message: 'Password updated successfully.',
-                            hide: true
+
+                        toastService.success({
+                            message: 'Password updated successfully.'
                         });
 
                         Auth.login({
@@ -37,9 +38,8 @@
                         });
                     })
                     .catch(function () {
-                        notifications.showError({
-                            message: 'Error resetting password.',
-                            hide: true
+                        toastService.error({
+                            message: 'Error resetting password.'
                         });
                     })
                     .finally(function () {

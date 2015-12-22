@@ -3,8 +3,8 @@
 
     angular.module('lunchadoresApp').controller('RestaurantsCtrl', RestaurantsCtrl);
 
-    RestaurantsCtrl.$inject = ["$rootScope", "restaurants"];
-    function RestaurantsCtrl($rootScope, restaurants) {
+    RestaurantsCtrl.$inject = ["$rootScope", "toastService", "restaurants"];
+    function RestaurantsCtrl($rootScope, toastService, restaurants) {
         var vm = this;
 
         vm.restaurants = [];
@@ -22,7 +22,17 @@
                 vm.geolocation = response;
                 getRestaurants(vm.geolocation.coords.latitude, vm.geolocation.coords.longitude);
             }).catch(function (e) {
-                console.error(e);
+                if (e === "unsupported") {
+                    return;
+                }
+
+                if (e === "denied") {
+                    toastService.error({
+                        message: "Geolocation is disabled for your device. We use geolocation to increase your foodie experience.",
+                        hideDelay: false,
+                        action: "ok"
+                    });
+                }
             });
         }
 

@@ -48,7 +48,7 @@
         }
     }
 
-    function ApplicationRun($rootScope, $location, $q, notifications) {
+    function ApplicationRun($rootScope, $location, $q) {
         initGeolocation();
         initLoginRedirect();
 
@@ -81,19 +81,9 @@
                         geolocationPromise.resolve(position);
                     }, function () {
                         geolocationPromise.reject('denied');
-                        notifications.showError({
-                            id: 'denied-geolocation',
-                            saveResponse: true,
-                            message: 'You have disabled geolocation. This will prevent us from using your location to improve your experience.'
-                        });
                     });
                 } else {
                     geolocationPromise.reject('unsupported');
-                    notifications.showError({
-                        id: 'unsupported-geolocation',
-                        saveResponse: true,
-                        message: 'Your device does not support geolocation. This will prevent us from using your location to improve your experience.'
-                    });
                 }
             });
         }
