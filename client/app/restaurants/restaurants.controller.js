@@ -7,6 +7,10 @@
     function RestaurantsCtrl($rootScope, toastService, restaurants, geolocationService) {
         var vm = this;
 
+        vm.filterModel = {
+            address: "",
+            opennow: true
+        };
         vm.restaurants = [];
         vm.restaurantsLoading = false;
         vm.geolocation = {
@@ -49,9 +53,9 @@
         function filterRestaurants(form) {
             if (form.$valid) {
                 geolocationService.byAddress({
-                    address: vm.userAddress
+                    address: vm.filterModel.address
                 }).$promise.then(function (response) {
-                        vm.userAddress = response.results[0].formatted_address;
+                        vm.filterModel.address = response.results[0].formatted_address;
                         vm.geolocation.latitude = response.results[0].geometry.location.lat;
                         vm.geolocation.longitude = response.results[0].geometry.location.lng;
 
@@ -66,10 +70,15 @@
         function getRestaurantsFromGeolocation(lat, lng) {
             vm.restaurantsLoading = true;
 
-            restaurants.query({
-                opennow: true,
+            var query = {
                 location: [lat, lng].join(",")
-            }).$promise
+            };
+
+            if (vm.filterModel.opennow) {
+                query.opennow = true;
+            }
+
+            restaurants.query(query).$promise
                 .then(function (response) {
                     vm.restaurants = response.results;
                 })
@@ -82,7 +91,7 @@
             geolocationService.getAddress({
                 location: [lat, lng].join(",")
             }).$promise.then(function (response) {
-                vm.userAddress = response.results[0].formatted_address;
+                vm.filterModel.address = response.results[0].formatted_address;
             }).catch(function (e) {
                 console.error(e);
             });
