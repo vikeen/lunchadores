@@ -42,7 +42,6 @@ html
         right: 15px
 
 .content
-    padding-top: 75px;
     background-color: #ECECEC;
 
 #mainNavigation
@@ -128,5 +127,8 @@ ul
 
 
 
-// Responsive: Portrait tablets and up
-//@media screen and (min-width: $md)
+@media screen and (max-width: $md) {
+    .content {
+        padding-top: 60px;
+    }
+}

@@ -1,29 +1,49 @@
-<div flex="100" layout="row" layout-align="center center" ng-show="restaurantsCtrl.restaurantsLoading" class="md-headline">
-    <lunchadores-loading-icon is-loading="restaurantsCtrl.restaurantsLoading"></lunchadores-loading-icon>
-</div>
-<div layout="row" layout-wrap ng-hide="restaurantsCtrl.restaurantsLoading">
-    <div flex="100" flex-gt-xs="50" flex-gt-sm="33" ng-repeat="restaurant in restaurantsCtrl.restaurants">
-        <md-card>
-            <div class="image-wrapper">
-                <img ng-src="/assets/images/restaurants/restaurant_{{($index % 4) + 1}}.jpg"/>
-            </div>
-            <md-card-title>
-                <md-card-title-text>
-                    <span class="md-title">{{restaurant.name}}</span>
-                    <span class="md-subhead">{{restaurant.vicinity}}</span>
-                </md-card-title-text>
-            </md-card-title>
-            <md-card-content layout="row" layout-wrap="layout-wrap">
-                <span flex="50">Price</span>
+<div layout="row" layout-wrap>
+    <md-card flex="100">
+        <md-card-content layout="row" layout-wrap="layout-wrap">
+            <form flex="100" layout layout-wrap=layout-wrap"
+                  name="restaurantFilterForm" ng-submit="restaurantsCtrl.filterRestaurants(restaurantFilterForm)">
+                <md-input-container flex="100" flex-gt-xs="50">
+                    <label for="user_address">Address</label>
+                    <input type="text" id="user_address" ng-model="restaurantsCtrl.userAddress" required="required"/>
+                </md-input-container>
+
+                <div flex="100">
+                    <lunchadores-submit-button is-submit="restaurantsCtrl.restaurantsLoading" button-text="Filter"></lunchadores-submit-button>
+                </div>
+            </form>
+        </md-card-content>
+    </md-card>
+    <div flex="100" layout="row" layout-align="center center" ng-show="restaurantsCtrl.restaurantsLoading" class="md-headline">
+        <lunchadores-loading-icon is-loading="restaurantsCtrl.restaurantsLoading"></lunchadores-loading-icon>
+    </div>
+    <!--<div flex="100" ng-show="restaurantsCtrl.restaurants.length === 0 && !restaurantsCtrl.restaurantsLoading">-->
+    <!--No restaurants found-->
+    <!--</div>-->
+    <div flex="100" layout layout-wrap="layout-wrap" ng-hide="restaurantsCtrl.restaurantsLoading">
+        <div flex="100" flex-gt-xs="50" flex-gt-sm="33" ng-repeat="restaurant in restaurantsCtrl.restaurants">
+            <md-card>
+                <div class="image-wrapper">
+                    <img ng-src="/assets/images/restaurants/restaurant_{{($index % 4) + 1}}.jpg"/>
+                </div>
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-title">{{restaurant.name}}</span>
+                        <span class="md-subhead">{{restaurant.vicinity}}</span>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-content layout="row" layout-wrap="layout-wrap">
+                    <span flex="50">Price</span>
                 <span flex="50">
                     <lunchadores-pricing pricing-value="restaurant.price_level"></lunchadores-pricing>
                 </span>
-                <span flex="50">Rating</span>
+                    <span flex="50">Rating</span>
                 <span flex="50">
                     <lunchadores-rating rating-value="restaurant.rating"></lunchadores-rating>
                 </span>
-                </dl>
-            </md-card-content>
-        </md-card>
+                    </dl>
+                </md-card-content>
+            </md-card>
+        </div>
     </div>
 </div>

@@ -26,6 +26,10 @@ var all = {
         session: 'lunchadores-secret'
     },
 
+    google: {
+        apiKey: process.env.LUNCHADORES_GOOGLE_API_KEY
+    },
+
     // List of user roles
     userRoles: ['user', 'admin'],
 

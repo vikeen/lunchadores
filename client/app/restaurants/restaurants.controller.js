@@ -3,13 +3,18 @@
 
     angular.module('lunchadoresApp').controller('RestaurantsCtrl', RestaurantsCtrl);
 
-    RestaurantsCtrl.$inject = ["$rootScope", "toastService", "restaurants"];
-    function RestaurantsCtrl($rootScope, toastService, restaurants) {
+    RestaurantsCtrl.$inject = ["$rootScope", "toastService", "restaurants", "geolocationService"];
+    function RestaurantsCtrl($rootScope, toastService, restaurants, geolocationService) {
         var vm = this;
 
         vm.restaurants = [];
         vm.restaurantsLoading = false;
-        vm.geolocation = null;
+        vm.geolocation = {
+            latitude: null,
+            longitude: null
+        };
+
+        vm.filterRestaurants = filterRestaurants;
 
         activate();
 
@@ -19,9 +24,14 @@
             vm.restaurantsLoading = true;
 
             $rootScope.geolocationPromise.then(function (response) {
-                vm.geolocation = response;
-                getRestaurants(vm.geolocation.coords.latitude, vm.geolocation.coords.longitude);
+                vm.geolocation.latitude = response.coords.latitude;
+                vm.geolocation.longitude = response.coords.longitude;
+
+                getAddressFromGeolocation(vm.geolocation.latitude, vm.geolocation.longitude);
+                getRestaurantsFromGeolocation(vm.geolocation.latitude, vm.geolocation.longitude);
             }).catch(function (e) {
+                vm.restaurantsLoading = false;
+
                 if (e === "unsupported") {
                     return;
                 }
@@ -36,7 +46,24 @@
             });
         }
 
-        function getRestaurants(lat, lng) {
+        function filterRestaurants(form) {
+            if (form.$valid) {
+                geolocationService.byAddress({
+                    address: vm.userAddress
+                }).$promise.then(function (response) {
+                        vm.userAddress = response.results[0].formatted_address;
+                        vm.geolocation.latitude = response.results[0].geometry.location.lat;
+                        vm.geolocation.longitude = response.results[0].geometry.location.lng;
+
+                        getRestaurantsFromGeolocation(vm.geolocation.latitude, vm.geolocation.longitude);
+                    })
+                    .catch(function (e) {
+                        console.error(e);
+                    });
+            }
+        }
+
+        function getRestaurantsFromGeolocation(lat, lng) {
             vm.restaurantsLoading = true;
 
             restaurants.query({
@@ -44,11 +71,21 @@
                 location: [lat, lng].join(",")
             }).$promise
                 .then(function (response) {
-                    vm.restaurants = response;
+                    vm.restaurants = response.results;
                 })
                 .finally(function () {
                     vm.restaurantsLoading = false;
                 });
+        }
+
+        function getAddressFromGeolocation(lat, lng) {
+            geolocationService.getAddress({
+                location: [lat, lng].join(",")
+            }).$promise.then(function (response) {
+                vm.userAddress = response.results[0].formatted_address;
+            }).catch(function (e) {
+                console.error(e);
+            });
         }
     }
 })();
