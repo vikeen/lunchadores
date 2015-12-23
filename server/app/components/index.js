@@ -1,7 +1,7 @@
 "use strict";
 
 module.exports = {
-    googleApi: require("./google-api"),
+    googleMapsAPI: require("./google-maps-api"),
     helpers: require("./helpers"),
     errors: require("./errors")
 };
