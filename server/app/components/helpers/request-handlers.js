@@ -20,7 +20,7 @@ function errorHandler(e, req, res) {
     winston.error(e);
 
     if (res) {
-        return res.status(500);
+        return res.status(500).send();
     }
 }
 

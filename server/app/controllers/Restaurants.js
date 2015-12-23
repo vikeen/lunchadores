@@ -31,5 +31,4 @@ function getRestaurants(options) {
             return resolve(response);
         });
     });
-
 }
