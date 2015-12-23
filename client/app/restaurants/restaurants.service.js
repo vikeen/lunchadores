@@ -1,21 +1,22 @@
 (function () {
     'use strict';
 
-    angular.module('lunchadoresApp').service('restaurants',
-        function ($resource) {
-            var baseUrl = 'api/restaurants';
+    angular.module('lunchadoresApp').service('restaurants', RestaurantsService);
 
-            return $resource(baseUrl, {}, {
-                query: {
-                    method: 'GET',
-                    url: baseUrl
-                },
-                get: {
-                    method: 'GET',
-                    url: baseUrl + '/:id',
-                    id: '@id'
-                }
-            });
-        }
-    );
+    RestaurantsService.$inject = ["$resource"];
+    function RestaurantsService($resource) {
+        var baseUrl = 'api/restaurants';
+
+        return $resource(baseUrl, {}, {
+            query: {
+                method: 'GET',
+                url: baseUrl
+            },
+            get: {
+                method: 'GET',
+                url: baseUrl + '/:id',
+                id: '@id'
+            }
+        });
+    }
 })();

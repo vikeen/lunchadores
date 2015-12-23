@@ -4,17 +4,13 @@ var should = require('should'),
     restaurantController = require('./../../app/controllers/Restaurants.js');
 
 describe('Restaurants Controller', function () {
-    before(function (done) {
-        done();
-    });
+    describe("getRestaurants()", function () {
+        it("should fail without location parameter", function (done) {
+            restaurantController.getRestaurants({}).catch(function (e) {
+                should(e).exist;
+                done();
+            });
 
-    beforeEach(function (done) {
-        done();
-    });
-
-    describe("getOpenRestaurants()", function() {
-        it("dummy test", function(done) {
-            done();
         });
     });
 });
