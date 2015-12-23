@@ -8,8 +8,7 @@
             return $resource(baseUrl, {}, {
                 query: {
                     method: 'GET',
-                    url: baseUrl,
-                    isArray: true
+                    url: baseUrl
                 },
                 get: {
                     method: 'GET',

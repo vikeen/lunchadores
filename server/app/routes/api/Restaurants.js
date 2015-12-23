@@ -7,7 +7,6 @@ var express = require('express'),
 
 router.get('/', function (req, res) {
     var options = {
-        types: "restaurant",
         location: req.query.location
     };
 

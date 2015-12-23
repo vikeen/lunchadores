@@ -44,7 +44,7 @@
                 location: [lat, lng].join(",")
             }).$promise
                 .then(function (response) {
-                    vm.restaurants = response;
+                    vm.restaurants = response.results;
                 })
                 .finally(function () {
                     vm.restaurantsLoading = false;

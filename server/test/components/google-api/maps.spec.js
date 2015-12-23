@@ -1,26 +1,16 @@
 "use strict";
 
-var googleMapsApi = require("../../../app/components/google-api").maps,
-    should = require("should");
+var should = require("should");
 
-describe("Google Maps API", function() {
-   it("should get a nearby search result", function(done) {
-       return googleMapsApi.nearbySearch({
-           types: "restaurant",
-           location: "38.9065927,-94.7597751"
-       }).then(function(response) {
-           should.exist(response);
-           done();
-       });
-   });
+describe("Google Maps API", function () {
 
+    it("allow for a custom api key parameter", function (done) {
 
-    it("should fail if no location is provided", function(done) {
-        return googleMapsApi.nearbySearch({
-            types: "restaurant"
-        }).catch(function(e) {
-            should.exist(e);
-            done();
+        var googleMapsApi = require("../../../app/components/google-maps-api")({
+            key: "dummy-api-key"
         });
+
+        should(googleMapsApi.config.key).be.equal("dummy-api-key");
+        done();
     });
 });
