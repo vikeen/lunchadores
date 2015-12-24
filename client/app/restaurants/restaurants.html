@@ -26,7 +26,8 @@
         <div flex="100" flex-gt-xs="50" flex-gt-sm="33" ng-repeat="restaurant in restaurantsCtrl.restaurants">
             <md-card>
                 <div class="image-wrapper">
-                    <img ng-src="/assets/images/restaurants/restaurant_{{($index % 4) + 1}}.jpg"/>
+                    <img ng-if="!restaurant.imgUrl" ng-src="/assets/images/default_restaurant.jpg"/>
+                    <img ng-if="restaurant.imgUrl" ng-src="{{restaurant.imgUrl}}"/>
                 </div>
                 <md-card-title>
                     <md-card-title-text>

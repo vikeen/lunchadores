@@ -80,6 +80,11 @@
 
             restaurants.query(query).$promise
                 .then(function (response) {
+                    response.results.map(function(result) {
+                       if (result.photos) {
+                           result.imgUrl =  "https://maps.googleapis.com/maps/api/place/photo?maxheight=300&photoreference=" + result.photos[0].photo_reference + "&key=AIzaSyCkaeP_O1LNuxOXN-7GjdZBld0nWyI8WoM";
+                       }
+                    });
                     vm.restaurants = response.results;
                 })
                 .finally(function () {
