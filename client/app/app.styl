@@ -111,17 +111,21 @@ ul
 
 .image-wrapper {
     position: relative;
-    padding-top: 25px;
-    padding-bottom: 56.25%;
     overflow: hidden;
+
+    &:before {
+        display: block;
+        content: "";
+        width: 100%;
+        padding-top: 25px;
+        padding-bottom: 56.25%; // 16:9 aspect ratio image
+    }
 
     img {
         position: absolute;
         top: 0;
-        bottom: 0;
         width: 100%;
-        min-height: 100%;
-        max-height: 300px;
+        min-height: 100%; // adjust images up who are short
     }
 }
 
