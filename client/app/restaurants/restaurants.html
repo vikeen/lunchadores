@@ -3,11 +3,13 @@
         <md-card-content layout="row" layout-wrap="layout-wrap">
             <form flex="100" layout layout-wrap=layout-wrap"
                   name="restaurantFilterForm" ng-submit="restaurantsCtrl.filterRestaurants(restaurantFilterForm)">
-                <md-input-container flex="100" flex-gt-xs="50">
-                    <label for="user_address">Address</label>
-                    <input type="text" id="user_address" ng-model="restaurantsCtrl.userAddress" required="required"/>
+                <md-input-container flex="100">
+                    <label for="filter_address">Address</label>
+                    <input type="text" id="filter_address" ng-model="restaurantsCtrl.filterModel.address" required="required"/>
                 </md-input-container>
-
+                <md-input-container flex="100" flex-gt-xs="50">
+                    <md-checkbox class="md-primary" ng-model="restaurantsCtrl.filterModel.opennow" aria-label="Open">Open</md-checkbox>
+                </md-input-container>
                 <div flex="100">
                     <lunchadores-submit-button is-submit="restaurantsCtrl.restaurantsLoading" button-text="Filter"></lunchadores-submit-button>
                 </div>
